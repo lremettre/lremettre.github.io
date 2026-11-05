@@ -292,6 +292,13 @@ def scan_docs():
             "author": "L.REMETTRE R&D GROUP",
             "description": "중국 SGS 공인 시험성적서(조단백질 98.9%, 펩타이드 97.6%, 500 Da 이하 59.26%, 아미노산 82.07g/100g)를 기반으로 표준 아미노산 20종 보존 원리와 시너지 식재료를 정리한 공식 분석 리포트입니다.",
         },
+        'document-소이펩타이드아미노산20종효소가수분해과학적증거및궁합식재료가이드': {
+            "title": "소이 펩타이드 아미노산 20종 완전 분석 & 시너지 식재료 가이드",
+            "subtitle": "생물학적 효소 가수분해 공법의 과학적 증거(SGS 성적서) 및 궁합 식재료",
+            "badge": "BIO GUIDE",
+            "author": "L.REMETTRE R&D GROUP",
+            "description": "중국 SGS 공인 시험성적서(조단백질 98.9%, 펩타이드 97.6%, 500 Da 이하 59.26%, 아미노산 82.07g/100g)를 기반으로 표준 아미노산 20종 보존 원리와 시너지 식재료를 정리한 공식 가이드 문서입니다.",
+        },
     }
     for pk, pv in presets_map.items():
         existing_meta[pk] = {**existing_meta.get(pk, {}), **pv}
@@ -472,6 +479,16 @@ def scan_docs():
         "forms": 5,
     }
     resources.sort(key=lambda x: (cat_order.get(x["category"], 9), x["date"]), reverse=False)
+
+    # 미사용(폴더 이동/삭제된) 구버전 썸네일 자동 정리
+    active_thumbs = {os.path.basename(r["thumbnail"]) for r in resources if r.get("thumbnail")}
+    if os.path.exists(THUMBS_DIR):
+        for tf in os.listdir(THUMBS_DIR):
+            if tf.endswith('.jpg') and tf not in active_thumbs:
+                try:
+                    os.remove(os.path.join(THUMBS_DIR, tf))
+                except Exception:
+                    pass
 
     os.makedirs(os.path.dirname(OUTPUT_JSON), exist_ok=True)
     with open(OUTPUT_JSON, 'w', encoding='utf-8') as f:

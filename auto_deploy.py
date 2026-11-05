@@ -9,6 +9,7 @@
 
 import os
 import sys
+import time
 import subprocess
 import datetime
 
@@ -76,9 +77,18 @@ def main():
     commit_msg = f"docs: 르메뜨레 신규 자료 동기화 및 배포 ({now_str})"
     run_cmd(["git", "commit", "-m", commit_msg])
 
-    # 3. 깃허브 푸시
+    # 3. 깃허브 푸시 (일시적 GitHub 서버 commit_refs 오류 대비 최대 3회 자동 재시도)
     print("\n[3/3] GitHub Pages 클라우드로 전송(Push) 중...")
-    success = run_cmd(["git", "push", "origin", "main"], "GitHub Push")
+    success = False
+    for attempt in range(1, 4):
+        label = "GitHub Push" if attempt == 1 else f"GitHub Push (자동 재시도 {attempt}/3)"
+        success = run_cmd(["git", "push", "origin", "main"], label)
+        if success:
+            break
+        if attempt < 3:
+            print(f" ⏳ GitHub 서버 일시 응답 지연 감지 — 2초 후 자동으로 재시도합니다 ({attempt}/3)...")
+            time.sleep(2)
+            subprocess.run(["git", "fetch", "origin"], capture_output=True)
 
     print("\n" + "=" * 65)
     if success:
