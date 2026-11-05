@@ -146,7 +146,7 @@
     if (heroMainCta) heroMainCta.href = deck.viewerUrl;
 
     stageCanvas.innerHTML = `
-      <a href="${deck.viewerUrl}" target="_blank" style="display:block; width:100%; height:100%; position:relative;" title="클릭하여 전체화면 발표 시작">
+      <a href="${deck.viewerUrl}" target="_blank" style="position:absolute; inset:0; display:block; width:100%; height:100%;" title="클릭하여 전체화면 발표 시작">
         <img src="${deck.thumb}" alt="${deck.title} 첫 슬라이드" class="stage-slide-img-preview">
         <div class="stage-slide-overlay-bar">
           <div class="overlay-info">
@@ -393,10 +393,12 @@
           item.category === 'review_video' ||
           (item.downloads && Boolean(item.downloads.video) && !item.downloads.pdf && !item.downloads.pptx);
 
+        const isViewOnly = Boolean(item.view_only);
+
         let webDeckUrl = item.web_deck_url;
         if (!webDeckUrl && item.downloads) {
           if (item.downloads.pdf) {
-            webDeckUrl = `viewer.html?file=${encodeURIComponent(item.downloads.pdf.url)}&title=${encodeURIComponent(item.title)}`;
+            webDeckUrl = `viewer.html?file=${encodeURIComponent(item.downloads.pdf.url)}&title=${encodeURIComponent(item.title)}${isViewOnly ? '&readonly=1' : ''}`;
           } else if (item.downloads.video) {
             webDeckUrl = `viewer.html?file=${encodeURIComponent(item.downloads.video.url)}&title=${encodeURIComponent(item.title)}&type=video`;
           } else if (item.downloads.pptx) {
@@ -406,20 +408,38 @@
         }
 
         let downloadBtnsHtml = '';
-        if (item.downloads) {
+        if (isViewOnly) {
+          downloadBtnsHtml = `
+            <div class="card-readonly-badge" title="본 문서는 대외 보안 규정상 브라우저 내 열람만 가능하며 다운로드가 제한됩니다.">
+              <span>🔒</span> <span>열람 전용 문서 (다운로드 제한)</span>
+            </div>
+          `;
+        } else if (item.downloads) {
           const btns = Object.entries(item.downloads).map(([type, fileInfo]) => {
             return getDownloadBtnHtml(type, fileInfo);
           });
           downloadBtnsHtml = `<div class="card-download-group">${btns.join('')}</div>`;
         }
 
-        const launchLabel = isVideoItem ? '전체 영상 재생' : '프레젠테이션 시작';
-        const launchIcon = isVideoItem ? '🎬' : '🚀';
+        let launchLabel = '프레젠테이션 시작';
+        let launchIcon = '🚀';
+        if (isVideoItem) {
+          launchLabel = '전체 영상 재생';
+          launchIcon = '🎬';
+        } else if (isViewOnly || item.category === 'analysis') {
+          launchLabel = '성적서 열람하기';
+          launchIcon = '🔍';
+        } else if (item.category === 'document') {
+          launchLabel = '문서 열람하기';
+          launchIcon = '📖';
+        }
 
         // 좌상단 핑크 알약 뱃지 (슬라이드 장수 또는 영상 길이)
-        const leftPillText = item.slide_count
-          ? `${item.slide_count}P 슬라이드`
-          : (item.duration ? `🎬 ${item.duration}` : (item.badge || item.version));
+        const leftPillText = isViewOnly
+          ? `🔒 열람전용 · ${item.slide_count || 1}P`
+          : (item.slide_count
+              ? `${item.slide_count}P 슬라이드`
+              : (item.duration ? `🎬 ${item.duration}` : (item.badge || item.version)));
 
         // 16:9 실제 미리보기 미디어 (PPT 첫 슬라이드 이미지 vs 영상 첫 클립 대표 화면 + 호버 비디오)
         let previewMediaHtml = '';
@@ -452,6 +472,10 @@
           `;
         }
 
+        const previewChipText = (isViewOnly || item.category === 'analysis' || item.category === 'document')
+          ? '첫 페이지 미리보기'
+          : '첫 슬라이드 미리보기';
+
         const previewChipHtml = isVideoItem
           ? `<div class="card-preview-chip video-chip">
                <span class="chip-dot"></span>
@@ -459,7 +483,7 @@
              </div>`
           : `<div class="card-preview-chip">
                <span class="chip-dot"></span>
-               <span>첫 슬라이드 미리보기</span>
+               <span>${previewChipText}</span>
              </div>`;
 
         return `

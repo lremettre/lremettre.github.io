@@ -299,6 +299,70 @@ def scan_docs():
             "author": "L.REMETTRE R&D GROUP",
             "description": "중국 SGS 공인 시험성적서(조단백질 98.9%, 펩타이드 97.6%, 500 Da 이하 59.26%, 아미노산 82.07g/100g)를 기반으로 표준 아미노산 20종 보존 원리와 시너지 식재료를 정리한 공식 가이드 문서입니다.",
         },
+        'analysis-01소이펩타이드SGS조단백989펩타이드순도976시험성적서': {
+            "title": "소이 펩타이드 SGS 조단백(98.9%) · 펩타이드 순도(97.6%) 시험성적서",
+            "subtitle": "SGS 공인 성적서 (WHF25-0000950-01 · 한국어 번역본 & 영문 원본 통합)",
+            "badge": "SGS 공인성적서",
+            "author": "SGS / 산동캉메이약업유한공사",
+            "view_only": True,
+            "description": "건조 기준 조단백질 98.9%(기준 ≥90%), 순수 펩타이드 함량 97.6%(기준 ≥80%), 지방 <0.1% 및 미생물·중금속 전 항목 적합 판정을 받은 중국 SGS 공인 시험성적서입니다.",
+        },
+        'analysis-02소이펩타이드SGS초저분자분자량분포시험성적서': {
+            "title": "소이 펩타이드 SGS 초저분자 분자량 분포(500Da 이하 59.26%) 시험성적서",
+            "subtitle": "SGS 공인 성적서 (GZF24-0003191-18 · 한국어 번역본 & 중문 원본 통합)",
+            "badge": "SGS 공인성적서",
+            "author": "SGS / 산동캉메이약업유한공사",
+            "view_only": True,
+            "description": "500 Da(달톤) 이하 초저분자 비중 59.26%(약 60%), 1,000 Da 이하 80.36%, 전체 수평균 분자량(Mn) 913.39 Da를 검증한 SGS 공인 분자량 분포 시험성적서입니다.",
+        },
+        'analysis-03소이펩타이드SGS18종아미노산함량시험성적서': {
+            "title": "소이 펩타이드 SGS 18종 아미노산 정량 분석(82.07g/100g) 시험성적서",
+            "subtitle": "SGS 청도 시험소 공인 성적서 (QDF26-0037147-01 · 산동캉메이 제조)",
+            "badge": "SGS 공인성적서",
+            "author": "SGS Qingdao / 산동캉메이약업유한공사",
+            "view_only": True,
+            "description": "생물학적 효소 가수분해 공법으로 보존된 트립토판(0.47g)·시스틴(1.08g) 포함 필수 아미노산 9종 전원 및 총 아미노산 82.07g/100g 함량을 검증한 SGS 공인 성적서입니다.",
+        },
+        'analysis-04소이펩타이드SGS영양성분당류중금속시험성적서': {
+            "title": "소이 펩타이드 SGS 당류 · 포화지방 · 중금속 안전성 시험성적서",
+            "subtitle": "SGS 청도 시험소 공인 성적서 (QDF26-0044427-01 · 산동캉메이 제조)",
+            "badge": "SGS 공인성적서",
+            "author": "SGS Qingdao / 산동캉메이약업유한공사",
+            "view_only": True,
+            "description": "포화지방 불검출(ND), 과당·자당·맥아당·유당 불검출(ND), 납·카드뮴·수은 불검출(ND) 등 무첨가 순수 펩타이드의 영양 및 안전성을 검증한 2026년 최신 SGS 성적서입니다.",
+        },
+        'analysis-05소이펩타이드산동캉메이출고품질검사시험성적서': {
+            "title": "소이 펩타이드 산동캉메이 출고 품질검사 보고서 (2026·2025 통합)",
+            "subtitle": "산동캉메이약업유한공사(SHANDONG KANGMEI) 공식 품질검사 성적서",
+            "badge": "품질검사성적서",
+            "author": "산동캉메이약업유한공사 품질검사실",
+            "view_only": True,
+            "description": "산동캉메이약업유한공사(SHANDONG KANGMEI PHARMACEUTICAL CO., LTD.)의 출고 로트별 조단백질·펩타이드 순도·미생물·중금속 및 제3자 정기 위탁검사 항목 적합 판정 보고서입니다.",
+        },
+        'analysis-06소이펩타이드NonGMO비유전자변형원료인증서': {
+            "title": "소이 펩타이드 Non-GMO (비유전자변형 대두 원료 100%) 공식 인증서",
+            "subtitle": "산동캉메이약업유한공사(SHANDONG KANGMEI) Non-GMO 원료 보증서",
+            "badge": "Non-GMO 인증",
+            "author": "산동캉메이약업유한공사",
+            "view_only": True,
+            "description": "르메뜨레 소이 펩타이드 분말이 100% 비유전자변형(Non-GMO) 대두 단백질 원료만을 사용하여 생산되었음을 공식 보증하는 산동캉메이 품질검사 직인 인증서입니다.",
+        },
+        'analysis-07풀컵오크라한국SGS납타르색소시험검사성적서': {
+            "title": "풀컵 오크라(Full Cup Okra) 한국 SGS 공인 시험·검사성적서",
+            "subtitle": "한국에스지에스(주) 식약처 지정 자가품질위탁검사 (R20260413-0168)",
+            "badge": "한국SGS 성적서",
+            "author": "(주)르메뜨레 / 한국에스지에스(주)",
+            "view_only": True,
+            "description": "(주)르메뜨레가 의뢰하고 식약처 지정 시험기관 한국에스지에스(주)가 검증한 풀컵 오크라(제조원: ZHEJIANG BAIKEJIAN) 납(0.2 mg/kg)·타르색소 불검출 적합 성적서입니다.",
+        },
+        'analysis-08오크라블룸한국SGS대장균시험검사성적서': {
+            "title": "오크라 블룸(Okra Bloom) 한국 SGS 공인 시험·검사성적서",
+            "subtitle": "한국에스지에스(주) 식약처 지정 자가품질위탁검사 (R20260326-0088)",
+            "badge": "한국SGS 성적서",
+            "author": "(주)르메뜨레 / 한국에스지에스(주)",
+            "view_only": True,
+            "description": "(주)르메뜨레가 의뢰하고 식약처 지정 시험기관 한국에스지에스(주)가 검증한 오크라 블룸(제조원: ZHEJIANG BAIKEJIAN) 대장균 전 시료 불검출(0,0,0,0,0) 적합 성적서입니다.",
+        },
     }
     for pk, pv in presets_map.items():
         existing_meta[pk] = {**existing_meta.get(pk, {}), **pv}
@@ -449,19 +513,24 @@ def scan_docs():
             "thumbnail": thumbnail_url,
         }
 
+        is_view_only = bool(preset.get("view_only", False))
+
         if slide_count:
             item["slide_count"] = slide_count
         if detected_duration:
             item["duration"] = detected_duration
         if "author" in preset:
             item["author"] = preset["author"]
+        if is_view_only:
+            item["view_only"] = True
 
         if "web_deck_url" in preset and preset["web_deck_url"] == "presentation.html":
             item["web_deck_url"] = "presentation.html"
         elif "pdf" in ginfo["files"]:
             encoded_pdf = urllib.parse.quote(ginfo["files"]["pdf"]["url"])
             encoded_title = urllib.parse.quote(title)
-            item["web_deck_url"] = f"viewer.html?file={encoded_pdf}&title={encoded_title}"
+            ro_param = "&readonly=1" if is_view_only else ""
+            item["web_deck_url"] = f"viewer.html?file={encoded_pdf}&title={encoded_title}{ro_param}"
         elif "video" in ginfo["files"]:
             encoded_video = urllib.parse.quote(ginfo["files"]["video"]["url"])
             encoded_title = urllib.parse.quote(title)
@@ -478,7 +547,7 @@ def scan_docs():
         "analysis": 4,
         "forms": 5,
     }
-    resources.sort(key=lambda x: (cat_order.get(x["category"], 9), x["date"]), reverse=False)
+    resources.sort(key=lambda x: (cat_order.get(x["category"], 9), x["id"]), reverse=False)
 
     # 미사용(폴더 이동/삭제된) 구버전 썸네일 자동 정리
     active_thumbs = {os.path.basename(r["thumbnail"]) for r in resources if r.get("thumbnail")}

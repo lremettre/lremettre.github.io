@@ -37,37 +37,6 @@
     "web_deck_url": "presentation.html"
   },
   {
-    "id": "presentation-오크라PPT",
-    "category": "presentation",
-    "category_name": "프레젠테이션&강의",
-    "title": "르메뜨레 오크라(Okra) 제품 프레젠테이션",
-    "subtitle": "식물성 뮤실리지 오크라 핵심 원료 및 제품 라인업",
-    "version": "v1.0",
-    "date": "2026-10-12",
-    "badge": "PRODUCT DECK",
-    "tags": [
-      "프레젠테이션&강의",
-      "v1.0"
-    ],
-    "description": "식물성 다당류 뮤실리지(Mucilage)가 풍부한 오크라 원료의 핵심 메커니즘과 르메뜨레 프리미엄 제품 라인업을 소개하는 공식 제품 프레젠테이션입니다.",
-    "key_points": [
-      "16:9 와이드스크린 시네마틱 프레젠테이션 지원 (F11)",
-      "오크라 핵심 원료 효능 및 제품 경쟁력 수록",
-      "공식 고화질 PDF 원본 즉시 다운로드 제공"
-    ],
-    "downloads": {
-      "pdf": {
-        "url": "docs/01_프레젠테이션_강의/오크라  PPT.pdf",
-        "name": "오크라  PPT.pdf",
-        "size": "68.0 MB"
-      }
-    },
-    "thumbnail": "assets/thumbs/presentation-오크라PPT.jpg",
-    "slide_count": 16,
-    "author": "L.REMETTRE R&D / PRODUCT GROUP",
-    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EC%98%A4%ED%81%AC%EB%9D%BC%20%20PPT.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%98%A4%ED%81%AC%EB%9D%BC%28Okra%29%20%EC%A0%9C%ED%92%88%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98"
-  },
-  {
     "id": "presentation-LReMeTTReNEWPPT",
     "category": "presentation",
     "category_name": "프레젠테이션&강의",
@@ -205,6 +174,37 @@
     "slide_count": 30,
     "author": "L.REMETTRE R&D / BUSINESS GROUP",
     "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_v2.1_SP%EC%97%90%EB%94%94%EC%85%98.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20%28v2.1%20SP%20%EC%97%90%EB%94%94%EC%85%98%29"
+  },
+  {
+    "id": "presentation-오크라PPT",
+    "category": "presentation",
+    "category_name": "프레젠테이션&강의",
+    "title": "르메뜨레 오크라(Okra) 제품 프레젠테이션",
+    "subtitle": "식물성 뮤실리지 오크라 핵심 원료 및 제품 라인업",
+    "version": "v1.0",
+    "date": "2026-10-12",
+    "badge": "PRODUCT DECK",
+    "tags": [
+      "프레젠테이션&강의",
+      "v1.0"
+    ],
+    "description": "식물성 다당류 뮤실리지(Mucilage)가 풍부한 오크라 원료의 핵심 메커니즘과 르메뜨레 프리미엄 제품 라인업을 소개하는 공식 제품 프레젠테이션입니다.",
+    "key_points": [
+      "16:9 와이드스크린 시네마틱 프레젠테이션 지원 (F11)",
+      "오크라 핵심 원료 효능 및 제품 경쟁력 수록",
+      "공식 고화질 PDF 원본 즉시 다운로드 제공"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/01_프레젠테이션_강의/오크라  PPT.pdf",
+        "name": "오크라  PPT.pdf",
+        "size": "68.0 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/presentation-오크라PPT.jpg",
+    "slide_count": 16,
+    "author": "L.REMETTRE R&D / PRODUCT GROUP",
+    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EC%98%A4%ED%81%AC%EB%9D%BC%20%20PPT.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%98%A4%ED%81%AC%EB%9D%BC%28Okra%29%20%EC%A0%9C%ED%92%88%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98"
   },
   {
     "id": "document-소이펩타이드아미노산20종효소가수분해과학적증거및궁합식재료가이드",
@@ -360,5 +360,261 @@
     "duration": "01:58",
     "author": "L.REMETTRE MEDIA GROUP",
     "web_deck_url": "viewer.html?file=docs/04_%ED%9B%84%EA%B8%B0_%EC%98%81%EC%83%81/04_%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88_%ED%9A%8C%EC%9B%90_%ED%98%88%EC%95%A1%EA%B2%80%EC%A7%84_%ED%81%B4%EB%A6%B0V2_%EB%B9%84%EC%8B%A4%EB%AA%85%ED%8C%90.mp4&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%ED%9A%8C%EC%9B%90%20%ED%98%88%EC%95%A1%EA%B2%80%EC%A7%84%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D%20%28%ED%81%B4%EB%A6%B0%20V2%20%EB%B9%84%EC%8B%A4%EB%AA%85%ED%8C%90%29&type=video"
+  },
+  {
+    "id": "analysis-01소이펩타이드SGS조단백989펩타이드순도976시험성적서",
+    "category": "analysis",
+    "category_name": "분석 자료",
+    "title": "소이 펩타이드 SGS 조단백(98.9%) · 펩타이드 순도(97.6%) 시험성적서",
+    "subtitle": "SGS 공인 성적서 (WHF25-0000950-01 · 한국어 번역본 & 영문 원본 통합)",
+    "version": "v1.0",
+    "date": "2026-11-06",
+    "badge": "SGS 공인성적서",
+    "tags": [
+      "분석 자료",
+      "v1.0"
+    ],
+    "description": "건조 기준 조단백질 98.9%(기준 ≥90%), 순수 펩타이드 함량 97.6%(기준 ≥80%), 지방 <0.1% 및 미생물·중금속 전 항목 적합 판정을 받은 중국 SGS 공인 시험성적서입니다.",
+    "key_points": [
+      "지원 포맷: PDF",
+      "업데이트 일자: 2026-11-06",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/05_분석_자료/01_소이펩타이드_SGS_조단백98.9_펩타이드순도97.6_시험성적서.pdf",
+        "name": "01_소이펩타이드_SGS_조단백98.9_펩타이드순도97.6_시험성적서.pdf",
+        "size": "1.6 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/analysis-01소이펩타이드SGS조단백989펩타이드순도976시험성적서.jpg",
+    "slide_count": 4,
+    "author": "SGS / 산동캉메이약업유한공사",
+    "view_only": true,
+    "web_deck_url": "viewer.html?file=docs/05_%EB%B6%84%EC%84%9D_%EC%9E%90%EB%A3%8C/01_%EC%86%8C%EC%9D%B4%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C_SGS_%EC%A1%B0%EB%8B%A8%EB%B0%B198.9_%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C%EC%88%9C%EB%8F%8497.6_%EC%8B%9C%ED%97%98%EC%84%B1%EC%A0%81%EC%84%9C.pdf&title=%EC%86%8C%EC%9D%B4%20%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C%20SGS%20%EC%A1%B0%EB%8B%A8%EB%B0%B1%2898.9%25%29%20%C2%B7%20%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C%20%EC%88%9C%EB%8F%84%2897.6%25%29%20%EC%8B%9C%ED%97%98%EC%84%B1%EC%A0%81%EC%84%9C&readonly=1"
+  },
+  {
+    "id": "analysis-02소이펩타이드SGS초저분자분자량분포시험성적서",
+    "category": "analysis",
+    "category_name": "분석 자료",
+    "title": "소이 펩타이드 SGS 초저분자 분자량 분포(500Da 이하 59.26%) 시험성적서",
+    "subtitle": "SGS 공인 성적서 (GZF24-0003191-18 · 한국어 번역본 & 중문 원본 통합)",
+    "version": "v1.0",
+    "date": "2026-11-06",
+    "badge": "SGS 공인성적서",
+    "tags": [
+      "분석 자료",
+      "v1.0"
+    ],
+    "description": "500 Da(달톤) 이하 초저분자 비중 59.26%(약 60%), 1,000 Da 이하 80.36%, 전체 수평균 분자량(Mn) 913.39 Da를 검증한 SGS 공인 분자량 분포 시험성적서입니다.",
+    "key_points": [
+      "지원 포맷: PDF",
+      "업데이트 일자: 2026-11-06",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/05_분석_자료/02_소이펩타이드_SGS_초저분자_분자량분포_시험성적서.pdf",
+        "name": "02_소이펩타이드_SGS_초저분자_분자량분포_시험성적서.pdf",
+        "size": "343.8 KB"
+      }
+    },
+    "thumbnail": "assets/thumbs/analysis-02소이펩타이드SGS초저분자분자량분포시험성적서.jpg",
+    "slide_count": 2,
+    "author": "SGS / 산동캉메이약업유한공사",
+    "view_only": true,
+    "web_deck_url": "viewer.html?file=docs/05_%EB%B6%84%EC%84%9D_%EC%9E%90%EB%A3%8C/02_%EC%86%8C%EC%9D%B4%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C_SGS_%EC%B4%88%EC%A0%80%EB%B6%84%EC%9E%90_%EB%B6%84%EC%9E%90%EB%9F%89%EB%B6%84%ED%8F%AC_%EC%8B%9C%ED%97%98%EC%84%B1%EC%A0%81%EC%84%9C.pdf&title=%EC%86%8C%EC%9D%B4%20%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C%20SGS%20%EC%B4%88%EC%A0%80%EB%B6%84%EC%9E%90%20%EB%B6%84%EC%9E%90%EB%9F%89%20%EB%B6%84%ED%8F%AC%28500Da%20%EC%9D%B4%ED%95%98%2059.26%25%29%20%EC%8B%9C%ED%97%98%EC%84%B1%EC%A0%81%EC%84%9C&readonly=1"
+  },
+  {
+    "id": "analysis-03소이펩타이드SGS18종아미노산함량시험성적서",
+    "category": "analysis",
+    "category_name": "분석 자료",
+    "title": "소이 펩타이드 SGS 18종 아미노산 정량 분석(82.07g/100g) 시험성적서",
+    "subtitle": "SGS 청도 시험소 공인 성적서 (QDF26-0037147-01 · 산동캉메이 제조)",
+    "version": "v1.0",
+    "date": "2026-11-06",
+    "badge": "SGS 공인성적서",
+    "tags": [
+      "분석 자료",
+      "v1.0"
+    ],
+    "description": "생물학적 효소 가수분해 공법으로 보존된 트립토판(0.47g)·시스틴(1.08g) 포함 필수 아미노산 9종 전원 및 총 아미노산 82.07g/100g 함량을 검증한 SGS 공인 성적서입니다.",
+    "key_points": [
+      "지원 포맷: PDF",
+      "업데이트 일자: 2026-11-06",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/05_분석_자료/03_소이펩타이드_SGS_18종아미노산함량_시험성적서.pdf",
+        "name": "03_소이펩타이드_SGS_18종아미노산함량_시험성적서.pdf",
+        "size": "666.4 KB"
+      }
+    },
+    "thumbnail": "assets/thumbs/analysis-03소이펩타이드SGS18종아미노산함량시험성적서.jpg",
+    "slide_count": 3,
+    "author": "SGS Qingdao / 산동캉메이약업유한공사",
+    "view_only": true,
+    "web_deck_url": "viewer.html?file=docs/05_%EB%B6%84%EC%84%9D_%EC%9E%90%EB%A3%8C/03_%EC%86%8C%EC%9D%B4%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C_SGS_18%EC%A2%85%EC%95%84%EB%AF%B8%EB%85%B8%EC%82%B0%ED%95%A8%EB%9F%89_%EC%8B%9C%ED%97%98%EC%84%B1%EC%A0%81%EC%84%9C.pdf&title=%EC%86%8C%EC%9D%B4%20%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C%20SGS%2018%EC%A2%85%20%EC%95%84%EB%AF%B8%EB%85%B8%EC%82%B0%20%EC%A0%95%EB%9F%89%20%EB%B6%84%EC%84%9D%2882.07g/100g%29%20%EC%8B%9C%ED%97%98%EC%84%B1%EC%A0%81%EC%84%9C&readonly=1"
+  },
+  {
+    "id": "analysis-04소이펩타이드SGS영양성분당류중금속시험성적서",
+    "category": "analysis",
+    "category_name": "분석 자료",
+    "title": "소이 펩타이드 SGS 당류 · 포화지방 · 중금속 안전성 시험성적서",
+    "subtitle": "SGS 청도 시험소 공인 성적서 (QDF26-0044427-01 · 산동캉메이 제조)",
+    "version": "v1.0",
+    "date": "2026-11-06",
+    "badge": "SGS 공인성적서",
+    "tags": [
+      "분석 자료",
+      "v1.0"
+    ],
+    "description": "포화지방 불검출(ND), 과당·자당·맥아당·유당 불검출(ND), 납·카드뮴·수은 불검출(ND) 등 무첨가 순수 펩타이드의 영양 및 안전성을 검증한 2026년 최신 SGS 성적서입니다.",
+    "key_points": [
+      "지원 포맷: PDF",
+      "업데이트 일자: 2026-11-06",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/05_분석_자료/04_소이펩타이드_SGS_영양성분_당류_중금속_시험성적서.pdf",
+        "name": "04_소이펩타이드_SGS_영양성분_당류_중금속_시험성적서.pdf",
+        "size": "681.8 KB"
+      }
+    },
+    "thumbnail": "assets/thumbs/analysis-04소이펩타이드SGS영양성분당류중금속시험성적서.jpg",
+    "slide_count": 3,
+    "author": "SGS Qingdao / 산동캉메이약업유한공사",
+    "view_only": true,
+    "web_deck_url": "viewer.html?file=docs/05_%EB%B6%84%EC%84%9D_%EC%9E%90%EB%A3%8C/04_%EC%86%8C%EC%9D%B4%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C_SGS_%EC%98%81%EC%96%91%EC%84%B1%EB%B6%84_%EB%8B%B9%EB%A5%98_%EC%A4%91%EA%B8%88%EC%86%8D_%EC%8B%9C%ED%97%98%EC%84%B1%EC%A0%81%EC%84%9C.pdf&title=%EC%86%8C%EC%9D%B4%20%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C%20SGS%20%EB%8B%B9%EB%A5%98%20%C2%B7%20%ED%8F%AC%ED%99%94%EC%A7%80%EB%B0%A9%20%C2%B7%20%EC%A4%91%EA%B8%88%EC%86%8D%20%EC%95%88%EC%A0%84%EC%84%B1%20%EC%8B%9C%ED%97%98%EC%84%B1%EC%A0%81%EC%84%9C&readonly=1"
+  },
+  {
+    "id": "analysis-05소이펩타이드산동캉메이출고품질검사시험성적서",
+    "category": "analysis",
+    "category_name": "분석 자료",
+    "title": "소이 펩타이드 산동캉메이 출고 품질검사 보고서 (2026·2025 통합)",
+    "subtitle": "산동캉메이약업유한공사(SHANDONG KANGMEI) 공식 품질검사 성적서",
+    "version": "v1.0",
+    "date": "2026-11-06",
+    "badge": "품질검사성적서",
+    "tags": [
+      "분석 자료",
+      "v1.0"
+    ],
+    "description": "산동캉메이약업유한공사(SHANDONG KANGMEI PHARMACEUTICAL CO., LTD.)의 출고 로트별 조단백질·펩타이드 순도·미생물·중금속 및 제3자 정기 위탁검사 항목 적합 판정 보고서입니다.",
+    "key_points": [
+      "지원 포맷: PDF",
+      "업데이트 일자: 2026-11-06",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/05_분석_자료/05_소이펩타이드_산동캉메이_출고품질검사_시험성적서.pdf",
+        "name": "05_소이펩타이드_산동캉메이_출고품질검사_시험성적서.pdf",
+        "size": "1.2 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/analysis-05소이펩타이드산동캉메이출고품질검사시험성적서.jpg",
+    "slide_count": 2,
+    "author": "산동캉메이약업유한공사 품질검사실",
+    "view_only": true,
+    "web_deck_url": "viewer.html?file=docs/05_%EB%B6%84%EC%84%9D_%EC%9E%90%EB%A3%8C/05_%EC%86%8C%EC%9D%B4%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C_%EC%82%B0%EB%8F%99%EC%BA%89%EB%A9%94%EC%9D%B4_%EC%B6%9C%EA%B3%A0%ED%92%88%EC%A7%88%EA%B2%80%EC%82%AC_%EC%8B%9C%ED%97%98%EC%84%B1%EC%A0%81%EC%84%9C.pdf&title=%EC%86%8C%EC%9D%B4%20%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C%20%EC%82%B0%EB%8F%99%EC%BA%89%EB%A9%94%EC%9D%B4%20%EC%B6%9C%EA%B3%A0%20%ED%92%88%EC%A7%88%EA%B2%80%EC%82%AC%20%EB%B3%B4%EA%B3%A0%EC%84%9C%20%282026%C2%B72025%20%ED%86%B5%ED%95%A9%29&readonly=1"
+  },
+  {
+    "id": "analysis-06소이펩타이드NonGMO비유전자변형원료인증서",
+    "category": "analysis",
+    "category_name": "분석 자료",
+    "title": "소이 펩타이드 Non-GMO (비유전자변형 대두 원료 100%) 공식 인증서",
+    "subtitle": "산동캉메이약업유한공사(SHANDONG KANGMEI) Non-GMO 원료 보증서",
+    "version": "v1.0",
+    "date": "2026-11-06",
+    "badge": "Non-GMO 인증",
+    "tags": [
+      "분석 자료",
+      "v1.0"
+    ],
+    "description": "르메뜨레 소이 펩타이드 분말이 100% 비유전자변형(Non-GMO) 대두 단백질 원료만을 사용하여 생산되었음을 공식 보증하는 산동캉메이 품질검사 직인 인증서입니다.",
+    "key_points": [
+      "지원 포맷: PDF",
+      "업데이트 일자: 2026-11-06",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/05_분석_자료/06_소이펩타이드_Non_GMO_비유전자변형원료_인증서.pdf",
+        "name": "06_소이펩타이드_Non_GMO_비유전자변형원료_인증서.pdf",
+        "size": "152.4 KB"
+      }
+    },
+    "thumbnail": "assets/thumbs/analysis-06소이펩타이드NonGMO비유전자변형원료인증서.jpg",
+    "slide_count": 1,
+    "author": "산동캉메이약업유한공사",
+    "view_only": true,
+    "web_deck_url": "viewer.html?file=docs/05_%EB%B6%84%EC%84%9D_%EC%9E%90%EB%A3%8C/06_%EC%86%8C%EC%9D%B4%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C_Non_GMO_%EB%B9%84%EC%9C%A0%EC%A0%84%EC%9E%90%EB%B3%80%ED%98%95%EC%9B%90%EB%A3%8C_%EC%9D%B8%EC%A6%9D%EC%84%9C.pdf&title=%EC%86%8C%EC%9D%B4%20%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C%20Non-GMO%20%28%EB%B9%84%EC%9C%A0%EC%A0%84%EC%9E%90%EB%B3%80%ED%98%95%20%EB%8C%80%EB%91%90%20%EC%9B%90%EB%A3%8C%20100%25%29%20%EA%B3%B5%EC%8B%9D%20%EC%9D%B8%EC%A6%9D%EC%84%9C&readonly=1"
+  },
+  {
+    "id": "analysis-07풀컵오크라한국SGS납타르색소시험검사성적서",
+    "category": "analysis",
+    "category_name": "분석 자료",
+    "title": "풀컵 오크라(Full Cup Okra) 한국 SGS 공인 시험·검사성적서",
+    "subtitle": "한국에스지에스(주) 식약처 지정 자가품질위탁검사 (R20260413-0168)",
+    "version": "v1.0",
+    "date": "2026-11-06",
+    "badge": "한국SGS 성적서",
+    "tags": [
+      "분석 자료",
+      "v1.0"
+    ],
+    "description": "(주)르메뜨레가 의뢰하고 식약처 지정 시험기관 한국에스지에스(주)가 검증한 풀컵 오크라(제조원: ZHEJIANG BAIKEJIAN) 납(0.2 mg/kg)·타르색소 불검출 적합 성적서입니다.",
+    "key_points": [
+      "지원 포맷: PDF",
+      "업데이트 일자: 2026-11-06",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/05_분석_자료/07_풀컵오크라_한국SGS_납_타르색소_시험검사성적서.pdf",
+        "name": "07_풀컵오크라_한국SGS_납_타르색소_시험검사성적서.pdf",
+        "size": "1.3 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/analysis-07풀컵오크라한국SGS납타르색소시험검사성적서.jpg",
+    "slide_count": 1,
+    "author": "(주)르메뜨레 / 한국에스지에스(주)",
+    "view_only": true,
+    "web_deck_url": "viewer.html?file=docs/05_%EB%B6%84%EC%84%9D_%EC%9E%90%EB%A3%8C/07_%ED%92%80%EC%BB%B5%EC%98%A4%ED%81%AC%EB%9D%BC_%ED%95%9C%EA%B5%ADSGS_%EB%82%A9_%ED%83%80%EB%A5%B4%EC%83%89%EC%86%8C_%EC%8B%9C%ED%97%98%EA%B2%80%EC%82%AC%EC%84%B1%EC%A0%81%EC%84%9C.pdf&title=%ED%92%80%EC%BB%B5%20%EC%98%A4%ED%81%AC%EB%9D%BC%28Full%20Cup%20Okra%29%20%ED%95%9C%EA%B5%AD%20SGS%20%EA%B3%B5%EC%9D%B8%20%EC%8B%9C%ED%97%98%C2%B7%EA%B2%80%EC%82%AC%EC%84%B1%EC%A0%81%EC%84%9C&readonly=1"
+  },
+  {
+    "id": "analysis-08오크라블룸한국SGS대장균시험검사성적서",
+    "category": "analysis",
+    "category_name": "분석 자료",
+    "title": "오크라 블룸(Okra Bloom) 한국 SGS 공인 시험·검사성적서",
+    "subtitle": "한국에스지에스(주) 식약처 지정 자가품질위탁검사 (R20260326-0088)",
+    "version": "v1.0",
+    "date": "2026-11-06",
+    "badge": "한국SGS 성적서",
+    "tags": [
+      "분석 자료",
+      "v1.0"
+    ],
+    "description": "(주)르메뜨레가 의뢰하고 식약처 지정 시험기관 한국에스지에스(주)가 검증한 오크라 블룸(제조원: ZHEJIANG BAIKEJIAN) 대장균 전 시료 불검출(0,0,0,0,0) 적합 성적서입니다.",
+    "key_points": [
+      "지원 포맷: PDF",
+      "업데이트 일자: 2026-11-06",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/05_분석_자료/08_오크라블룸_한국SGS_대장균_시험검사성적서.pdf",
+        "name": "08_오크라블룸_한국SGS_대장균_시험검사성적서.pdf",
+        "size": "1.3 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/analysis-08오크라블룸한국SGS대장균시험검사성적서.jpg",
+    "slide_count": 1,
+    "author": "(주)르메뜨레 / 한국에스지에스(주)",
+    "view_only": true,
+    "web_deck_url": "viewer.html?file=docs/05_%EB%B6%84%EC%84%9D_%EC%9E%90%EB%A3%8C/08_%EC%98%A4%ED%81%AC%EB%9D%BC%EB%B8%94%EB%A3%B8_%ED%95%9C%EA%B5%ADSGS_%EB%8C%80%EC%9E%A5%EA%B7%A0_%EC%8B%9C%ED%97%98%EA%B2%80%EC%82%AC%EC%84%B1%EC%A0%81%EC%84%9C.pdf&title=%EC%98%A4%ED%81%AC%EB%9D%BC%20%EB%B8%94%EB%A3%B8%28Okra%20Bloom%29%20%ED%95%9C%EA%B5%AD%20SGS%20%EA%B3%B5%EC%9D%B8%20%EC%8B%9C%ED%97%98%C2%B7%EA%B2%80%EC%82%AC%EC%84%B1%EC%A0%81%EC%84%9C&readonly=1"
   }
 ]

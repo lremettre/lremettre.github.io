@@ -136,6 +136,12 @@
       max-height: calc(100vh - 150px);
       height: auto;
       object-fit: contain;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+
+    @media print {
+      body { display: none !important; }
     }
 
     #video-player {
@@ -327,8 +333,19 @@
       const verParam = urlParams.get('v') || '202611031708';
       const pdfFile = `${rawPdfFile}${rawPdfFile.includes('?') ? '&' : '?'}v=${verParam}`;
       const fileTypeParam = urlParams.get('type') || '';
+      const isReadOnly = urlParams.get('readonly') === '1';
       const isVideoMode = fileTypeParam === 'video' || /\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(rawPdfFile);
       const deckTitle = urlParams.get('title') || rawPdfFile.split('/').pop().replace(/\.(pdf|mp4|webm|mov|m4v)$/i, '');
+
+      // 열람 전용 보안 처리 (우클릭, 이미지 저장, 인쇄, 단축키 원천 차단)
+      window.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+      });
+      window.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && ['s', 'S', 'p', 'P', 'u', 'U'].includes(e.key)) {
+          e.preventDefault();
+        }
+      });
 
       let pdfDoc = null;
       let pageNum = 1;
@@ -350,8 +367,8 @@
       const loadingOverlay = document.getElementById('loading-overlay');
       const deckTitleText = document.getElementById('deck-title-text');
 
-      deckTitleText.textContent = deckTitle;
-      document.title = `${deckTitle} | 르메뜨레 라이브 프레젠테이션`;
+      deckTitleText.textContent = isReadOnly ? `🔒 [열람 전용] ${deckTitle}` : deckTitle;
+      document.title = `${deckTitle} | 르메뜨레 라이브 뷰어`;
 
       /**
        * Render specific page
