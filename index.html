@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>L.REMETTRE | 르메뜨레 공식 디지털 아카이브 & 라이브 스테이지</title>
+  
+  <!-- Pretendard Webfont -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <!-- Main Stylesheet (White Editorial Reference Edition) -->
+  <link rel="stylesheet" href="css/style.css?v=8">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo/lremettre_emblem.png">
+</head>
+<body>
+
+  <!-- 1. Top Announcement Bar (Reference Royal Indigo Bar) -->
+  <div class="top-utility-bar">
+    <div class="container top-utility-inner">
+      <div class="utility-highlights">
+        <span class="utility-item">
+          <span class="utility-icon">🖼️</span> 전 자료 첫 슬라이드 · 첫 클립 실시간 미리보기
+        </span>
+        <span class="utility-item hide-mobile">
+          <span class="utility-icon">🖥️</span> 무설치 16:9 와이드 전체화면(F11) 발표 지원
+        </span>
+        <span class="utility-item hide-tablet">
+          <span class="utility-icon">🔒</span> 공식 파트너 전용 보안 인증 다운로드
+        </span>
+      </div>
+      <div class="utility-right">
+        <span class="live-status-dot"></span>
+        <span>L.REMETTRE OFFICIAL ARCHIVE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Main White Header + 6-Category Sub-Navigation Bar -->
+  <header class="site-header">
+    <div class="container header-main-row">
+      <a href="index.html" class="brand">
+        <div class="brand-badge-box">
+          <img src="assets/logo/lremettre_emblem.png" alt="L.ReMeTTRe" class="brand-logo-img">
+        </div>
+        <div class="brand-info">
+          <h1>L.ReMeTTRe</h1>
+          <span>Official Digital Archive</span>
+        </div>
+      </a>
+
+      <nav class="main-nav-links" aria-label="주요 메뉴">
+        <a href="#top" class="main-nav-link active" data-nav-cat="all">HOME</a>
+        <a href="#resources-catalog" class="main-nav-link" data-nav-cat="presentation">프레젠테이션</a>
+        <a href="#resources-catalog" class="main-nav-link" data-nav-cat="document">문서 · 분석</a>
+        <a href="#resources-catalog" class="main-nav-link" data-nav-cat="review_video">영상 아카이브</a>
+        <a href="#resources-catalog" class="main-nav-link" data-nav-cat="forms">각종 양식</a>
+      </nav>
+
+      <div class="header-search-actions">
+        <div class="header-search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" class="search-input" placeholder="자료명, 키워드, 버전 검색..." aria-label="자료 검색">
+        </div>
+        <a href="#resources-catalog" class="header-count-pill" title="전체 등록 자료 수">
+          <span>📂</span> <strong id="header-total-count">8</strong>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sub-Navigation Category Bar (Reference 6-Category Strip + Right Pink Pill CTA) -->
+    <div class="sub-category-bar">
+      <div class="container sub-category-inner">
+        <div class="sub-cat-scroll" role="navigation" aria-label="6대 카테고리 빠른 이동">
+          <button type="button" class="sub-cat-btn" data-category="presentation">
+            <span class="sub-cat-icon">📊</span> 프레젠테이션&amp;강의
+          </button>
+          <button type="button" class="sub-cat-btn" data-category="document">
+            <span class="sub-cat-icon">📑</span> 문서 자료
+          </button>
+          <button type="button" class="sub-cat-btn" data-category="event_video">
+            <span class="sub-cat-icon">🎥</span> 행사 영상
+          </button>
+          <button type="button" class="sub-cat-btn" data-category="review_video">
+            <span class="sub-cat-icon">🎬</span> 후기 영상
+          </button>
+          <button type="button" class="sub-cat-btn" data-category="analysis">
+            <span class="sub-cat-icon">📈</span> 분석 자료
+          </button>
+          <button type="button" class="sub-cat-btn" data-category="forms">
+            <span class="sub-cat-icon">📋</span> 각종 양식
+          </button>
+        </div>
+
+        <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.0.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.0)" target="_blank" class="sub-bar-pink-cta">
+          <span class="cta-circle-icon">🚀</span> Official 3.0 바로 발표
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Hero Banner Section (Reference Pastel Lavender Stage + Visual Showcase) -->
+  <section class="hero-stage-section" id="top">
+    <!-- Decorative Polka Dots & Sparkle Shapes -->
+    <div class="hero-dots-pattern" aria-hidden="true"></div>
+    <div class="hero-circle-deco" aria-hidden="true"></div>
+
+    <div class="container hero-split-grid">
+      <!-- Left Column: Editorial Headline & Actions -->
+      <div class="hero-content-left">
+        <div class="hero-eyebrow">L.REMETTRE OFFICIAL ARCHIVE</div>
+        <h2 class="hero-title-main">
+          세포의 시간을 되돌리는<br>
+          <span class="text-rose-accent">스마트 디지털 자료실</span>
+        </h2>
+        <p class="hero-lead-text">
+          모든 프레젠테이션의 <strong>첫 슬라이드 표지</strong>와 영상의 <strong>첫 클립 화면</strong>을 한눈에 미리 확인하세요.<br class="hide-mobile">
+          클릭 한 번으로 16:9 와이드 전체화면 발표와 파트너 보안 다운로드를 즉시 실행할 수 있습니다.
+        </p>
+
+        <div class="hero-action-group">
+          <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.0.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.0)" class="btn-rose-primary" id="hero-main-cta" target="_blank">
+            <span>Official 3.0 발표 시작</span> <span class="arrow">→</span>
+          </a>
+          <a href="#summary-dashboard" class="btn-outline-clean">
+            <span>카테고리별 자료 탐색</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: 16:9 Live Preview Stage -->
+      <div class="hero-stage-right">
+        <div class="hero-sparkle-rays" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+
+        <div class="stage-showcase-container">
+          <div class="stage-frame">
+            <!-- Stage Top Bar -->
+            <div class="stage-topbar">
+              <div class="stage-deck-tabs">
+                <button class="stage-tab-btn active" id="tab-deck-v30-seminar" data-deck="v30-seminar">
+                  🏆 Official 3.0 세미나 덱 (49P)
+                </button>
+                <button class="stage-tab-btn" id="tab-deck-sp-edition" data-deck="sp-edition">
+                  ✨ v2.1 SP 에디션 (30P)
+                </button>
+                <button class="stage-tab-btn" id="tab-deck-cell-science" data-deck="cell-science">
+                  🧬 세포 과학 덱 (27P)
+                </button>
+              </div>
+              <div class="stage-actions-top">
+                <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.0.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.0)" class="btn-stage-fullscreen" id="btn-top-launch" target="_blank" title="새 탭에서 풀스크린으로 시작">
+                  <span>⛶</span> 전체화면 ↗
+                </a>
+              </div>
+            </div>
+
+            <!-- 16:9 Screen Canvas -->
+            <div class="stage-canvas-wrapper" id="stage-canvas">
+              <!-- Populated dynamically by main.js -->
+            </div>
+
+            <!-- Stage Bottom Controller Bar -->
+            <div class="stage-controller-bar">
+              <div class="stage-nav-group">
+                <button class="stage-nav-arrow" id="stage-prev-btn" title="이전 슬라이드 (←)">‹</button>
+                <div class="stage-counter-display">
+                  <span id="stage-current-idx">01</span> <span class="total">/ <span id="stage-total-idx">27</span></span>
+                </div>
+                <button class="stage-nav-arrow" id="stage-next-btn" title="다음 슬라이드 (→)">›</button>
+              </div>
+
+              <div class="stage-progress-bar">
+                <div class="stage-progress-fill" id="stage-progress-fill" style="width: 15%;"></div>
+              </div>
+
+              <div class="stage-quick-actions">
+                <span class="stage-key-hint">⌨️ 방향키 미리보기</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Dashboard 6-Category Summary Cards (Reference Pastel Summary Strip) -->
+  <section class="summary-dashboard-section" id="summary-dashboard" aria-label="6대 카테고리 요약 대시보드">
+    <div class="container">
+      <div id="summary-cards-grid" class="summary-cards-grid">
+        <!-- Dynamically rendered by main.js with live counts and 1st-slide/1st-clip thumbnails -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Main Content: Resource Archive Catalog (Reference Trending Products Style) -->
+  <main class="main-content" id="resources-catalog">
+    <div class="container">
+      <div class="section-head-centered">
+        <h2 class="section-title-centered">르메뜨레 공식 아카이브 자료실</h2>
+        <div class="section-title-underline"></div>
+        <p class="section-subtitle-centered">
+          PPT는 <strong>첫 슬라이드 표지</strong>로, 영상은 <strong>첫 클립 화면</strong>으로 한눈에 확인하고 즉시 발표·재생하세요.
+        </p>
+      </div>
+
+      <!-- Centered Pill Filter Tabs -->
+      <div class="filter-pills-wrapper">
+        <div class="filter-tabs" role="tablist" aria-label="자료 카테고리 필터">
+          <button class="filter-btn active" data-category="all">전체 자료</button>
+          <button class="filter-btn" data-category="presentation">프레젠테이션&amp;강의</button>
+          <button class="filter-btn" data-category="document">문서 자료</button>
+          <button class="filter-btn" data-category="event_video">행사 영상</button>
+          <button class="filter-btn" data-category="review_video">후기 영상</button>
+          <button class="filter-btn" data-category="analysis">분석 자료</button>
+          <button class="filter-btn" data-category="forms">각종 양식</button>
+        </div>
+      </div>
+
+      <!-- Resource Cards Grid -->
+      <div id="resources-grid" class="resource-grid">
+        <!-- Rendered dynamically by main.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- 6. 4-Column Core Feature Strip (Reference Service Highlights Box) -->
+  <section class="trust-features-section">
+    <div class="container">
+      <div class="trust-features-box">
+        <div class="trust-feature-item">
+          <div class="trust-icon-circle tone-lavender">🖼️</div>
+          <div class="trust-text">
+            <h4>첫 화면 실시간 미리보기</h4>
+            <p>PPT 첫 슬라이드 &amp; 영상 첫 클립 즉시 표시</p>
+          </div>
+        </div>
+        <div class="trust-feature-item">
+          <div class="trust-icon-circle tone-pink">🚀</div>
+          <div class="trust-text">
+            <h4>16:9 와이드 라이브 발표</h4>
+            <p>별도 프로그램 없이 브라우저 F11 풀스크린</p>
+          </div>
+        </div>
+        <div class="trust-feature-item">
+          <div class="trust-icon-circle tone-sky">🔒</div>
+          <div class="trust-text">
+            <h4>공식 파트너 보안 인증</h4>
+            <p>SHA-256 암호화 4자리 보안 코드 다운로드</p>
+          </div>
+        </div>
+        <div class="trust-feature-item">
+          <div class="trust-icon-circle tone-yellow">📱</div>
+          <div class="trust-text">
+            <h4>PC · 태블릿 · 모바일 반응형</h4>
+            <p>언제 어디서나 모든 기기에서 완벽 호환</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Secondary Bottom Feature Banner (Reference Warm Peach-Pink Promo Banner) -->
+  <section class="secondary-promo-section">
+    <div class="container">
+      <div class="secondary-promo-banner">
+        <div class="promo-content-left">
+          <span class="promo-eyebrow">NEW CLINICAL &amp; SP EDITION</span>
+          <h3 class="promo-headline">
+            실제 데이터가 증명하는<br>
+            <span class="text-rose-accent">르메뜨레 바이오 솔루션</span>
+          </h3>
+          <p class="promo-desc">
+            500 Da 이하 초저분자 소이 펩타이드 SP 에디션 프레젠테이션과<br class="hide-mobile">
+            실제 회원 인바디·혈액검진 후기 다큐멘터리 영상을 지금 바로 만나보세요.
+          </p>
+          <div class="promo-actions">
+            <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_v2.1_SP%EC%97%90%EB%94%94%EC%85%98.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(v2.1%20SP%20%EC%97%90%EB%94%94%EC%85%98)" target="_blank" class="btn-rose-primary">
+              <span>v2.1 SP 에디션 열기</span> <span class="arrow">→</span>
+            </a>
+            <button type="button" class="btn-outline-clean js-jump-cat" data-category="review_video">
+              <span>🎬 후기 영상 바로보기</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="promo-preview-right">
+          <div class="promo-cards-stack">
+            <img src="assets/thumbs/presentation-르메뜨레프레젠테이션v21SP에디션.jpg" alt="v2.1 SP 에디션 첫 슬라이드" class="promo-stack-img img-back">
+            <img src="assets/thumbs/review_video-02르메뜨레회원인바디건강다큐HUD비실명판.jpg" alt="회원 인바디 후기 영상 첫 클립" class="promo-stack-img img-front">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Clean White Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logo/lremettre_emblem.png" alt="L.ReMeTTRe" class="footer-brand-logo">
+        <span class="footer-brand-name">L.ReMeTTRe · 주식회사 르메뜨레</span>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 L.REMETTRE BUSINESS GROUP. ALL RIGHTS RESERVED.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Security Access Download Modal -->
+  <div id="auth-modal-backdrop" class="auth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+    <div id="auth-modal-dialog" class="auth-modal-dialog">
+      <button id="auth-close-btn" class="auth-modal-close-btn" title="닫기 (ESC)">✕</button>
+
+      <div class="auth-modal-header">
+        <div class="auth-badge">
+          <span>🔒</span> L.REMETTRE SECURITY ACCESS
+        </div>
+        <h2 id="auth-modal-title" class="auth-modal-title">공식 자료 보안 인증</h2>
+        <p class="auth-modal-desc">
+          본 자료는 르메뜨레 공식 파트너 전용 보안 문서입니다.<br>
+          배포 승인된 <strong>4자리 보안 비밀번호</strong>를 입력하세요.
+        </p>
+      </div>
+
+      <!-- Target File Preview -->
+      <div id="auth-target-file-info" class="auth-target-file-info"></div>
+
+      <!-- Password Input Form -->
+      <form id="auth-modal-form" class="auth-modal-form" onsubmit="return false;">
+        <div class="auth-input-wrapper">
+          <span class="auth-input-icon">🔑</span>
+          <input 
+            type="password" 
+            id="auth-pw-input" 
+            class="auth-pw-input" 
+            placeholder="비밀번호 입력 (4자리)" 
+            maxlength="16" 
+            inputmode="numeric"
+            autocomplete="current-password"
+          >
+          <button type="button" id="auth-toggle-pw-btn" class="auth-toggle-pw-btn" title="비밀번호 표시/숨김">👁️</button>
+        </div>
+
+        <div id="auth-error-msg" class="auth-error-msg" style="display: none;"></div>
+
+        <div class="auth-modal-actions">
+          <button type="submit" id="auth-submit-btn" class="btn-auth-submit">
+            <span>🔓</span> 보안 해제 및 다운로드
+          </button>
+          <button type="button" id="auth-cancel-btn" class="btn-auth-cancel">
+            취소
+          </button>
+        </div>
+      </form>
+
+      <!-- Security Notice -->
+      <div class="auth-modal-footer">
+        <p>
+          <span>ℹ️</span> 비밀번호 변경 및 신규 발급은 <strong>에이전트(관리자)</strong>를 통해서만 가능합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/slides-data.js?v=9"></script>
+  <script src="js/auth-config.js?v=9"></script>
+  <script src="js/auth-download.js?v=9"></script>
+  <script src="js/main.js?v=9"></script>
+</body>
+</html>

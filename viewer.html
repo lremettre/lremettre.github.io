@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>르메뜨레 공식 슬라이드 프레젠테이션 뷰어</title>
+  
+  <!-- Pretendard Webfont -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <!-- PDF.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <style>
+    :root {
+      --bg-page: #0B0F19;
+      --bg-stage: #141B2D;
+      --hud-bg: rgba(11, 15, 25, 0.92);
+      --hud-border: #232F48;
+      --hud-text: #F8FAFC;
+      --gold: #F59E0B;
+      --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body.theme-white {
+      --bg-page: #F8FAFC;
+      --bg-stage: #FFFFFF;
+      --hud-bg: rgba(255, 255, 255, 0.96);
+      --hud-border: #E2E8F0;
+      --hud-text: #0F172A;
+      --gold: #EC4899;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-page);
+      font-family: var(--font-sans);
+      color: var(--hud-text);
+      user-select: none;
+      -webkit-user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Top HUD */
+    .top-hud {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .top-hud > * { pointer-events: auto; }
+
+    .hud-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--hud-bg);
+      border: 1px solid var(--hud-border);
+      color: var(--hud-text);
+      border-radius: 9999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .hud-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .hud-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .deck-title-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: var(--hud-bg);
+      border: 1px solid var(--hud-border);
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold);
+      max-width: 480px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Viewport Stage */
+    #viewport-shell {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 70px 20px 80px;
+    }
+
+    #canvas-container {
+      position: relative;
+      max-width: 100%;
+      max-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000000;
+    }
+
+    #pdf-canvas {
+      display: block;
+      max-width: 100%;
+      max-height: calc(100vh - 150px);
+      height: auto;
+      object-fit: contain;
+    }
+
+    #video-player {
+      display: none;
+      max-width: 100%;
+      max-height: calc(100vh - 130px);
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      outline: none;
+      background: #000000;
+    }
+
+    /* Loading Spinner */
+    #loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(11, 15, 25, 0.85);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 50;
+      transition: opacity 0.3s ease;
+    }
+
+    #loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(245, 158, 11, 0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Bottom Controller */
+    .bottom-hud {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 8px 20px;
+      background: var(--hud-bg);
+      border: 1px solid var(--hud-border);
+      border-radius: 9999px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .hud-nav-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--hud-border);
+      color: var(--hud-text);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+
+    .hud-nav-btn:hover:not(:disabled) {
+      background: var(--gold);
+      color: #FFFFFF;
+      border-color: var(--gold);
+    }
+
+    .hud-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .slide-counter {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--hud-text);
+      min-width: 76px;
+      text-align: center;
+    }
+
+    .slide-counter span.total {
+      opacity: 0.6;
+      font-weight: 500;
+    }
+
+    /* Progress bar */
+    .progress-bar-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 99;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #EC4899 0%, #F43F5E 50%, #4F46E5 100%);
+      transition: width 0.25s ease;
+    }
+
+    @media (max-width: 640px) {
+      .deck-title-pill { display: none; }
+      .top-hud { top: 10px; left: 12px; right: 12px; }
+      .hud-btn { padding: 7px 12px; font-size: 12px; }
+      #viewport-shell { padding: 56px 10px 70px; }
+    }
+  </style>
+</head>
+<body class="theme-white">
+
+  <!-- Top HUD -->
+  <header class="top-hud">
+    <a href="index.html" class="hud-btn" title="자료실 메인으로 이동">
+      <span>🏛️</span> 르메뜨레 자료실
+    </a>
+
+    <div class="deck-title-pill" id="deck-title-display">
+      <span>📑</span> <span id="deck-title-text">슬라이드 로딩 중...</span>
+    </div>
+
+    <div class="hud-actions-right">
+      <button id="btn-theme-toggle" class="hud-btn" title="배경 테마 전환 (단축키 T)">
+        <span>🌙</span> 다크 배경
+      </button>
+      <button id="btn-fullscreen" class="hud-btn" title="전체화면 프레젠테이션 (단축키 F 또는 F11)">
+        <span>⛶</span> 전체화면 (F11)
+      </button>
+    </div>
+  </header>
+
+  <!-- Presentation Stage -->
+  <main id="viewport-shell">
+    <div id="canvas-container">
+      <canvas id="pdf-canvas"></canvas>
+      <video id="video-player" controls playsinline preload="metadata"></video>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay">
+      <div class="spinner"></div>
+      <p id="loading-text" style="font-size: 15px; font-weight: 600;">프레젠테이션 슬라이드를 로드하고 있습니다...</p>
+    </div>
+  </main>
+
+  <!-- Bottom Floating Controller -->
+  <nav class="bottom-hud" id="bottom-hud" aria-label="슬라이드 제어">
+    <button id="btn-prev" class="hud-nav-btn" title="이전 슬라이드 (←, PageUp)" aria-label="이전 슬라이드">‹</button>
+    <div class="slide-counter">
+      <span id="counter-current">01</span> <span class="total">/ <span id="counter-total">--</span></span>
+    </div>
+    <button id="btn-next" class="hud-nav-btn" title="다음 슬라이드 (→, Space, Enter, PageDown)" aria-label="다음 슬라이드">›</button>
+  </nav>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar-container">
+    <div id="progress-fill" class="progress-bar-fill"></div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // PDF.js worker setup
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const rawPdfFile = urlParams.get('file') || 'docs/01_프레젠테이션_강의/REBOOM 프로젝트 PPT.pdf';
+      const verParam = urlParams.get('v') || '202611031708';
+      const pdfFile = `${rawPdfFile}${rawPdfFile.includes('?') ? '&' : '?'}v=${verParam}`;
+      const fileTypeParam = urlParams.get('type') || '';
+      const isVideoMode = fileTypeParam === 'video' || /\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(rawPdfFile);
+      const deckTitle = urlParams.get('title') || rawPdfFile.split('/').pop().replace(/\.(pdf|mp4|webm|mov|m4v)$/i, '');
+
+      let pdfDoc = null;
+      let pageNum = 1;
+      let pageRendering = false;
+      let pageNumPending = null;
+      const canvas = document.getElementById('pdf-canvas');
+      const ctx = canvas.getContext('2d');
+      const videoPlayer = document.getElementById('video-player');
+      const bottomHud = document.getElementById('bottom-hud');
+      const loadingText = document.getElementById('loading-text');
+
+      const counterCurrent = document.getElementById('counter-current');
+      const counterTotal = document.getElementById('counter-total');
+      const progressFill = document.getElementById('progress-fill');
+      const prevBtn = document.getElementById('btn-prev');
+      const nextBtn = document.getElementById('btn-next');
+      const themeToggleBtn = document.getElementById('btn-theme-toggle');
+      const fullscreenBtn = document.getElementById('btn-fullscreen');
+      const loadingOverlay = document.getElementById('loading-overlay');
+      const deckTitleText = document.getElementById('deck-title-text');
+
+      deckTitleText.textContent = deckTitle;
+      document.title = `${deckTitle} | 르메뜨레 라이브 프레젠테이션`;
+
+      /**
+       * Render specific page
+       */
+      function renderPage(num) {
+        pageRendering = true;
+        pdfDoc.getPage(num).then(function (page) {
+          // Calculate scale to fit viewport smoothly with high DPI
+          const viewportShell = document.getElementById('viewport-shell');
+          const availWidth = viewportShell.clientWidth - 40;
+          const availHeight = viewportShell.clientHeight - 40;
+
+          const unscaledViewport = page.getViewport({ scale: 1 });
+          const scaleX = availWidth / unscaledViewport.width;
+          const scaleY = availHeight / unscaledViewport.height;
+          const bestScale = Math.min(scaleX, scaleY);
+
+          // Support retina / high DPI
+          const outputScale = window.devicePixelRatio || 1;
+          const viewport = page.getViewport({ scale: bestScale });
+
+          canvas.width = Math.floor(viewport.width * outputScale);
+          canvas.height = Math.floor(viewport.height * outputScale);
+          canvas.style.width = Math.floor(viewport.width) + "px";
+          canvas.style.height = Math.floor(viewport.height) + "px";
+
+          const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+
+          const renderContext = {
+            canvasContext: ctx,
+            transform: transform,
+            viewport: viewport
+          };
+
+          const renderTask = page.render(renderContext);
+
+          renderTask.promise.then(function () {
+            pageRendering = false;
+            loadingOverlay.classList.add('hidden');
+
+            if (pageNumPending !== null) {
+              renderPage(pageNumPending);
+              pageNumPending = null;
+            }
+          });
+        });
+
+        // Update UI
+        counterCurrent.textContent = String(num).padStart(2, '0');
+        prevBtn.disabled = num <= 1;
+        nextBtn.disabled = num >= pdfDoc.numPages;
+
+        const progress = (num / pdfDoc.numPages) * 100;
+        progressFill.style.width = `${progress}%`;
+
+        window.location.hash = `#${num}`;
+      }
+
+      function queueRenderPage(num) {
+        if (pageRendering) {
+          pageNumPending = num;
+        } else {
+          renderPage(num);
+        }
+      }
+
+      function onPrevPage() {
+        if (pageNum <= 1) return;
+        pageNum--;
+        queueRenderPage(pageNum);
+      }
+
+      function onNextPage() {
+        if (pageNum >= pdfDoc.numPages) return;
+        pageNum++;
+        queueRenderPage(pageNum);
+      }
+
+      // Theme toggle
+      function toggleTheme() {
+        const isWhite = document.body.classList.toggle('theme-white');
+        themeToggleBtn.innerHTML = isWhite ? '<span>🌙</span> 다크 배경' : '<span>☀️</span> 화이트 배경';
+      }
+
+      // Fullscreen
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+          fullscreenBtn.innerHTML = '<span>↙️</span> 축소';
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+          fullscreenBtn.innerHTML = '<span>⛶</span> 전체화면 (F11)';
+        }
+      }
+
+      // Keyboard navigation
+      window.addEventListener('keydown', function (e) {
+        if (isVideoMode) {
+          switch (e.key) {
+            case ' ':
+              if (document.activeElement !== videoPlayer) {
+                e.preventDefault();
+                if (videoPlayer.paused) videoPlayer.play();
+                else videoPlayer.pause();
+              }
+              break;
+            case 'ArrowRight':
+              e.preventDefault();
+              videoPlayer.currentTime = Math.min(videoPlayer.duration || 0, videoPlayer.currentTime + 5);
+              break;
+            case 'ArrowLeft':
+              e.preventDefault();
+              videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 5);
+              break;
+            case 'f':
+            case 'F':
+              toggleFullscreen();
+              break;
+            case 't':
+            case 'T':
+              toggleTheme();
+              break;
+            case 'm':
+            case 'M':
+              videoPlayer.muted = !videoPlayer.muted;
+              break;
+          }
+          return;
+        }
+
+        switch (e.key) {
+          case 'ArrowRight':
+          case 'ArrowDown':
+          case 'PageDown':
+          case ' ':
+          case 'Enter':
+            e.preventDefault();
+            onNextPage();
+            break;
+          case 'ArrowLeft':
+          case 'ArrowUp':
+          case 'PageUp':
+          case 'Backspace':
+            e.preventDefault();
+            onPrevPage();
+            break;
+          case 'Home':
+            e.preventDefault();
+            pageNum = 1;
+            queueRenderPage(pageNum);
+            break;
+          case 'End':
+            e.preventDefault();
+            pageNum = pdfDoc.numPages;
+            queueRenderPage(pageNum);
+            break;
+          case 'f':
+          case 'F':
+            toggleFullscreen();
+            break;
+          case 't':
+          case 'T':
+            toggleTheme();
+            break;
+        }
+      });
+
+      // Touch navigation
+      let touchStartX = 0;
+      window.addEventListener('touchstart', (e) => {
+        if (isVideoMode) return;
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      window.addEventListener('touchend', (e) => {
+        if (isVideoMode) return;
+        const diffX = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(diffX) > 40) {
+          if (diffX < 0) onNextPage();
+          else onPrevPage();
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', () => {
+        if (!isVideoMode && pdfDoc) renderPage(pageNum);
+      });
+
+      prevBtn.addEventListener('click', onPrevPage);
+      nextBtn.addEventListener('click', onNextPage);
+      themeToggleBtn.addEventListener('click', toggleTheme);
+      fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+      // Video Mode vs PDF Document Mode
+      if (isVideoMode) {
+        canvas.style.display = 'none';
+        videoPlayer.style.display = 'block';
+        if (bottomHud) bottomHud.style.display = 'none';
+        if (loadingText) loadingText.textContent = '공식 홍보 영상을 불러오고 있습니다...';
+
+        const titlePill = document.getElementById('deck-title-display');
+        if (titlePill) {
+          titlePill.innerHTML = `<span>🎬</span> <span id="deck-title-text">${deckTitle}</span>`;
+        }
+
+        videoPlayer.src = pdfFile;
+        videoPlayer.addEventListener('loadeddata', function () {
+          loadingOverlay.classList.add('hidden');
+          videoPlayer.play().catch(() => {});
+        });
+        videoPlayer.addEventListener('timeupdate', function () {
+          if (videoPlayer.duration) {
+            const pct = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+            progressFill.style.width = `${pct}%`;
+          }
+        });
+        videoPlayer.addEventListener('error', function () {
+          loadingOverlay.innerHTML = `
+            <p style="font-size: 24px;">⚠️</p>
+            <p style="font-size: 16px; color: #EF4444; font-weight: 700;">영상을 불러오지 못했습니다.</p>
+            <p style="font-size: 13px; color: #94A3B8;">파일 경로 또는 네트워크 상태를 확인해 주세요.</p>
+            <a href="index.html" class="hud-btn" style="margin-top: 12px;">자료실로 돌아가기</a>
+          `;
+        });
+      } else {
+        // Load PDF Document
+        pdfjsLib.getDocument(pdfFile).promise.then(function (doc) {
+          pdfDoc = doc;
+          counterTotal.textContent = String(doc.numPages).padStart(2, '0');
+
+          // Check hash
+          const hash = window.location.hash;
+          if (hash && hash.startsWith('#')) {
+            const p = parseInt(hash.replace('#', ''), 10);
+            if (!isNaN(p) && p >= 1 && p <= doc.numPages) {
+              pageNum = p;
+            }
+          }
+
+          renderPage(pageNum);
+        }).catch(function (error) {
+          console.error('Error loading PDF:', error);
+          loadingOverlay.innerHTML = `
+            <p style="font-size: 24px;">⚠️</p>
+            <p style="font-size: 16px; color: #EF4444; font-weight: 700;">프레젠테이션 문서를 불러오지 못했습니다.</p>
+            <p style="font-size: 13px; color: #94A3B8;">${error.message}</p>
+            <a href="index.html" class="hud-btn" style="margin-top: 12px;">자료실로 돌아가기</a>
+          `;
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>변화하는 시대, 리더십의 진짜 온도 | 르메뜨레(L.REMETTRE) 라이브 프레젠테이션</title>
+  
+  <!-- Pretendard Webfont -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <!-- Presentation Stylesheet -->
+  <link rel="stylesheet" href="css/presentation.css">
+</head>
+<body class="theme-dark">
+
+  <!-- Top HUD Bar -->
+  <header class="top-hud">
+    <a href="index.html" class="hud-btn" title="자료실 메인으로 이동">
+      <span>🏛️</span> 르메뜨레 자료실
+    </a>
+
+    <div class="hud-actions-right">
+      <button id="btn-drawer" class="hud-btn" title="모든 슬라이드 목록 보기 (단축키 G)">
+        <span>📑</span> 슬라이드 목차
+      </button>
+      <button id="btn-theme-toggle" class="hud-btn" title="화이트/다크 테마 전환 (단축키 T)">
+        <span>🌙</span> 다크 테마
+      </button>
+      <button id="btn-fullscreen" class="hud-btn" title="전체화면 프레젠테이션 (단축키 F 또는 F11)">
+        <span>⛶</span> 전체화면 (F11)
+      </button>
+    </div>
+  </header>
+
+  <!-- 16:9 Presentation Stage Shell -->
+  <main id="viewport-shell">
+    <div id="slide-stage">
+      <!-- Slides will be dynamically injected here by presentation.js -->
+    </div>
+  </main>
+
+  <!-- Bottom Floating Controller -->
+  <nav class="bottom-hud" aria-label="슬라이드 제어">
+    <button id="btn-prev" class="hud-nav-btn" title="이전 슬라이드 (←, PageUp)" aria-label="이전 슬라이드">
+      ‹
+    </button>
+    <div class="slide-counter">
+      <span id="counter-current">01</span> <span class="total">/ <span id="counter-total">16</span></span>
+    </div>
+    <button id="btn-next" class="hud-nav-btn" title="다음 슬라이드 (→, Space, Enter, PageDown)" aria-label="다음 슬라이드">
+      ›
+    </button>
+  </nav>
+
+  <!-- Bottom Progress Bar -->
+  <div class="progress-bar-container">
+    <div id="progress-fill" class="progress-bar-fill"></div>
+  </div>
+
+  <!-- Slide Jump Drawer Modal -->
+  <div id="drawer-backdrop" class="drawer-backdrop">
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <h3>📑 슬라이드 전체 목차 (빠른 점프)</h3>
+        <button id="btn-drawer-close" class="hud-btn" style="padding: 6px 14px;">✕ 닫기 (Esc)</button>
+      </div>
+      <div id="drawer-grid" class="drawer-grid">
+        <!-- Thumbnails generated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/slides-data.js"></script>
+  <script src="js/presentation.js"></script>
+</body>
+</html>
