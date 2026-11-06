@@ -38,7 +38,7 @@
       eyebrow: 'PRESENTATION',
       tone: 'tone-pink',
       icon: '📊',
-      defaultThumb: 'assets/thumbs/presentation-르메뜨레세미나OfficialV30.jpg'
+      defaultThumb: 'assets/thumbs/presentation-르메뜨레세미나OfficialV32.jpg'
     },
     {
       key: 'document',
@@ -86,11 +86,11 @@
   const HERO_STAGE_DECKS = [
     {
       key: 'v30-seminar',
-      tag: 'OFFICIAL SEMINAR V3.0 · 49P',
-      title: '르메뜨레 공식 세미나 프레젠테이션 (Official V3.0)',
-      pages: 49,
-      thumb: 'assets/thumbs/presentation-르메뜨레세미나OfficialV30.jpg',
-      viewerUrl: 'viewer.html?file=' + encodeURIComponent('docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.0.pdf') + '&title=' + encodeURIComponent('르메뜨레 공식 세미나 프레젠테이션 (Official V3.0)')
+      tag: 'OFFICIAL SEMINAR V3.2 · 64P',
+      title: '르메뜨레 공식 세미나 프레젠테이션 (Official V3.2)',
+      pages: 64,
+      thumb: 'assets/thumbs/presentation-르메뜨레세미나OfficialV32.jpg',
+      viewerUrl: 'viewer.html?file=' + encodeURIComponent('docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.2.pdf') + '&title=' + encodeURIComponent('르메뜨레 공식 세미나 프레젠테이션 (Official V3.2)')
     },
     {
       key: 'sp-edition',

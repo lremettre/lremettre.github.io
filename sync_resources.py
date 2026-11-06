@@ -243,6 +243,14 @@ def scan_docs():
             "slide_count": 50,
             "description": "르메뜨레 비즈니스 모델, 보상 체계 및 글로벌 비전을 다루는 50페이지 공식 사업설명회 최신 V1.4 프레젠테이션입니다. 브라우저에서 바로 열람하거나 F11 전체화면으로 발표할 수 있습니다.",
         },
+        'presentation-르메뜨레세미나OfficialV32': {
+            "title": "르메뜨레 공식 세미나 프레젠테이션 (Official V3.2)",
+            "subtitle": "르메뜨레 브랜드 · 3대 핵심 바이오 솔루션 · 체험사례 · 마케팅 & 100·600 연금 플랜",
+            "badge": "OFFICIAL V3.2",
+            "author": "L.REMETTRE BUSINESS GROUP",
+            "slide_count": 64,
+            "description": "르메뜨레 핵심 제품 라인업, 실제 회원 체험사례(클릭 단계별 오픈 연출 지원), 마케팅 플랜 및 100·600 연금 플랜을 집약한 64페이지 Official V3.2 공식 발표 자료입니다. 웹 뷰어 발표 및 PPTX/PDF 다운로드를 모두 지원합니다.",
+        },
         'presentation-르메뜨레세미나OfficialV30': {
             "title": "르메뜨레 공식 세미나 프레젠테이션 (Official V3.0)",
             "subtitle": "르메뜨레 브랜드 · 3대 핵심 바이오 솔루션 · 세미나 공식 발표 자료",
@@ -489,7 +497,7 @@ def scan_docs():
         elif ginfo["image_rel_path"]:
             thumbnail_url = ginfo["image_rel_path"]
 
-        slide_count = detected_pages or preset.get("slide_count")
+        slide_count = preset.get("slide_count") or detected_pages
 
         key_points = preset.get("key_points", [
             f"지원 포맷: {', '.join([k.upper() for k in ginfo['files'].keys()])}",
