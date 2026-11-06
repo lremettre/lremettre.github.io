@@ -206,6 +206,16 @@
     if (headerTotalCount) {
       headerTotalCount.textContent = String(resourcesData.length);
     }
+    const drawerCountAll = document.getElementById('drawer-count-all');
+    if (drawerCountAll) {
+      drawerCountAll.textContent = String(resourcesData.length);
+    }
+    CATEGORY_DEFINITIONS.forEach((cat) => {
+      const badgeEl = document.getElementById(`drawer-count-${cat.key}`);
+      if (badgeEl) {
+        badgeEl.textContent = String(resourcesData.filter((r) => r.category === cat.key).length);
+      }
+    });
 
     summaryGrid.innerHTML = CATEGORY_DEFINITIONS.map((cat) => {
       const catItems = resourcesData.filter((r) => r.category === cat.key);
@@ -266,6 +276,11 @@
     // 상단 메인 네비게이션 동기화
     document.querySelectorAll('.main-nav-link').forEach((link) => {
       link.classList.toggle('active', link.dataset.navCat === catKey);
+    });
+
+    // 모바일 삼선 드로어 메뉴 동기화
+    document.querySelectorAll('.mobile-drawer-item').forEach((item) => {
+      item.classList.toggle('active', item.dataset.mobileCat === catKey);
     });
 
     renderSummaryDashboard();
@@ -601,6 +616,49 @@
         renderResources();
       });
     }
+
+    // 모바일 삼선(햄버거) 메뉴 드로어 열기/닫기 제어
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileDrawer = document.getElementById('mobile-nav-drawer');
+    const mobileBackdrop = document.getElementById('mobile-drawer-backdrop');
+    const mobileCloseBtn = document.getElementById('mobile-drawer-close');
+
+    function setMobileDrawerOpen(open) {
+      if (!mobileDrawer || !mobileBackdrop || !mobileMenuBtn) return;
+      mobileDrawer.classList.toggle('is-open', open);
+      mobileBackdrop.classList.toggle('is-open', open);
+      mobileMenuBtn.classList.toggle('is-open', open);
+      mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      mobileDrawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = mobileDrawer && mobileDrawer.classList.contains('is-open');
+        setMobileDrawerOpen(!isOpen);
+      });
+    }
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', () => setMobileDrawerOpen(false));
+    }
+    if (mobileBackdrop) {
+      mobileBackdrop.addEventListener('click', () => setMobileDrawerOpen(false));
+    }
+
+    document.querySelectorAll('.mobile-drawer-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        const cat = item.dataset.mobileCat || 'all';
+        setMobileDrawerOpen(false);
+        setCategory(cat, true);
+      });
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileDrawer && mobileDrawer.classList.contains('is-open')) {
+        setMobileDrawerOpen(false);
+      }
+    });
   }
 
   initHeroLiveStage();
