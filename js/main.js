@@ -206,6 +206,10 @@
     if (headerTotalCount) {
       headerTotalCount.textContent = String(resourcesData.length);
     }
+    const bentoTotalFiles = document.getElementById('bento-total-files');
+    if (bentoTotalFiles) {
+      bentoTotalFiles.textContent = `${resourcesData.length}+`;
+    }
     const drawerCountAll = document.getElementById('drawer-count-all');
     if (drawerCountAll) {
       drawerCountAll.textContent = String(resourcesData.length);
@@ -602,9 +606,10 @@
       });
     });
 
-    // 하단 프로모 배너 카테고리 점프 버튼
+    // 하단 프로모 배너 & 벤토 필러 카테고리 점프 버튼
     document.querySelectorAll('.js-jump-cat').forEach((btn) => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
         setCategory(btn.dataset.category, true);
       });
     });
