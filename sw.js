@@ -3,17 +3,22 @@
  * - 이미지 썸네일: stale-while-revalidate
  * - PDF/영상(성적서·대용량 자료): 캐시하지 않음 (열람 전용 보안 + 용량 보호)
  */
-const CACHE = 'lremettre-v15';
+const CACHE = 'lremettre-v16';
 const CORE = [
   './',
   './index.html',
   './viewer.html',
-  './css/style.css?v=15',
-  './js/main.js?v=15',
-  './js/slides-data.js?v=15',
+  './css/style.css?v=16',
+  './js/main.js?v=16',
+  './js/slides-data.js?v=16',
   './assets/logo/lremettre_emblem.png',
-  './assets/icons/icon-192.png?v=15',
-  './assets/icons/icon-512.png?v=15'
+  './assets/3d/hero_arch_3d.jpg',
+  './assets/3d/icon_3d_1.png',
+  './assets/3d/icon_3d_2.png',
+  './assets/3d/icon_3d_3.png',
+  './assets/3d/icon_3d_4.png',
+  './assets/icons/icon-192.png?v=16',
+  './assets/icons/icon-512.png?v=16'
 ];
 
 self.addEventListener('install', (e) => {

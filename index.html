@@ -3,51 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>L.REMETTRE | 르메뜨레 공식 디지털 아카이브 & 라이브 스테이지</title>
+  <title>L.REMETTRE | 르메뜨레 공식 디지털 아카이브 & 3D 라이브 스테이지</title>
   
-  <!-- Pretendard Webfont -->
+  <!-- Pretendard & Caveat Script Webfonts -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   
-  <!-- Main Stylesheet (Cosmic Bento & Editorial Edition) -->
-  <link rel="stylesheet" href="css/style.css?v=15">
+  <!-- Main Stylesheet (Neomathic 3D Surreal & Dark Glassmorphic Master Edition) -->
+  <link rel="stylesheet" href="css/style.css?v=16">
   
   <!-- Favicon (Full-Bleed Circular RGBA Logo) -->
-  <link rel="shortcut icon" href="favicon.ico?v=15">
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png?v=15">
-  <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png?v=15">
+  <link rel="shortcut icon" href="favicon.ico?v=16">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png?v=16">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png?v=16">
 
   <!-- PWA (Android / Windows 홈 화면 & 작업표시줄 앱 설치) -->
-  <link rel="manifest" href="manifest.webmanifest?v=15">
-  <meta name="theme-color" content="#131022">
+  <link rel="manifest" href="manifest.webmanifest?v=16">
+  <meta name="theme-color" content="#0E0B1A">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="르메뜨레">
-  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=15">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=16">
 </head>
 <body>
 
-  <!-- 1. Top Announcement Bar (Reference Royal Indigo Bar) -->
-  <div class="top-utility-bar">
-    <div class="container top-utility-inner">
-      <div class="utility-highlights">
-        <span class="utility-item">
-          <span class="utility-icon">🖼️</span> 전 자료 첫 슬라이드 · 첫 클립 실시간 미리보기
-        </span>
-        <span class="utility-item hide-mobile">
-          <span class="utility-icon">🖥️</span> 무설치 16:9 와이드 전체화면(F11) 발표 지원
-        </span>
-        <span class="utility-item hide-tablet">
-          <span class="utility-icon">🔒</span> 공식 파트너 전용 보안 인증 다운로드
-        </span>
-      </div>
-      <div class="utility-right">
-        <span class="live-status-dot"></span>
-        <span>L.REMETTRE OFFICIAL ARCHIVE</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. Main White Header + 6-Category Sub-Navigation Bar -->
+  <!-- ========================================================================
+       1. FLOATING GLASS HEADER NAVBAR (Neomathic Top Navigation)
+       ======================================================================== -->
   <header class="site-header">
     <div class="container header-main-row">
       <a href="index.html" class="brand">
@@ -61,58 +45,30 @@
       </a>
 
       <nav class="main-nav-links" aria-label="주요 메뉴">
-        <a href="#top" class="main-nav-link active" data-nav-cat="all">HOME</a>
+        <a href="#top" class="main-nav-link active" data-nav-cat="all">Home</a>
         <a href="#resources-catalog" class="main-nav-link" data-nav-cat="presentation">프레젠테이션</a>
         <a href="#resources-catalog" class="main-nav-link" data-nav-cat="document">문서 · 분석</a>
         <a href="#resources-catalog" class="main-nav-link" data-nav-cat="review_video">영상 아카이브</a>
         <a href="#resources-catalog" class="main-nav-link" data-nav-cat="forms">각종 양식</a>
       </nav>
 
-      <div class="header-search-actions">
-        <div class="header-search-box">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="search-input" class="search-input" placeholder="자료명, 키워드, 버전 검색..." aria-label="자료 검색">
-        </div>
+      <div class="header-right-actions">
+        <a href="#hero-search-anchor" class="header-icon-circle" title="자료 검색으로 이동" aria-label="자료 검색">
+          <span>🔍</span>
+        </a>
         <a href="#resources-catalog" class="header-count-pill" title="전체 등록 자료 수">
           <span>📂</span> <strong id="header-total-count">19</strong>
         </a>
-      </div>
-
-      <!-- Mobile Hamburger Menu Button (삼선 메뉴) -->
-      <button type="button" id="mobile-menu-btn" class="mobile-hamburger-btn" aria-label="전체 메뉴 열기" aria-expanded="false" aria-controls="mobile-nav-drawer">
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-      </button>
-    </div>
-
-    <!-- Sub-Navigation Category Bar (Reference 6-Category Strip + Right Pink Pill CTA) -->
-    <div class="sub-category-bar">
-      <div class="container sub-category-inner">
-        <div class="sub-cat-scroll" role="navigation" aria-label="6대 카테고리 빠른 이동">
-          <button type="button" class="sub-cat-btn" data-category="presentation">
-            <span class="sub-cat-icon">📊</span> 프레젠테이션&amp;강의
-          </button>
-          <button type="button" class="sub-cat-btn" data-category="document">
-            <span class="sub-cat-icon">📑</span> 문서 자료
-          </button>
-          <button type="button" class="sub-cat-btn" data-category="event_video">
-            <span class="sub-cat-icon">🎥</span> 행사 영상
-          </button>
-          <button type="button" class="sub-cat-btn" data-category="review_video">
-            <span class="sub-cat-icon">🎬</span> 후기 영상
-          </button>
-          <button type="button" class="sub-cat-btn" data-category="analysis">
-            <span class="sub-cat-icon">📈</span> 분석 자료
-          </button>
-          <button type="button" class="sub-cat-btn" data-category="forms">
-            <span class="sub-cat-icon">📋</span> 각종 양식
-          </button>
-        </div>
-
-        <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" target="_blank" class="sub-bar-pink-cta">
-          <span class="cta-circle-icon">🚀</span> Official 3.2 바로 발표
+        <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" target="_blank" class="header-white-cta">
+          <span>Official 3.2 발표</span> <span class="arrow">→</span>
         </a>
+
+        <!-- Mobile Hamburger Menu Button (삼선 메뉴) -->
+        <button type="button" id="mobile-menu-btn" class="mobile-hamburger-btn" aria-label="전체 메뉴 열기" aria-expanded="false" aria-controls="mobile-nav-drawer">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
       </div>
     </div>
   </header>
@@ -184,373 +140,384 @@
     </div>
   </aside>
 
-  <!-- 3. Hero Banner Section (Reference Cosmic Dark Glassmorphic Bento Stage) -->
+  <!-- ========================================================================
+       2. 3D SURREAL ARCH & FLOATING GLASS CUBES HERO SECTION (Neomathic Hero)
+       ======================================================================== -->
   <section class="hero-stage-section" id="top">
-    <!-- Ambient Cosmic Glows & 3D Floating Orbs -->
-    <div class="hero-ambient-glow glow-violet" aria-hidden="true"></div>
-    <div class="hero-ambient-glow glow-rose" aria-hidden="true"></div>
-    <div class="hero-orb orb-top-left" aria-hidden="true"></div>
-    <div class="hero-orb orb-bottom-right" aria-hidden="true"></div>
+    <!-- Full-Bleed 3D Render Background -->
+    <div class="hero-3d-backdrop" aria-hidden="true">
+      <img src="assets/3d/hero_arch_3d.jpg" alt="" class="hero-3d-bg-img">
+      <div class="hero-3d-vignette"></div>
+    </div>
 
-    <div class="container">
-      <!-- Outer Rim-Lit Cosmic Bento Shell -->
-      <div class="hero-bento-shell">
-        <div class="hero-split-grid">
-
-          <!-- LEFT BENTO COLUMN: Brand Identity + Live Stats + 4 Gradient Pillars + 5-Slice Aesthetic Strip -->
-          <div class="hero-content-left">
-
-            <!-- 1) Top Identity & 3 Neon Pill Tags -->
-            <div class="hero-identity-box">
-              <div class="hero-brand-emblem-wrap">
-                <div class="emblem-halo" aria-hidden="true"></div>
-                <img src="assets/logo/lremettre_emblem.png" alt="L.ReMeTTRe Emblem" class="hero-3d-emblem">
-                <span class="emblem-crystal crystal-1" aria-hidden="true">◆</span>
-                <span class="emblem-crystal crystal-2" aria-hidden="true">✦</span>
-              </div>
-
-              <div class="hero-title-group">
-                <h2 class="hero-title-main">
-                  세포의 시간을 되돌리는<br>
-                  <span class="text-gradient-neon">스마트 디지털 아카이브</span>
-                </h2>
-                <p class="hero-lead-text">
-                  Redefining Bio-Health Presentation &amp; Official Archive System
-                </p>
-                <div class="hero-role-pills">
-                  <span class="role-pill pill-violet">✨ Official V3.2 세미나</span>
-                  <span class="role-pill pill-glass">🖥️ 16:9 와이드 라이브 발표</span>
-                  <span class="role-pill pill-rose">🔒 파트너 보안 아카이브</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- 2) Bento Card: Archive Live Stats (Reference "Creator Stats" 4-Column Bar) -->
-            <div class="bento-dark-card bento-stats-card">
-              <div class="bento-card-header">
-                <span class="bento-header-icon">📊</span>
-                <span class="bento-header-title">Archive Live Stats</span>
-                <span class="bento-header-sub">실시간 통합 지표</span>
-              </div>
-              <div class="bento-stats-grid">
-                <div class="bento-stat-item">
-                  <span class="stat-neon-icon">📑</span>
-                  <strong class="stat-big-num">64P</strong>
-                  <span class="stat-label">Official 3.2 덱</span>
-                </div>
-                <div class="bento-stat-item">
-                  <span class="stat-neon-icon">📈</span>
-                  <strong class="stat-big-num" id="bento-total-files">19+</strong>
-                  <span class="stat-label">공식 디지털 자산</span>
-                </div>
-                <div class="bento-stat-item">
-                  <span class="stat-neon-icon">💗</span>
-                  <strong class="stat-big-num">59.26%</strong>
-                  <span class="stat-label">≤500Da 초저분자</span>
-                </div>
-                <div class="bento-stat-item">
-                  <span class="stat-neon-icon">🔖</span>
-                  <strong class="stat-big-num">100%</strong>
-                  <span class="stat-label">SGS 공인 검증</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- 3) Bento Card: Content Pillars (Reference 4 Glossy Gradient Squircle Tiles) -->
-            <div class="bento-dark-card bento-pillars-card">
-              <div class="bento-card-header">
-                <span class="bento-header-icon">⊞</span>
-                <span class="bento-header-title">Content Pillars</span>
-                <span class="bento-header-sub">원클릭 카테고리 탐색</span>
-              </div>
-              <div class="bento-pillars-grid">
-                <button type="button" class="pillar-gradient-tile tile-lavender js-jump-cat" data-category="presentation">
-                  <span class="pillar-tile-icon">📊</span>
-                  <span class="pillar-tile-label">프레젠테이션<br>&amp; 공식 강의</span>
-                </button>
-                <button type="button" class="pillar-gradient-tile tile-orchid js-jump-cat" data-category="review_video">
-                  <span class="pillar-tile-icon">✦</span>
-                  <span class="pillar-tile-label">임상 후기<br>&amp; 행사 영상</span>
-                </button>
-                <button type="button" class="pillar-gradient-tile tile-amber js-jump-cat" data-category="analysis">
-                  <span class="pillar-tile-icon">🔬</span>
-                  <span class="pillar-tile-label">SGS 시험성적서<br>&amp; 바이오 분석</span>
-                </button>
-                <button type="button" class="pillar-gradient-tile tile-sky js-jump-cat" data-category="document">
-                  <span class="pillar-tile-icon">💡</span>
-                  <span class="pillar-tile-label">공식 문서<br>&amp; 비즈니스 양식</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- 4) Bento Card: Aesthetic Visual Deck Strip (Reference 5 Vertical Preview Slices) -->
-            <div class="bento-dark-card bento-aesthetic-card">
-              <div class="bento-card-header">
-                <span class="bento-header-icon">✦</span>
-                <span class="bento-header-title">Visual Deck &amp; Media Strip</span>
-                <span class="bento-header-sub">클릭 시 즉시 열람</span>
-              </div>
-              <div class="aesthetic-slices-grid">
-                <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" target="_blank" class="aesthetic-slice-item">
-                  <div class="slice-thumb-box">
-                    <img src="assets/thumbs/presentation-르메뜨레세미나OfficialV32.jpg" alt="Official 3.2" loading="lazy">
-                  </div>
-                  <span class="slice-pill-tag">Official 3.2</span>
-                </a>
-                <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_v2.1_SP%EC%97%90%EB%94%94%EC%85%98.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(v2.1%20SP%20%EC%97%90%EB%94%94%EC%85%98)" target="_blank" class="aesthetic-slice-item">
-                  <div class="slice-thumb-box">
-                    <img src="assets/thumbs/presentation-르메뜨레프레젠테이션v21SP에디션.jpg" alt="SP Edition" loading="lazy">
-                  </div>
-                  <span class="slice-pill-tag">SP 에디션</span>
-                </a>
-                <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/L.ReMeTTRe_NEW_PPT.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88(L.ReMeTTRe)%20:%20%EC%84%B8%ED%8F%AC%EC%9D%98%20%EC%8B%9C%EA%B0%84%EC%9D%84%20%EB%90%98%EB%8F%8C%EB%A6%AC%EB%8A%94%20%EA%B3%BC%ED%95%99" target="_blank" class="aesthetic-slice-item">
-                  <div class="slice-thumb-box">
-                    <img src="assets/thumbs/presentation-LReMeTTReNEWPPT.jpg" alt="Cell Science" loading="lazy">
-                  </div>
-                  <span class="slice-pill-tag">세포 과학</span>
-                </a>
-                <a href="#resources-catalog" class="aesthetic-slice-item js-jump-cat" data-category="review_video">
-                  <div class="slice-thumb-box">
-                    <img src="assets/thumbs/review_video-02르메뜨레회원인바디건강다큐HUD비실명판.jpg" alt="InBody Review" loading="lazy">
-                  </div>
-                  <span class="slice-pill-tag">인바디 다큐</span>
-                </a>
-                <a href="presentation.html" target="_blank" class="aesthetic-slice-item">
-                  <div class="slice-thumb-box">
-                    <img src="assets/thumbs/leadership-masterclass.jpg" alt="Leadership" loading="lazy">
-                  </div>
-                  <span class="slice-pill-tag">리더십 강의</span>
-                </a>
-              </div>
-            </div>
-
+    <div class="container hero-neomathic-container">
+      <div class="hero-neomathic-grid">
+        <!-- Left Editorial Typography Column -->
+        <div class="hero-left-col">
+          <div class="hero-glass-eyebrow">
+            L.REMETTRE &nbsp;·&nbsp; BIO-SCIENCE &nbsp;·&nbsp; ARCHIVE
           </div>
 
-          <!-- RIGHT BENTO COLUMN: 16:9 Live Preview Stage + Featured Deck Info & Quick Toolkit -->
-          <div class="hero-stage-right">
+          <h2 class="hero-giant-headline">
+            <span class="line-white">세포의 시간을</span><br>
+            <span class="line-lavender">되돌리는 놀라운</span><br>
+            <span class="line-lavender">디지털 아카이브.</span>
+          </h2>
 
-            <!-- 1) Bento Card: Featured 16:9 Live Stage -->
-            <div class="stage-showcase-container bento-dark-card bento-stage-card">
-              <div class="bento-card-header stage-bento-head">
-                <div class="stage-bento-title-left">
-                  <span class="bento-header-icon">★</span>
-                  <span class="bento-header-title">Featured Live Stage</span>
-                </div>
-                <div class="stage-actions-top">
-                  <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" class="btn-stage-fullscreen" id="btn-top-launch" target="_blank" title="새 탭에서 풀스크린으로 시작">
-                    <span>⛶</span> 전체화면 ↗
-                  </a>
-                </div>
-              </div>
+          <p class="hero-subtitle-copy">
+            모든 프레젠테이션의 <strong>첫 슬라이드 표지</strong>와 임상 다큐멘터리의 <strong>첫 클립 화면</strong>을 한눈에 확인하세요. 클릭 한 번으로 16:9 와이드 라이브 발표와 파트너 보안 다운로드를 즉시 실행합니다.
+          </p>
 
-              <div class="stage-frame">
-                <!-- Stage Top Bar -->
-                <div class="stage-topbar">
-                  <div class="stage-deck-tabs">
-                    <button class="stage-tab-btn active" id="tab-deck-v30-seminar" data-deck="v30-seminar">
-                      🏆 Official 3.2 세미나 덱 (64P)
-                    </button>
-                    <button class="stage-tab-btn" id="tab-deck-sp-edition" data-deck="sp-edition">
-                      ✨ v2.1 SP 에디션 (30P)
-                    </button>
-                    <button class="stage-tab-btn" id="tab-deck-cell-science" data-deck="cell-science">
-                      🧬 세포 과학 덱 (27P)
-                    </button>
-                  </div>
-                </div>
+          <div class="hero-cta-row">
+            <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" class="btn-neomathic-white" id="hero-main-cta" target="_blank">
+              <span>Official 3.2 발표 시작</span> <span class="arrow">→</span>
+            </a>
+            <a href="#live-stage-showcase" class="btn-neomathic-play">
+              <span class="play-circle-icon">▶</span>
+              <span>라이브 스테이지 열기</span>
+            </a>
+          </div>
+        </div>
 
-                <!-- 16:9 Screen Canvas -->
-                <div class="stage-canvas-wrapper" id="stage-canvas">
-                  <!-- Populated dynamically by main.js -->
-                </div>
-
-                <!-- Stage Bottom Controller Bar -->
-                <div class="stage-controller-bar">
-                  <div class="stage-nav-group">
-                    <button class="stage-nav-arrow" id="stage-prev-btn" title="이전 슬라이드 (←)">‹</button>
-                    <div class="stage-counter-display">
-                      <span id="stage-current-idx">01</span> <span class="total">/ <span id="stage-total-idx">05</span></span>
-                    </div>
-                    <button class="stage-nav-arrow" id="stage-next-btn" title="다음 슬라이드 (→)">›</button>
-                  </div>
-
-                  <div class="stage-progress-bar">
-                    <div class="stage-progress-fill" id="stage-progress-fill" style="width: 20%;"></div>
-                  </div>
-
-                  <div class="stage-quick-actions">
-                    <span class="stage-key-hint">⌨️ 방향키 미리보기</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 2) Bottom Sub-Grid: Featured Deck Post Card + Quick Launch Toolkit (Reference Bottom Cards) -->
-            <div class="hero-right-bottom-grid">
-
-              <!-- Featured Highlight Card -->
-              <div class="bento-dark-card bento-featured-post">
-                <span class="featured-pill-badge">OFFICIAL V3.2 RELEASE</span>
-                <h3 class="featured-post-title">르메뜨레 공식 세미나 V3.2 마스터 덱</h3>
-                <p class="featured-post-desc">
-                  체험사례 11건 단계별 가림막 오픈 연출(01→02→03)과 신규 마케팅·100_600 연금 플랜이 완벽 통합된 64P 공식 세미나 에디션입니다.
-                </p>
-                <div class="hero-action-group">
-                  <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" class="btn-rose-primary" id="hero-main-cta" target="_blank">
-                    <span>Official 3.2 발표 시작</span> <span class="arrow">→</span>
-                  </a>
-                  <a href="#resources-catalog" class="btn-outline-clean">
-                    <span>전체 자료실 탐색</span>
-                  </a>
-                </div>
-              </div>
-
-              <!-- Toolkit Card (Reference "Toolkit" Vertical Icon List) -->
-              <div class="bento-dark-card bento-toolkit-card">
-                <div class="bento-card-header">
-                  <span class="bento-header-icon">🧰</span>
-                  <span class="bento-header-title">Quick Toolkit</span>
-                </div>
-                <div class="toolkit-list">
-                  <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" target="_blank" class="toolkit-row">
-                    <span class="toolkit-badge tk-pink">V3.2</span>
-                    <span class="toolkit-name">16:9 라이브 발표 뷰어</span>
-                  </a>
-                  <a href="docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.2.pptx" download="르메뜨레 세미나_Official_V3.2.pptx" class="toolkit-row">
-                    <span class="toolkit-badge tk-indigo">PPT</span>
-                    <span class="toolkit-name">Official 3.2 원본 다운로드</span>
-                  </a>
-                  <button type="button" class="toolkit-row js-jump-cat" data-category="analysis">
-                    <span class="toolkit-badge tk-cyan">SGS</span>
-                    <span class="toolkit-name">공인 시험성적서 열람</span>
-                  </button>
-                  <button type="button" class="toolkit-row js-jump-cat" data-category="review_video">
-                    <span class="toolkit-badge tk-amber">MP4</span>
-                    <span class="toolkit-name">임상·후기 다큐 영상</span>
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
+        <!-- Right 3D Portal Callouts (Script Text + 01/02/03 Vertical Indicator) -->
+        <div class="hero-right-3d-zone" aria-hidden="true">
+          <div class="hero-handwritten-callout">
+            <span>Fill</span>
+            <span>Empty</span>
+            <span>Protect</span>
+            <svg class="callout-underline-svg" viewBox="0 0 120 22" fill="none">
+              <path d="M4 16C38 6 82 4 116 12" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M24 20C54 13 78 12 98 16" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
           </div>
 
+          <div class="hero-vertical-steps">
+            <div class="v-step active"><span>01</span></div>
+            <div class="v-step"><span>02</span></div>
+            <div class="v-step"><span>03</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Glass Search Bar Across Water Horizon (Reference Search Pill) -->
+      <div class="hero-floating-search-wrap" id="hero-search-anchor">
+        <div class="hero-floating-search-pill">
+          <span class="floating-search-icon">🔍</span>
+          <input
+            type="text"
+            id="search-input"
+            class="floating-search-input"
+            placeholder="자료명, 키워드, 세미나 버전(V3.2), SGS 성적서 실시간 검색..."
+            aria-label="자료 검색"
+          >
+          <a href="#resources-catalog" class="floating-search-year-pill">
+            <span>Official V3.2 · 2026</span>
+            <span class="chevron">▾</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. Dashboard 6-Category Summary Cards (Reference Pastel Summary Strip) -->
-  <section class="summary-dashboard-section" id="summary-dashboard" aria-label="6대 카테고리 요약 대시보드">
+  <!-- ========================================================================
+       3. "WHAT WE DO" — 4 FROSTED GLASS 3D NEON ICON CARDS + 4-COLUMN STAT BAR
+       ======================================================================== -->
+  <section class="neomathic-services-section" id="summary-dashboard" aria-label="핵심 아카이브 카테고리">
     <div class="container">
-      <div id="summary-cards-grid" class="summary-cards-grid">
-        <!-- Dynamically rendered by main.js with live counts and 1st-slide/1st-clip thumbnails -->
+      <!-- Section Header Row -->
+      <div class="neomathic-sec-head">
+        <div class="sec-head-left">
+          <span class="sec-eyebrow-caps">OUR OFFICIAL ARCHIVE</span>
+          <h2 class="sec-title-duo">
+            <span class="w-white">What</span> <span class="w-lavender">We Provide</span>
+          </h2>
+        </div>
+        <p class="sec-head-desc">
+          세미나 프레젠테이션부터 실제 회원 임상 다큐멘터리, 한국·중국 SGS 공인 성적서까지<br class="hide-mobile">
+          비즈니스와 교육에 필요한 모든 공식 솔루션을 원클릭으로 제공합니다.
+        </p>
+        <div class="sec-head-right">
+          <a href="#resources-catalog" class="btn-glass-pill-sm">
+            <span>전체 자료 보기</span> <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4 Large Frosted Glass Cards with Custom 3D Rendered Neon Icons -->
+      <div class="neomathic-4cards-grid">
+        <!-- Card 1: Presentation & Lecture -->
+        <button type="button" class="neomathic-3d-card card-glow-blue js-jump-cat" data-category="presentation">
+          <span class="card-corner-dot"></span>
+          <div class="card-3d-icon-stage">
+            <img src="assets/3d/icon_3d_1.png" alt="프레젠테이션 & 강의 3D 아이콘" class="card-3d-icon-img">
+          </div>
+          <div class="card-3d-bottom">
+            <div class="card-3d-text">
+              <h3>프레젠테이션 &amp; 강의</h3>
+              <p>Official V3.2 세미나 64P,<br>SP 에디션, 세포 과학 메인 덱</p>
+            </div>
+            <span class="card-circle-arrow">→</span>
+          </div>
+        </button>
+
+        <!-- Card 2: Video Production / Clinical & Event Videos -->
+        <button type="button" class="neomathic-3d-card card-glow-gold js-jump-cat" data-category="review_video">
+          <span class="card-corner-dot"></span>
+          <div class="card-3d-icon-stage">
+            <img src="assets/3d/icon_3d_2.png" alt="임상 후기 & 행사 영상 3D 아이콘" class="card-3d-icon-img">
+          </div>
+          <div class="card-3d-bottom">
+            <div class="card-3d-text">
+              <h3>임상 후기 &amp; 행사 영상</h3>
+              <p>회원 인바디·혈액검진 다큐멘터리,<br>칭다오 여행 및 세미나 영상</p>
+            </div>
+            <span class="card-circle-arrow">→</span>
+          </div>
+        </button>
+
+        <!-- Card 3: Bio Analysis & SGS Reports -->
+        <button type="button" class="neomathic-3d-card card-glow-violet js-jump-cat" data-category="analysis">
+          <span class="card-corner-dot"></span>
+          <div class="card-3d-icon-stage">
+            <img src="assets/3d/icon_3d_3.png" alt="SGS 분석 성적서 3D 아이콘" class="card-3d-icon-img">
+          </div>
+          <div class="card-3d-bottom">
+            <div class="card-3d-text">
+              <h3>SGS 분석 &amp; 시험성적서</h3>
+              <p>500Da 이하 59.26% 초저분자,<br>조단백 98.9%, 무첨가 공인 검증</p>
+            </div>
+            <span class="card-circle-arrow">→</span>
+          </div>
+        </button>
+
+        <!-- Card 4: Official Documents & Forms -->
+        <button type="button" class="neomathic-3d-card card-glow-rose js-jump-cat" data-category="document">
+          <span class="card-corner-dot"></span>
+          <div class="card-3d-icon-stage">
+            <img src="assets/3d/icon_3d_4.png" alt="공식 문서 & 각종 양식 3D 아이콘" class="card-3d-icon-img">
+          </div>
+          <div class="card-3d-bottom">
+            <div class="card-3d-text">
+              <h3>공식 문서 &amp; 각종 양식</h3>
+              <p>아미노산 20종 학술 가이드,<br>제품 규격서 및 비즈니스 양식</p>
+            </div>
+            <span class="card-circle-arrow">→</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Full-Width Frosted Glass 4-Column Stat Strip (Reference 150+ / 300+ / 5+ / 100% Bar) -->
+      <div class="neomathic-stats-strip">
+        <div class="neo-stat-col">
+          <div class="neo-stat-icon icon-violet">📊</div>
+          <div class="neo-stat-info">
+            <strong>64P</strong>
+            <span>Official V3.2 세미나 덱</span>
+          </div>
+        </div>
+        <div class="neo-stat-col">
+          <div class="neo-stat-icon icon-amber">📂</div>
+          <div class="neo-stat-info">
+            <strong id="bento-total-files">19+</strong>
+            <span>공식 디지털 아카이브 자료</span>
+          </div>
+        </div>
+        <div class="neo-stat-col">
+          <div class="neo-stat-icon icon-gold">🏆</div>
+          <div class="neo-stat-info">
+            <strong>59.26%</strong>
+            <span>≤500Da 초저분자 펩타이드</span>
+          </div>
+        </div>
+        <div class="neo-stat-col">
+          <div class="neo-stat-icon icon-pink">💜</div>
+          <div class="neo-stat-info">
+            <strong>100%</strong>
+            <span>한국·중국 SGS 공인 성적서</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6-Category Quick Filter Strip (Dynamically populated by main.js) -->
+      <div id="summary-cards-grid" class="summary-cards-grid"></div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       4. INTERACTIVE 16:9 LIVE STAGE SHOWCASE & QUICK TOOLKIT
+       ======================================================================== -->
+  <section class="live-stage-bento-section" id="live-stage-showcase">
+    <div class="container">
+      <div class="neomathic-sec-head">
+        <div class="sec-head-left">
+          <span class="sec-eyebrow-caps">INTERACTIVE PRESENTATION STAGE</span>
+          <h2 class="sec-title-duo">
+            <span class="w-white">Live</span> <span class="w-lavender">Stage Preview</span>
+          </h2>
+        </div>
+        <p class="sec-head-desc">
+          설치 없이 브라우저에서 즉시 16:9 와이드 전체화면(F11)으로 발표하거나<br class="hide-mobile">
+          체험사례 가림막 단계별 오픈(01→02→03) 연출이 적용된 원본 PPTX를 다운로드하세요.
+        </p>
+        <div class="sec-head-right">
+          <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" class="btn-glass-pill-sm" id="btn-top-launch" target="_blank">
+            <span>⛶ 전체화면 발표 열기</span> <span>↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="live-stage-split-box">
+        <!-- Left: 16:9 Interactive Preview Frame -->
+        <div class="stage-frame">
+          <div class="stage-topbar">
+            <div class="stage-deck-tabs">
+              <button class="stage-tab-btn active" id="tab-deck-v30-seminar" data-deck="v30-seminar">
+                🏆 Official 3.2 세미나 덱 (64P)
+              </button>
+              <button class="stage-tab-btn" id="tab-deck-sp-edition" data-deck="sp-edition">
+                ✨ v2.1 SP 에디션 (30P)
+              </button>
+              <button class="stage-tab-btn" id="tab-deck-cell-science" data-deck="cell-science">
+                🧬 세포 과학 덱 (27P)
+              </button>
+            </div>
+          </div>
+
+          <div class="stage-canvas-wrapper" id="stage-canvas">
+            <!-- Populated dynamically by main.js -->
+          </div>
+
+          <div class="stage-controller-bar">
+            <div class="stage-nav-group">
+              <button class="stage-nav-arrow" id="stage-prev-btn" title="이전 슬라이드 (←)">‹</button>
+              <div class="stage-counter-display">
+                <span id="stage-current-idx">01</span> <span class="total">/ <span id="stage-total-idx">05</span></span>
+              </div>
+              <button class="stage-nav-arrow" id="stage-next-btn" title="다음 슬라이드 (→)">›</button>
+            </div>
+
+            <div class="stage-progress-bar">
+              <div class="stage-progress-fill" id="stage-progress-fill" style="width: 20%;"></div>
+            </div>
+
+            <div class="stage-quick-actions">
+              <span class="stage-key-hint">⌨️ 방향키 미리보기</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Official V3.2 Highlight & Quick Toolkit -->
+        <div class="stage-side-bento">
+          <div class="bento-dark-card bento-featured-post">
+            <span class="featured-pill-badge">OFFICIAL V3.2 RELEASE</span>
+            <h3 class="featured-post-title">르메뜨레 공식 세미나 V3.2 마스터 덱</h3>
+            <p class="featured-post-desc">
+              체험사례 11건 단계별 가림막 오픈 연출(01→02→03)과 신규 마케팅·100_600 연금 플랜이 완벽 통합된 64P 공식 세미나 에디션입니다.
+            </p>
+            <div class="hero-action-group">
+              <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" class="btn-neomathic-white btn-sm-pad" target="_blank">
+                <span>Official 3.2 발표 시작</span> <span class="arrow">→</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="bento-dark-card bento-toolkit-card">
+            <div class="bento-card-header">
+              <span class="bento-header-icon">🧰</span>
+              <span class="bento-header-title">Quick Launch Toolkit</span>
+            </div>
+            <div class="toolkit-list">
+              <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" target="_blank" class="toolkit-row">
+                <span class="toolkit-badge tk-pink">V3.2</span>
+                <span class="toolkit-name">16:9 라이브 발표 뷰어 열기</span>
+              </a>
+              <a href="docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.2.pptx" download="르메뜨레 세미나_Official_V3.2.pptx" class="toolkit-row">
+                <span class="toolkit-badge tk-indigo">PPT</span>
+                <span class="toolkit-name">Official 3.2 원본 PPTX 다운로드</span>
+              </a>
+              <button type="button" class="toolkit-row js-jump-cat" data-category="analysis">
+                <span class="toolkit-badge tk-cyan">SGS</span>
+                <span class="toolkit-name">한국·중국 SGS 공인 성적서 열람</span>
+              </button>
+              <button type="button" class="toolkit-row js-jump-cat" data-category="review_video">
+                <span class="toolkit-badge tk-amber">MP4</span>
+                <span class="toolkit-name">회원 인바디·혈액검진 후기 다큐</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 5. Main Content: Resource Archive Catalog (Reference Trending Products Style) -->
+  <!-- ========================================================================
+       5. "RECENT PROJECTS" — OFFICIAL ARCHIVE CATALOG (Dark Glass Cards Grid)
+       ======================================================================== -->
   <main class="main-content" id="resources-catalog">
     <div class="container">
-      <div class="section-head-centered">
-        <h2 class="section-title-centered">르메뜨레 공식 아카이브 자료실</h2>
-        <div class="section-title-underline"></div>
-        <p class="section-subtitle-centered">
-          PPT는 <strong>첫 슬라이드 표지</strong>로, 영상은 <strong>첫 클립 화면</strong>으로 한눈에 확인하고 즉시 발표·재생하세요.
-        </p>
-      </div>
+      <div class="neomathic-sec-head catalog-head-bar">
+        <div class="sec-head-left">
+          <span class="sec-eyebrow-caps">FEATURED ARCHIVE</span>
+          <h2 class="sec-title-duo">
+            <span class="w-white">Official</span> <span class="w-lavender">Resources</span>
+          </h2>
+        </div>
 
-      <!-- Centered Pill Filter Tabs -->
-      <div class="filter-pills-wrapper">
-        <div class="filter-tabs" role="tablist" aria-label="자료 카테고리 필터">
-          <button class="filter-btn active" data-category="all">전체 자료</button>
-          <button class="filter-btn" data-category="presentation">프레젠테이션&amp;강의</button>
-          <button class="filter-btn" data-category="document">문서 자료</button>
-          <button class="filter-btn" data-category="event_video">행사 영상</button>
-          <button class="filter-btn" data-category="review_video">후기 영상</button>
-          <button class="filter-btn" data-category="analysis">분석 자료</button>
-          <button class="filter-btn" data-category="forms">각종 양식</button>
+        <!-- Dark Glass Pill Filter Tabs -->
+        <div class="filter-pills-wrapper">
+          <div class="filter-tabs" role="tablist" aria-label="자료 카테고리 필터">
+            <button class="filter-btn active" data-category="all">전체 자료</button>
+            <button class="filter-btn" data-category="presentation">프레젠테이션&amp;강의</button>
+            <button class="filter-btn" data-category="document">문서 자료</button>
+            <button class="filter-btn" data-category="event_video">행사 영상</button>
+            <button class="filter-btn" data-category="review_video">후기 영상</button>
+            <button class="filter-btn" data-category="analysis">분석 자료</button>
+            <button class="filter-btn" data-category="forms">각종 양식</button>
+          </div>
         </div>
       </div>
 
-      <!-- Resource Cards Grid -->
-      <div id="resources-grid" class="resource-grid">
-        <!-- Rendered dynamically by main.js -->
-      </div>
+      <!-- Resource Cards Grid (Rendered dynamically by main.js) -->
+      <div id="resources-grid" class="resource-grid"></div>
     </div>
   </main>
 
-  <!-- 6. 4-Column Core Feature Strip (Reference Service Highlights Box) -->
-  <section class="trust-features-section">
-    <div class="container">
-      <div class="trust-features-box">
-        <div class="trust-feature-item">
-          <div class="trust-icon-circle tone-lavender">🖼️</div>
-          <div class="trust-text">
-            <h4>첫 화면 실시간 미리보기</h4>
-            <p>PPT 첫 슬라이드 &amp; 영상 첫 클립 즉시 표시</p>
-          </div>
-        </div>
-        <div class="trust-feature-item">
-          <div class="trust-icon-circle tone-pink">🚀</div>
-          <div class="trust-text">
-            <h4>16:9 와이드 라이브 발표</h4>
-            <p>별도 프로그램 없이 브라우저 F11 풀스크린</p>
-          </div>
-        </div>
-        <div class="trust-feature-item">
-          <div class="trust-icon-circle tone-sky">🔒</div>
-          <div class="trust-text">
-            <h4>공식 파트너 보안 인증</h4>
-            <p>SHA-256 암호화 4자리 보안 코드 다운로드</p>
-          </div>
-        </div>
-        <div class="trust-feature-item">
-          <div class="trust-icon-circle tone-yellow">📱</div>
-          <div class="trust-text">
-            <h4>PC · 태블릿 · 모바일 반응형</h4>
-            <p>언제 어디서나 모든 기기에서 완벽 호환</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. Secondary Bottom Feature Banner (Reference Warm Peach-Pink Promo Banner) -->
+  <!-- ========================================================================
+       6. BOTTOM 3D SUNSET ARCH PROMO BANNER (Reference "LET'S WORK TOGETHER")
+       ======================================================================== -->
   <section class="secondary-promo-section">
     <div class="container">
-      <div class="secondary-promo-banner">
-        <div class="promo-content-left">
-          <span class="promo-eyebrow">NEW CLINICAL &amp; SP EDITION</span>
-          <h3 class="promo-headline">
-            실제 데이터가 증명하는<br>
-            <span class="text-rose-accent">르메뜨레 바이오 솔루션</span>
+      <div class="neomathic-bottom-arch-banner">
+        <img src="assets/3d/hero_arch_3d.jpg" alt="" class="bottom-arch-bg" aria-hidden="true">
+        <div class="bottom-arch-overlay" aria-hidden="true"></div>
+
+        <div class="bottom-arch-content">
+          <span class="sec-eyebrow-caps">L.REMETTRE 3-STEP BIO SOLUTION</span>
+          <h3 class="bottom-arch-headline">
+            삶을 가장 건강하고 활력 넘치던<br>
+            <span class="w-lavender">시점으로 되돌리다.</span>
           </h3>
-          <p class="promo-desc">
-            500 Da 이하 초저분자 소이 펩타이드 SP 에디션 프레젠테이션과<br class="hide-mobile">
-            실제 회원 인바디·혈액검진 후기 다큐멘터리 영상을 지금 바로 만나보세요.
+          <p class="bottom-arch-desc">
+            500 Da 이하 초저분자 소이 펩타이드(59.26%) · 풀컵 오크라 · 98% 고농축 오크라 블룸.<br class="hide-mobile">
+            실제 임상 데이터와 SGS 공인 시험성적서가 증명하는 르메뜨레 공식 아카이브를 지금 경험하세요.
           </p>
-          <div class="promo-actions">
-            <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_v2.1_SP%EC%97%90%EB%94%94%EC%85%98.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(v2.1%20SP%20%EC%97%90%EB%94%94%EC%85%98)" target="_blank" class="btn-rose-primary">
-              <span>v2.1 SP 에디션 열기</span> <span class="arrow">→</span>
+          <div class="bottom-arch-actions">
+            <a href="viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20(Official%20V3.2)" target="_blank" class="btn-neomathic-white">
+              <span>Official 3.2 발표 시작</span> <span class="arrow">→</span>
             </a>
-            <button type="button" class="btn-outline-clean js-jump-cat" data-category="review_video">
-              <span>🎬 후기 영상 바로보기</span>
+            <button type="button" class="btn-neomathic-play js-jump-cat" data-category="review_video">
+              <span class="play-circle-icon">🎬</span>
+              <span>임상 후기 다큐 바로보기</span>
             </button>
           </div>
         </div>
-
-        <div class="promo-preview-right">
-          <div class="promo-cards-stack">
-            <img src="assets/thumbs/presentation-르메뜨레프레젠테이션v21SP에디션.jpg" alt="v2.1 SP 에디션 첫 슬라이드" class="promo-stack-img img-back">
-            <img src="assets/thumbs/review_video-02르메뜨레회원인바디건강다큐HUD비실명판.jpg" alt="회원 인바디 후기 영상 첫 클립" class="promo-stack-img img-front">
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- 8. Clean White Footer -->
+  <!-- ========================================================================
+       7. DARK GLASS FOOTER
+       ======================================================================== -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
@@ -563,7 +530,9 @@
     </div>
   </footer>
 
-  <!-- Security Access Download Modal -->
+  <!-- ========================================================================
+       8. SECURITY ACCESS DOWNLOAD MODAL (Dark Glassmorphic Edition)
+       ======================================================================== -->
   <div id="auth-modal-backdrop" class="auth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
     <div id="auth-modal-dialog" class="auth-modal-dialog">
       <button id="auth-close-btn" class="auth-modal-close-btn" title="닫기 (ESC)">✕</button>
@@ -620,10 +589,10 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/slides-data.js?v=15"></script>
-  <script src="js/auth-config.js?v=15"></script>
-  <script src="js/auth-download.js?v=15"></script>
-  <script src="js/main.js?v=15"></script>
-  <script src="js/pwa-install.js?v=15"></script>
+  <script src="js/slides-data.js?v=16"></script>
+  <script src="js/auth-config.js?v=16"></script>
+  <script src="js/auth-download.js?v=16"></script>
+  <script src="js/main.js?v=16"></script>
+  <script src="js/pwa-install.js?v=16"></script>
 </body>
 </html>
