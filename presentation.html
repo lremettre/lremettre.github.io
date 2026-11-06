@@ -10,6 +10,8 @@
   
   <!-- Presentation Stylesheet -->
   <link rel="stylesheet" href="css/presentation.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#EC4899">
 </head>
 <body class="theme-dark">
 
@@ -73,5 +75,6 @@
   <!-- Scripts -->
   <script src="js/slides-data.js"></script>
   <script src="js/presentation.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}</script>
 </body>
 </html>
