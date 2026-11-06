@@ -489,7 +489,7 @@ def scan_docs():
         elif ginfo["image_rel_path"]:
             thumbnail_url = ginfo["image_rel_path"]
 
-        slide_count = preset.get("slide_count") or detected_pages
+        slide_count = detected_pages or preset.get("slide_count")
 
         key_points = preset.get("key_points", [
             f"지원 포맷: {', '.join([k.upper() for k in ginfo['files'].keys()])}",
