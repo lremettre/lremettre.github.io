@@ -132,10 +132,8 @@
 
     #pdf-canvas {
       display: block;
-      max-width: 100%;
-      max-height: calc(100vh - 150px);
-      height: auto;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       -webkit-user-drag: none;
     }
@@ -516,12 +514,16 @@
           ensureVideoSrc(case11Vid4);
         }
         pdfDoc.getPage(num).then(function (page) {
-          // Calculate scale to fit viewport smoothly with high DPI
+          // Calculate scale to fit viewport smoothly with high DPI (accounting for exact shell padding)
           const viewportShell = document.getElementById('viewport-shell');
+          const canvasContainer = document.getElementById('canvas-container');
+          const shellStyle = window.getComputedStyle(viewportShell);
+          const padX = (parseFloat(shellStyle.paddingLeft) || 0) + (parseFloat(shellStyle.paddingRight) || 0);
+          const padY = (parseFloat(shellStyle.paddingTop) || 0) + (parseFloat(shellStyle.paddingBottom) || 0);
           lastShellW = viewportShell.clientWidth;
           lastShellH = viewportShell.clientHeight;
-          const availWidth = Math.max(320, lastShellW - 40);
-          const availHeight = Math.max(240, lastShellH - 40);
+          const availWidth = Math.max(200, lastShellW - padX);
+          const availHeight = Math.max(150, lastShellH - padY);
 
           const unscaledViewport = page.getViewport({ scale: 1 });
           const scaleX = availWidth / unscaledViewport.width;
@@ -554,6 +556,10 @@
             if (canvas.width !== targetW || canvas.height !== targetH) {
               canvas.width = targetW;
               canvas.height = targetH;
+            }
+            if (canvasContainer) {
+              canvasContainer.style.width = cssW;
+              canvasContainer.style.height = cssH;
             }
             canvas.style.width = cssW;
             canvas.style.height = cssH;

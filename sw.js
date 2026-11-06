@@ -3,7 +3,7 @@
  * - 이미지 썸네일: stale-while-revalidate
  * - PDF/영상(성적서·대용량 자료): 캐시하지 않음 (열람 전용 보안 + 용량 보호)
  */
-const CACHE = 'lremettre-v17';
+const CACHE = 'lremettre-v18';
 const CORE = [
   './',
   './index.html',
