@@ -3,14 +3,14 @@
  * - 이미지 썸네일: stale-while-revalidate
  * - PDF/영상(성적서·대용량 자료): 캐시하지 않음 (열람 전용 보안 + 용량 보호)
  */
-const CACHE = 'lremettre-v12';
+const CACHE = 'lremettre-v13';
 const CORE = [
   './',
   './index.html',
   './viewer.html',
-  './css/style.css?v=12',
-  './js/main.js?v=12',
-  './js/slides-data.js?v=12',
+  './css/style.css?v=13',
+  './js/main.js?v=13',
+  './js/slides-data.js?v=13',
   './assets/logo/lremettre_emblem.png',
   './assets/icons/icon-192.png'
 ];
