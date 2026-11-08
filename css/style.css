@@ -1128,7 +1128,7 @@ body {
 /* 6-Category Summary Cards Strip (Dark Glass Edition) */
 .summary-cards-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 14px;
 }
 
@@ -1241,6 +1241,9 @@ body {
   }
   .summary-cards-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .summary-cards-grid > .summary-pastel-card:nth-child(7):last-child {
+    grid-column: 1 / -1;
   }
 }
 

@@ -79,6 +79,14 @@
       tone: 'tone-lavender',
       icon: '📋',
       defaultThumb: ''
+    },
+    {
+      key: 'image',
+      name: '이미지 자료',
+      eyebrow: 'IMAGE GALLERY',
+      tone: 'tone-mint',
+      icon: '🖼️',
+      defaultThumb: ''
     }
   ];
 
@@ -423,6 +431,8 @@
           } else if (item.downloads.pptx) {
             const rawUrl = window.location.origin + window.location.pathname.replace('index.html', '') + item.downloads.pptx.url;
             webDeckUrl = `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(rawUrl)}`;
+          } else if (item.downloads.image) {
+            webDeckUrl = item.downloads.image.url;
           }
         }
 
@@ -451,14 +461,19 @@
         } else if (item.category === 'document') {
           launchLabel = '문서 열람하기';
           launchIcon = '📖';
+        } else if (item.category === 'image') {
+          launchLabel = '이미지 크게 보기';
+          launchIcon = '🖼️';
         }
 
         // 좌상단 핑크 알약 뱃지 (슬라이드 장수 또는 영상 길이)
         const leftPillText = isViewOnly
           ? `🔒 열람전용 · ${item.slide_count || 1}P`
-          : (item.slide_count
-              ? `${item.slide_count}P 슬라이드`
-              : (item.duration ? `🎬 ${item.duration}` : (item.badge || item.version)));
+          : (item.category === 'image'
+              ? '🖼️ 이미지'
+              : (item.slide_count
+                  ? `${item.slide_count}P 슬라이드`
+                  : (item.duration ? `🎬 ${item.duration}` : (item.badge || item.version))));
 
         // 16:9 실제 미리보기 미디어 (PPT 첫 슬라이드 이미지 vs 영상 첫 클립 대표 화면 + 호버 비디오)
         let previewMediaHtml = '';
@@ -491,9 +506,11 @@
           `;
         }
 
-        const previewChipText = (isViewOnly || item.category === 'analysis' || item.category === 'document')
-          ? '첫 페이지 미리보기'
-          : '첫 슬라이드 미리보기';
+        const previewChipText = item.category === 'image'
+          ? '이미지 미리보기'
+          : ((isViewOnly || item.category === 'analysis' || item.category === 'document')
+              ? '첫 페이지 미리보기'
+              : '첫 슬라이드 미리보기');
 
         const previewChipHtml = isVideoItem
           ? `<div class="card-preview-chip video-chip">

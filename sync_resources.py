@@ -9,6 +9,7 @@
   04_후기_영상 (후기 영상)
   05_분석_자료 (분석 자료)
   06_각종_양식 (각종 양식)
+  07_이미지_자료 (이미지 자료)
 - 모든 PDF/PPTX의 첫 슬라이드(1페이지)와 MP4 영상의 첫 클립 고해상도 썸네일을
   assets/thumbs/ 폴더에 자동 추출하여 카드 미리보기를 100% 보장합니다.
 """
@@ -40,6 +41,7 @@ CATEGORY_MAP = {
     "05_분석_자료": {"category": "analysis", "name": "분석 자료", "badge": "데이터분석"},
     "06_각종_양식": {"category": "forms", "name": "각종 양식", "badge": "공식양식"},
     "04_공식_서식": {"category": "forms", "name": "각종 양식", "badge": "공식양식"},
+    "07_이미지_자료": {"category": "image", "name": "이미지 자료", "badge": "이미지"},
 }
 
 def format_size(bytes_size):
@@ -142,19 +144,47 @@ def generate_video_thumbnail_and_duration(video_path, group_key):
 
     return (thumb_rel_url if os.path.exists(thumb_full_path) else None), duration_str
 
+def generate_image_thumbnail(image_path, group_key):
+    """
+    이미지 자료(PNG/JPG/WEBP/GIF)를 카드 미리보기용 가로 960px 경량 JPEG 썸네일로 변환합니다.
+    (원본 고해상도 이미지는 클릭 시 새 탭에서 그대로 열람)
+    """
+    os.makedirs(THUMBS_DIR, exist_ok=True)
+    thumb_filename = f"{group_key}.jpg"
+    thumb_full_path = os.path.join(THUMBS_DIR, thumb_filename)
+    thumb_rel_url = f"assets/thumbs/{thumb_filename}"
+    try:
+        need_gen = not os.path.exists(thumb_full_path) or (os.path.getmtime(image_path) > os.path.getmtime(thumb_full_path))
+        if need_gen:
+            with Image.open(image_path) as im:
+                im.seek(0)
+                img = im.convert("RGBA")
+                bg = Image.new("RGB", img.size, (255, 255, 255))
+                bg.paste(img, mask=img.split()[3])
+                if bg.width > 960:
+                    ratio = 960.0 / bg.width
+                    bg = bg.resize((960, max(1, int(bg.height * ratio))), Image.Resampling.LANCZOS)
+                bg.save(thumb_full_path, format="JPEG", quality=86, optimize=True)
+                print(f"[이미지 썸네일 생성] {os.path.basename(image_path)} -> {thumb_rel_url}")
+    except Exception as e:
+        print(f"[이미지 썸네일 생성 스킵] {os.path.basename(image_path)}: {e}")
+        return None
+    return thumb_rel_url if os.path.exists(thumb_full_path) else None
+
 def scan_docs():
     if not os.path.exists(DOCS_DIR):
         print(f"Docs folder not found: {DOCS_DIR}")
         return []
 
-    # 6대 공식 폴더가 없으면 자동 생성
+    # 7대 공식 폴더가 없으면 자동 생성
     for default_folder in [
         "01_프레젠테이션_강의",
         "02_문서_자료",
         "03_행사_영상",
         "04_후기_영상",
         "05_분석_자료",
-        "06_각종_양식"
+        "06_각종_양식",
+        "07_이미지_자료"
     ]:
         os.makedirs(os.path.join(DOCS_DIR, default_folder), exist_ok=True)
 
@@ -396,6 +426,8 @@ def scan_docs():
                 cat_info = {"category": "document", "name": "문서 자료", "badge": "공식문서"}
             elif "양식" in top_folder or "서식" in top_folder:
                 cat_info = {"category": "forms", "name": "각종 양식", "badge": "공식양식"}
+            elif "이미지" in top_folder or "사진" in top_folder or "image" in top_folder.lower():
+                cat_info = {"category": "image", "name": "이미지 자료", "badge": "이미지"}
             else:
                 cat_info = {"category": "presentation", "name": "프레젠테이션&강의", "badge": "강의/발표"}
 
@@ -407,7 +439,7 @@ def scan_docs():
             rel_file_path = os.path.relpath(file_path, SCRIPT_DIR).replace('\\', '/')
             ext = os.path.splitext(fname)[1].lower()
 
-            if ext not in ['.pptx', '.ppt', '.pdf', '.xlsx', '.xls', '.docx', '.png', '.jpg', '.jpeg', '.mp4', '.webm', '.mov', '.m4v']:
+            if ext not in ['.pptx', '.ppt', '.pdf', '.xlsx', '.xls', '.docx', '.png', '.jpg', '.jpeg', '.webp', '.gif', '.mp4', '.webm', '.mov', '.m4v']:
                 continue
 
             file_size = os.path.getsize(file_path)
@@ -456,7 +488,7 @@ def scan_docs():
                     "name": fname,
                     "size": size_str
                 }
-            elif ext in ['.png', '.jpg', '.jpeg']:
+            elif ext in ['.png', '.jpg', '.jpeg', '.webp', '.gif']:
                 groups[group_key]["files"]["image"] = {
                     "url": rel_file_path,
                     "name": fname,
@@ -495,7 +527,7 @@ def scan_docs():
         elif ginfo["video_disk_path"] and os.path.exists(ginfo["video_disk_path"]):
             thumbnail_url, detected_duration = generate_video_thumbnail_and_duration(ginfo["video_disk_path"], gid)
         elif ginfo["image_rel_path"]:
-            thumbnail_url = ginfo["image_rel_path"]
+            thumbnail_url = generate_image_thumbnail(os.path.join(SCRIPT_DIR, ginfo["image_rel_path"]), gid) or ginfo["image_rel_path"]
 
         slide_count = preset.get("slide_count") or detected_pages
 
@@ -543,6 +575,8 @@ def scan_docs():
             encoded_video = urllib.parse.quote(ginfo["files"]["video"]["url"])
             encoded_title = urllib.parse.quote(title)
             item["web_deck_url"] = f"viewer.html?file={encoded_video}&title={encoded_title}&type=video"
+        elif "image" in ginfo["files"]:
+            item["web_deck_url"] = urllib.parse.quote(ginfo["files"]["image"]["url"])
 
         resources.append(item)
 
@@ -554,6 +588,7 @@ def scan_docs():
         "review_video": 3,
         "analysis": 4,
         "forms": 5,
+        "image": 6,
     }
     resources.sort(key=lambda x: (cat_order.get(x["category"], 9), x["id"]), reverse=False)
 
