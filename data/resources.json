@@ -177,6 +177,41 @@
     "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/LBT_%EB%B0%94%EB%94%94%ED%84%B4%EC%B1%8C%EB%A6%B0%EC%A7%80_4%EC%A3%BC%EC%B0%A8_%EC%9A%94%EC%9A%94%EC%B0%A8%EB%8B%A8_%EC%BD%94%EC%B9%98%EB%B9%84%EC%A0%84_%EC%8B%9C%EC%83%81%EC%8B%9D_v4.pdf&title=LBT%20%EB%B0%94%EB%94%94%ED%84%B4%EC%B1%8C%EB%A6%B0%EC%A7%80%204%EC%A3%BC%EC%B0%A8%20%EC%9A%94%EC%9A%94%EC%B0%A8%EB%8B%A8%20%EC%BD%94%EC%B9%98%EB%B9%84%EC%A0%84%20%EC%8B%9C%EC%83%81%EC%8B%9D%20v4"
   },
   {
+    "id": "presentation-LReMeTTRe11070연금만들기v10",
+    "category": "presentation",
+    "category_name": "프레젠테이션&강의",
+    "title": "L.ReMeTTRe 110·70 연금 만들기 v1.0",
+    "subtitle": "프레젠테이션&강의 공식 아카이브 자료",
+    "version": "v1.0",
+    "date": "2026-11-10",
+    "badge": "강의/발표",
+    "tags": [
+      "프레젠테이션&강의",
+      "v1.0"
+    ],
+    "description": "프레젠테이션&강의 공식 자료입니다. 브라우저에서 첫 화면 미리보기 및 전체화면 발표/재생, 보안 다운로드를 지원합니다.",
+    "key_points": [
+      "지원 포맷: PDF, PPTX",
+      "업데이트 일자: 2026-11-10",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/01_프레젠테이션_강의/L.ReMeTTRe_110·70 연금 만들기_v1.0.pdf",
+        "name": "L.ReMeTTRe_110·70 연금 만들기_v1.0.pdf",
+        "size": "716.6 KB"
+      },
+      "pptx": {
+        "url": "docs/01_프레젠테이션_강의/L.ReMeTTRe_110·70 연금 만들기_v1.0.pptx",
+        "name": "L.ReMeTTRe_110·70 연금 만들기_v1.0.pptx",
+        "size": "3.7 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/presentation-LReMeTTRe11070연금만들기v10.jpg",
+    "slide_count": 15,
+    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/L.ReMeTTRe_110%C2%B770%20%EC%97%B0%EA%B8%88%20%EB%A7%8C%EB%93%A4%EA%B8%B0_v1.0.pdf&title=L.ReMeTTRe%20110%C2%B770%20%EC%97%B0%EA%B8%88%20%EB%A7%8C%EB%93%A4%EA%B8%B0%20v1.0"
+  },
+  {
     "id": "presentation-LReMeTTReNEWPPT",
     "category": "presentation",
     "category_name": "프레젠테이션&강의",
