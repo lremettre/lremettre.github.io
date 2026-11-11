@@ -279,39 +279,39 @@
     "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/lremettre%EC%82%AC%EC%97%85%EC%84%A4%EB%AA%85%EC%9E%90%EB%A3%8C_%EC%84%B8%EB%AF%B8%EB%82%98%EC%9A%A9_V1.4.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%82%AC%EC%97%85%EC%84%A4%EB%AA%85%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%BC%EC%B9%98%EB%8D%B1%20%28V1.4%20%EC%B5%9C%EC%8B%A0%ED%8C%90%29"
   },
   {
-    "id": "presentation-르메뜨레세미나OfficialV33",
+    "id": "presentation-르메뜨레세미나OfficialV34",
     "category": "presentation",
     "category_name": "프레젠테이션&강의",
-    "title": "르메뜨레 세미나 Official V3.3",
+    "title": "르메뜨레 세미나 Official V3.4",
     "subtitle": "프레젠테이션&강의 공식 아카이브 자료",
-    "version": "V3.3",
-    "date": "2026-11-10",
+    "version": "V3.4",
+    "date": "2026-11-11",
     "badge": "강의/발표",
     "tags": [
       "프레젠테이션&강의",
-      "V3.3"
+      "V3.4"
     ],
     "description": "프레젠테이션&강의 공식 자료입니다. 브라우저에서 첫 화면 미리보기 및 전체화면 발표/재생, 보안 다운로드를 지원합니다.",
     "key_points": [
       "지원 포맷: PDF, PPTX",
-      "업데이트 일자: 2026-11-10",
+      "업데이트 일자: 2026-11-11",
       "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
     ],
     "downloads": {
       "pdf": {
-        "url": "docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.3.pdf",
-        "name": "르메뜨레 세미나_Official_V3.3.pdf",
-        "size": "5.8 MB"
+        "url": "docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.4.pdf",
+        "name": "르메뜨레 세미나_Official_V3.4.pdf",
+        "size": "5.7 MB"
       },
       "pptx": {
-        "url": "docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.3.pptx",
-        "name": "르메뜨레 세미나_Official_V3.3.pptx",
-        "size": "47.5 MB"
+        "url": "docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.4.pptx",
+        "name": "르메뜨레 세미나_Official_V3.4.pptx",
+        "size": "47.4 MB"
       }
     },
-    "thumbnail": "assets/thumbs/presentation-르메뜨레세미나OfficialV33.jpg",
-    "slide_count": 66,
-    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.3.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98%20Official%20V3.3"
+    "thumbnail": "assets/thumbs/presentation-르메뜨레세미나OfficialV34.jpg",
+    "slide_count": 51,
+    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.4.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98%20Official%20V3.4"
   },
   {
     "id": "presentation-르메뜨레프레젠테이션v21SP에디션",
