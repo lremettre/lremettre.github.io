@@ -106,12 +106,14 @@ body.theme-dark {
 html, body {
   width: 100%;
   height: 100%;
+  height: 100dvh;
   overflow: hidden;
   background-color: var(--bg-page);
   font-family: var(--font-sans);
   color: var(--body-color);
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
   transition: background-color 0.3s ease;
 }
 
@@ -119,6 +121,8 @@ html, body {
 #viewport-shell {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -428,14 +432,15 @@ html, body {
 /* Top HUD Bar */
 .top-hud {
   position: absolute;
-  top: 16px;
-  left: 20px;
-  right: 20px;
+  top: max(10px, env(safe-area-inset-top));
+  left: max(14px, env(safe-area-inset-left));
+  right: max(14px, env(safe-area-inset-right));
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 100;
   pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s ease;
 }
 
 .top-hud > * {
@@ -456,6 +461,9 @@ html, body {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-decoration: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  white-space: nowrap;
   transition: all 0.2s ease;
 }
 
@@ -474,7 +482,7 @@ html, body {
 /* Bottom HUD Controller */
 .bottom-hud {
   position: absolute;
-  bottom: 16px;
+  bottom: max(12px, env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -486,7 +494,34 @@ html, body {
   border-radius: 9999px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 100;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+/* Auto-Hiding Floating HUD State */
+body.hud-hidden .top-hud {
+  opacity: 0;
+  transform: translateY(-16px);
+  pointer-events: none;
+}
+
+body.hud-hidden .top-hud > * {
+  pointer-events: none !important;
+}
+
+body.hud-hidden .bottom-hud {
+  opacity: 0;
+  transform: translate(-50%, 16px);
+  pointer-events: none;
+}
+
+body.hud-hidden .bottom-hud * {
+  pointer-events: none !important;
+}
+
+body.hud-hidden.is-fullscreen {
+  cursor: none;
 }
 
 .hud-nav-btn {
@@ -538,6 +573,7 @@ html, body {
   height: 4px;
   background: rgba(0, 0, 0, 0.08);
   z-index: 99;
+  pointer-events: none;
 }
 
 .progress-bar-fill {
@@ -553,6 +589,7 @@ html, body {
   inset: 0;
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
   display: none;
   align-items: flex-end;
@@ -569,8 +606,9 @@ html, body {
   background: var(--bg-slide);
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-  padding: 32px 40px;
-  max-height: 80vh;
+  padding: 32px 40px calc(28px + env(safe-area-inset-bottom, 0px));
+  max-height: 82vh;
+  max-height: 82dvh;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--card-border);
@@ -581,6 +619,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
@@ -632,4 +671,113 @@ html, body {
   font-weight: 700;
   color: var(--title-color);
   line-height: 1.35;
+}
+
+/* PWA Install Bar Fallback Styling */
+.pwa-install-bar {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  z-index: 9999;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(18, 15, 36, 0.95);
+  border: 1px solid rgba(196, 181, 253, 0.35);
+  backdrop-filter: blur(14px);
+  color: #FFFFFF;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+.pwa-install-icon { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; }
+.pwa-install-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.pwa-install-text strong { font-size: 15px; font-weight: 900; }
+.pwa-install-text span { font-size: 12.5px; color: #CBD5E1; }
+.pwa-install-btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  color: #0F172A;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.pwa-install-close {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: #94A3B8;
+  font-size: 22px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Mobile & Compact Landscape Responsiveness */
+@media (max-width: 768px) {
+  .key-hint { display: none; }
+}
+
+@media (max-width: 640px) {
+  .hide-xs { display: none; }
+  .hud-btn { padding: 7px 10px; font-size: 12px; gap: 5px; }
+  .hud-actions-right { gap: 6px; }
+  .bottom-hud { padding: 6px 16px; gap: 12px; }
+  .hud-nav-btn { width: 34px; height: 34px; font-size: 15px; }
+  .slide-counter { font-size: 13.5px; min-width: 60px; }
+  .drawer-panel { padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px)); max-height: 86dvh; }
+  .drawer-header { margin-bottom: 14px; }
+  .drawer-header h3 { font-size: 16px; }
+  .drawer-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  body.theme-dark { background-color: #000000; }
+  .key-hint { display: none; }
+  .hud-btn { padding: 6px 11px; font-size: 12px; gap: 5px; }
+  .hud-actions-right { gap: 6px; }
+  .bottom-hud { padding: 6px 16px; gap: 12px; }
+  .hud-nav-btn { width: 34px; height: 34px; font-size: 15px; }
+  .slide-counter { font-size: 13.5px; min-width: 60px; }
+  #viewport-shell { padding: 0 !important; }
+  #slide-stage { box-shadow: none; }
+  .drawer-panel { padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px)); max-height: 88dvh; }
+  .drawer-header { margin-bottom: 12px; }
+  .drawer-header h3 { font-size: 16px; }
+  .pwa-install-bar { display: none !important; }
+}
+
+:fullscreen body.theme-dark,
+:-webkit-full-screen body.theme-dark,
+body.is-fullscreen.theme-dark,
+body.is-immersive.theme-dark {
+  background-color: #000000;
+}
+
+:fullscreen #viewport-shell,
+:-webkit-full-screen #viewport-shell,
+body.is-fullscreen #viewport-shell,
+body.is-immersive #viewport-shell {
+  padding: 0 !important;
+}
+
+:fullscreen #slide-stage,
+:-webkit-full-screen #slide-stage,
+body.is-fullscreen #slide-stage,
+body.is-immersive #slide-stage {
+  box-shadow: none;
+}
+
+:fullscreen .pwa-install-bar,
+:-webkit-full-screen .pwa-install-bar,
+body.is-fullscreen .pwa-install-bar,
+body.is-immersive .pwa-install-bar {
+  display: none !important;
 }

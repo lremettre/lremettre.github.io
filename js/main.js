@@ -1,14 +1,19 @@
 /**
- * 르메뜨레 공식 디지털 아카이브 허브 (L.REMETTRE White Editorial & Pastel Stage Controller v2.0)
- * - 6대 공식 카테고리 대시보드 요약 카드 자동 집계 및 연동
- * - 모든 PPT/PDF 첫 슬라이드 표지 썸네일 & 모든 영상 첫 클립 라이브 미리보기 렌더링
- * - PC / 태블릿 / 모바일 100% 반응형 인터랙션
+ * 르메뜨레 공식 디지털 아카이브 허브 (L.REMETTRE White Editorial & Pastel Stage Controller v2.1)
+ * - 6대 공식 카테고리 대시보드 요약 카드 자동 집계 및 실시간 백그라운드 동기화
+ * - 최신 공식 세미나(Official V3.x+) 버전 자동 감지 및 전 구간 CTA/썸네일 동적 바인딩
+ * - 설치형 PWA(Standalone) 풀스크린 내부 뷰어 네비게이션 연동
  */
 
 (function () {
   'use strict';
 
   let resourcesData = [];
+  let lastResourcesJsonStr = '';
+  let lastSyncCheckAt = 0;
+  let isFetchingResources = false;
+  const MIN_SYNC_INTERVAL_MS = 10000;
+
   let currentCategory = 'all';
   let searchQuery = '';
 
@@ -38,7 +43,7 @@
       eyebrow: 'PRESENTATION',
       tone: 'tone-pink',
       icon: '📊',
-      defaultThumb: 'assets/thumbs/presentation-르메뜨레세미나OfficialV32.jpg'
+      defaultThumb: 'assets/thumbs/presentation-르메뜨레세미나OfficialV34.jpg'
     },
     {
       key: 'document',
@@ -90,15 +95,19 @@
     }
   ];
 
-  // 히어로 스테이지 대표 프리뷰 슬라이드 목록 (1순위: Official V3.0)
+  // 히어로 스테이지 대표 프리뷰 슬라이드 목록 (1순위: 최신 Official 세미나 자동 연동)
   const HERO_STAGE_DECKS = [
     {
       key: 'v30-seminar',
-      tag: 'OFFICIAL SEMINAR V3.2 · 64P',
-      title: '르메뜨레 공식 세미나 프레젠테이션 (Official V3.2)',
-      pages: 64,
-      thumb: 'assets/thumbs/presentation-르메뜨레세미나OfficialV32.jpg',
-      viewerUrl: 'viewer.html?file=' + encodeURIComponent('docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.2.pdf') + '&title=' + encodeURIComponent('르메뜨레 공식 세미나 프레젠테이션 (Official V3.2)')
+      tag: 'OFFICIAL SEMINAR V3.4 · 51P',
+      title: '르메뜨레 공식 세미나 프레젠테이션 (Official V3.4)',
+      pages: 51,
+      thumb: 'assets/thumbs/presentation-르메뜨레세미나OfficialV34.jpg',
+      viewerUrl:
+        'viewer.html?file=' +
+        encodeURIComponent('docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.4.pdf') +
+        '&title=' +
+        encodeURIComponent('르메뜨레 세미나 Official V3.4')
     },
     {
       key: 'sp-edition',
@@ -106,7 +115,11 @@
       title: '르메뜨레 공식 프레젠테이션 (v2.1 SP 에디션)',
       pages: 30,
       thumb: 'assets/thumbs/presentation-르메뜨레프레젠테이션v21SP에디션.jpg',
-      viewerUrl: 'viewer.html?file=' + encodeURIComponent('docs/01_프레젠테이션_강의/르메뜨레 프레젠테이션_v2.1_SP에디션.pdf') + '&title=' + encodeURIComponent('르메뜨레 공식 프레젠테이션 (v2.1 SP 에디션)')
+      viewerUrl:
+        'viewer.html?file=' +
+        encodeURIComponent('docs/01_프레젠테이션_강의/르메뜨레 프레젠테이션_v2.1_SP에디션.pdf') +
+        '&title=' +
+        encodeURIComponent('르메뜨레 공식 프레젠테이션 (v2.1 SP 에디션)')
     },
     {
       key: 'cell-science',
@@ -114,7 +127,11 @@
       title: '르메뜨레(L.ReMeTTRe) : 세포의 시간을 되돌리는 과학',
       pages: 27,
       thumb: 'assets/thumbs/presentation-LReMeTTReNEWPPT.jpg',
-      viewerUrl: 'viewer.html?file=' + encodeURIComponent('docs/01_프레젠테이션_강의/L.ReMeTTRe_NEW_PPT.pdf') + '&title=' + encodeURIComponent('르메뜨레(L.ReMeTTRe) : 세포의 시간을 되돌리는 과학')
+      viewerUrl:
+        'viewer.html?file=' +
+        encodeURIComponent('docs/01_프레젠테이션_강의/L.ReMeTTRe_NEW_PPT.pdf') +
+        '&title=' +
+        encodeURIComponent('르메뜨레(L.ReMeTTRe) : 세포의 시간을 되돌리는 과학')
     },
     {
       key: 'leadership',
@@ -130,11 +147,281 @@
       title: '르메뜨레 사업설명 공식 세미나 피치덱 (V1.4 최신판)',
       pages: 50,
       thumb: 'assets/thumbs/presentation-lremettre사업설명자료세미나용V14.jpg',
-      viewerUrl: 'viewer.html?file=' + encodeURIComponent('docs/01_프레젠테이션_강의/lremettre사업설명자료_세미나용_V1.4.pdf') + '&title=' + encodeURIComponent('르메뜨레 사업설명 공식 세미나 피치덱 (V1.4 최신판)')
+      viewerUrl:
+        'viewer.html?file=' +
+        encodeURIComponent('docs/01_프레젠테이션_강의/lremettre사업설명자료_세미나용_V1.4.pdf') +
+        '&title=' +
+        encodeURIComponent('르메뜨레 사업설명 공식 세미나 피치덱 (V1.4 최신판)')
     }
   ];
 
   let currentHeroIdx = 0;
+
+  function isStandalonePwa() {
+    return (
+      (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+      window.navigator.standalone === true
+    );
+  }
+
+  function buildViewerUrlForItem(item) {
+    if (!item) return '';
+    if (item.web_deck_url) return item.web_deck_url;
+    const isViewOnly = Boolean(item.view_only);
+    if (item.downloads) {
+      if (item.downloads.pdf) {
+        return `viewer.html?file=${encodeURIComponent(item.downloads.pdf.url)}&title=${encodeURIComponent(item.title)}${isViewOnly ? '&readonly=1' : ''}`;
+      }
+      if (item.downloads.video) {
+        return `viewer.html?file=${encodeURIComponent(item.downloads.video.url)}&title=${encodeURIComponent(item.title)}&type=video`;
+      }
+      if (item.downloads.pptx) {
+        const rawUrl = window.location.origin + window.location.pathname.replace('index.html', '') + item.downloads.pptx.url;
+        return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(rawUrl)}`;
+      }
+      if (item.downloads.image) {
+        return item.downloads.image.url;
+      }
+    }
+    return '';
+  }
+
+  function extractVersionInfo(item) {
+    const sources = [
+      (item && item.title) || '',
+      (item && item.version) || '',
+      (item && item.downloads && item.downloads.pdf && item.downloads.pdf.name) || '',
+      (item && item.id) || ''
+    ];
+    for (let i = 0; i < sources.length; i++) {
+      const m = sources[i].match(/Official[\s_.-]*v?(\d+(?:\.\d+)*)/i);
+      if (m) {
+        return {
+          raw: m[1],
+          parts: m[1].split('.').map((n) => parseInt(n, 10) || 0)
+        };
+      }
+    }
+    for (let i = 0; i < sources.length; i++) {
+      const m = sources[i].match(/v(\d+(?:\.\d+)*)/i);
+      if (m) {
+        return {
+          raw: m[1],
+          parts: m[1].split('.').map((n) => parseInt(n, 10) || 0)
+        };
+      }
+    }
+    return { raw: '3.4', parts: [3, 4] };
+  }
+
+  function compareVersionParts(a, b) {
+    const len = Math.max(a.length, b.length);
+    for (let i = 0; i < len; i++) {
+      const va = a[i] || 0;
+      const vb = b[i] || 0;
+      if (va !== vb) return va - vb;
+    }
+    return 0;
+  }
+
+  /**
+   * ==========================================================================
+   * 0. 최신 공식 세미나(Official V3.x+) & 히어로 스테이지 동적 동기화
+   * ==========================================================================
+   */
+  function syncOfficialSeminarLinks() {
+    if (!Array.isArray(resourcesData) || resourcesData.length === 0) return;
+
+    const officialCandidates = resourcesData.filter((r) => {
+      if (r.category && r.category !== 'presentation') return false;
+      const id = r.id || '';
+      const title = r.title || '';
+      return (
+        id.includes('르메뜨레세미나Official') ||
+        /세미나[\s_-]*Official/i.test(title) ||
+        title.includes('공식 세미나')
+      );
+    });
+
+    officialCandidates.sort((a, b) => {
+      const aOfficial = Number((a.id || '').includes('르메뜨레세미나Official') || /Official/i.test(a.title || ''));
+      const bOfficial = Number((b.id || '').includes('르메뜨레세미나Official') || /Official/i.test(b.title || ''));
+      if (aOfficial !== bOfficial) return bOfficial - aOfficial;
+      return compareVersionParts(extractVersionInfo(b).parts, extractVersionInfo(a).parts);
+    });
+
+    const quickLinks = document.querySelectorAll('.mobile-quick-deck-link');
+    const latestOfficial = officialCandidates[0];
+
+    if (latestOfficial) {
+      const verInfo = extractVersionInfo(latestOfficial);
+      const verNum = verInfo.raw;
+      const verUpper = `V${verNum}`;
+      const slideCount = latestOfficial.slide_count || HERO_STAGE_DECKS[0].pages;
+      const officialViewerUrl = buildViewerUrlForItem(latestOfficial) || HERO_STAGE_DECKS[0].viewerUrl;
+      const officialThumb = latestOfficial.thumbnail || HERO_STAGE_DECKS[0].thumb;
+      const officialDisplayTitle =
+        latestOfficial.title && latestOfficial.title.includes('공식 세미나')
+          ? latestOfficial.title
+          : `르메뜨레 공식 세미나 프레젠테이션 (Official ${verUpper})`;
+
+      HERO_STAGE_DECKS[0].tag = `OFFICIAL SEMINAR ${verUpper} · ${slideCount}P`;
+      HERO_STAGE_DECKS[0].title = officialDisplayTitle;
+      HERO_STAGE_DECKS[0].pages = slideCount;
+      HERO_STAGE_DECKS[0].thumb = officialThumb;
+      HERO_STAGE_DECKS[0].viewerUrl = officialViewerUrl;
+      CATEGORY_DEFINITIONS[0].defaultThumb = officialThumb;
+
+      if (tabDeckV30Seminar) {
+        tabDeckV30Seminar.textContent = `🏆 Official ${verNum} 세미나 덱 (${slideCount}P)`;
+      }
+
+      const headerCta = document.querySelector('.header-white-cta');
+      if (headerCta) {
+        headerCta.href = officialViewerUrl;
+        const span = headerCta.querySelector('span:not(.arrow)');
+        if (span) span.textContent = `Official ${verNum} 발표`;
+      }
+
+      const drawerPrimaryCta = document.querySelector('.mobile-drawer-primary-cta');
+      if (drawerPrimaryCta) {
+        drawerPrimaryCta.href = officialViewerUrl;
+        const span = drawerPrimaryCta.querySelector('span:first-child');
+        if (span) span.textContent = `🚀 Official ${verNum} 세미나 바로 발표`;
+      }
+
+      if (quickLinks[0]) {
+        quickLinks[0].href = officialViewerUrl;
+        const span = quickLinks[0].querySelector('span:first-child');
+        if (span) span.textContent = `🏆 Official ${verNum} 세미나 덱 (${slideCount}P)`;
+      }
+
+      if (heroMainCta) {
+        heroMainCta.href = officialViewerUrl;
+        const span = heroMainCta.querySelector('span:not(.arrow)');
+        if (span) span.textContent = `Official ${verNum} 발표 시작`;
+      }
+
+      const bentoPost = document.querySelector('.bento-featured-post');
+      if (bentoPost) {
+        const badgeEl = bentoPost.querySelector('.featured-pill-badge');
+        const titleEl = bentoPost.querySelector('.featured-post-title');
+        const descEl = bentoPost.querySelector('.featured-post-desc');
+        const ctaEl = bentoPost.querySelector('.hero-action-group a');
+
+        if (badgeEl) badgeEl.textContent = `OFFICIAL ${verUpper} RELEASE`;
+        if (titleEl) titleEl.textContent = `르메뜨레 공식 세미나 ${verUpper} 마스터 덱`;
+        if (descEl) {
+          if (
+            latestOfficial.description &&
+            !latestOfficial.description.startsWith('프레젠테이션&강의 공식 자료입니다')
+          ) {
+            descEl.textContent = latestOfficial.description;
+          } else {
+            descEl.textContent = `초저분자 세포 과학 데이터, 실제 회원 체험사례 단계별 연출, 최신 비즈니스 플랜이 통합된 ${slideCount}P 공식 세미나 마스터 에디션입니다.`;
+          }
+        }
+        if (ctaEl) {
+          ctaEl.href = officialViewerUrl;
+          const span = ctaEl.querySelector('span:not(.arrow)');
+          if (span) span.textContent = `Official ${verNum} 발표 시작`;
+        }
+      }
+
+      const toolkitLinks = document.querySelectorAll('.toolkit-list a.toolkit-row');
+      if (toolkitLinks[0] && !toolkitLinks[0].hasAttribute('download')) {
+        toolkitLinks[0].href = officialViewerUrl;
+        const tkBadge = toolkitLinks[0].querySelector('.toolkit-badge');
+        if (tkBadge) tkBadge.textContent = verUpper;
+      }
+
+      const pptxToolkitLink = document.querySelector('.toolkit-list a.toolkit-row[download]');
+      if (pptxToolkitLink) {
+        if (latestOfficial.downloads && latestOfficial.downloads.pptx) {
+          pptxToolkitLink.href = latestOfficial.downloads.pptx.url;
+          pptxToolkitLink.setAttribute('download', latestOfficial.downloads.pptx.name);
+        }
+        const tkName = pptxToolkitLink.querySelector('.toolkit-name');
+        if (tkName) tkName.textContent = `Official ${verNum} 원본 PPTX 다운로드`;
+      }
+
+      const firstCardDesc =
+        document.querySelector('.neomathic-4cards-grid .neomathic-3d-card[data-category="presentation"] .card-3d-text p') ||
+        document.querySelector('.neomathic-4cards-grid .neomathic-3d-card .card-3d-text p');
+      if (firstCardDesc) {
+        firstCardDesc.innerHTML = `Official ${verUpper} 세미나 ${slideCount}P,<br>SP 에디션, 세포 과학 메인 덱`;
+      }
+
+      const firstStatInfo = document.querySelector('.neomathic-stats-strip .neo-stat-col .neo-stat-info');
+      if (firstStatInfo) {
+        const strongEl = firstStatInfo.querySelector('strong');
+        const spanEl = firstStatInfo.querySelector('span');
+        if (strongEl) strongEl.textContent = `${slideCount}P`;
+        if (spanEl) spanEl.textContent = `Official ${verUpper} 세미나 덱`;
+      }
+
+      const yearPillText = document.querySelector('.floating-search-year-pill span:first-child');
+      if (yearPillText) {
+        const yearStr = latestOfficial.date && /^\d{4}/.test(latestOfficial.date) ? latestOfficial.date.slice(0, 4) : '2026';
+        yearPillText.textContent = `Official ${verUpper} · ${yearStr}`;
+      }
+      if (searchInput) {
+        searchInput.placeholder = `자료명, 키워드, 세미나 버전(${verUpper}), SGS 성적서 실시간 검색...`;
+      }
+
+      const bottomPrimaryCta = document.querySelector('.bottom-arch-actions a.btn-neomathic-white');
+      if (bottomPrimaryCta) {
+        bottomPrimaryCta.href = officialViewerUrl;
+        const span = bottomPrimaryCta.querySelector('span:not(.arrow)');
+        if (span) span.textContent = `Official ${verNum} 발표 시작`;
+      }
+    }
+
+    // 나머지 히어로 스테이지 대표 덱 썸네일(?v= 캐시버스팅 포함) 및 뷰어 URL 동기화
+    const deckMatchers = {
+      'sp-edition': (r) => (r.id && r.id.includes('SP에디션')) || (r.title && /SP\s*에디션/i.test(r.title)),
+      'cell-science': (r) => r.id === 'presentation-LReMeTTReNEWPPT' || (r.title && r.title.includes('세포의 시간을 되돌리는 과학')),
+      'leadership': (r) => r.id === 'leadership-masterclass' || (r.title && r.title.includes('리더십의 진짜 온도')),
+      'v14-business': (r) => (r.id && r.id.includes('사업설명자료세미나용')) || (r.title && r.title.includes('사업설명'))
+    };
+
+    HERO_STAGE_DECKS.forEach((deck) => {
+      const matcher = deckMatchers[deck.key];
+      if (!matcher) return;
+      const matched = resourcesData.find(matcher);
+      if (!matched) return;
+
+      if (matched.thumbnail) deck.thumb = matched.thumbnail;
+      const syncedUrl = buildViewerUrlForItem(matched);
+      if (syncedUrl) deck.viewerUrl = syncedUrl;
+      if (matched.slide_count) {
+        deck.pages = matched.slide_count;
+        deck.tag = deck.tag.replace(/\d+P$/, `${matched.slide_count}P`);
+      }
+
+      if (deck.key === 'sp-edition') {
+        if (tabDeckSpEdition) {
+          tabDeckSpEdition.textContent = `✨ ${matched.version || 'v2.1'} SP 에디션 (${deck.pages}P)`;
+        }
+        if (quickLinks[1]) {
+          quickLinks[1].href = deck.viewerUrl;
+          const s = quickLinks[1].querySelector('span:first-child');
+          if (s) s.textContent = `✨ ${matched.version || 'v2.1'} SP 에디션 (${deck.pages}P)`;
+        }
+      } else if (deck.key === 'cell-science') {
+        if (tabDeckCellScience) {
+          tabDeckCellScience.textContent = `🧬 세포 과학 덱 (${deck.pages}P)`;
+        }
+        if (quickLinks[2]) {
+          quickLinks[2].href = deck.viewerUrl;
+          const s = quickLinks[2].querySelector('span:first-child');
+          if (s) s.textContent = `🧬 세포 과학 메인 덱 (${deck.pages}P)`;
+        }
+      }
+    });
+
+    renderHeroStage(currentHeroIdx);
+  }
 
   /**
    * ==========================================================================
@@ -151,7 +438,7 @@
     if (tabDeckCellScience) tabDeckCellScience.classList.toggle('active', deck.key === 'cell-science');
 
     if (btnTopLaunch) btnTopLaunch.href = deck.viewerUrl;
-    if (heroMainCta) heroMainCta.href = deck.viewerUrl;
+    if (heroMainCta && HERO_STAGE_DECKS[0]) heroMainCta.href = HERO_STAGE_DECKS[0].viewerUrl;
 
     stageCanvas.innerHTML = `
       <a href="${deck.viewerUrl}" target="_blank" style="position:absolute; inset:0; display:block; width:100%; height:100%;" title="클릭하여 전체화면 발표 시작">
@@ -421,20 +708,7 @@
           (item.downloads && Boolean(item.downloads.video) && !item.downloads.pdf && !item.downloads.pptx);
 
         const isViewOnly = Boolean(item.view_only);
-
-        let webDeckUrl = item.web_deck_url;
-        if (!webDeckUrl && item.downloads) {
-          if (item.downloads.pdf) {
-            webDeckUrl = `viewer.html?file=${encodeURIComponent(item.downloads.pdf.url)}&title=${encodeURIComponent(item.title)}${isViewOnly ? '&readonly=1' : ''}`;
-          } else if (item.downloads.video) {
-            webDeckUrl = `viewer.html?file=${encodeURIComponent(item.downloads.video.url)}&title=${encodeURIComponent(item.title)}&type=video`;
-          } else if (item.downloads.pptx) {
-            const rawUrl = window.location.origin + window.location.pathname.replace('index.html', '') + item.downloads.pptx.url;
-            webDeckUrl = `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(rawUrl)}`;
-          } else if (item.downloads.image) {
-            webDeckUrl = item.downloads.image.url;
-          }
-        }
+        const webDeckUrl = buildViewerUrlForItem(item);
 
         let downloadBtnsHtml = '';
         if (isViewOnly) {
@@ -579,19 +853,36 @@
 
   /**
    * ==========================================================================
-   * 5. 이벤트 바인딩 & 초기 로드
+   * 5. 데이터 실시간 로드 · 백그라운드 동기화 · Standalone PWA 네비게이션
    * ==========================================================================
    */
   async function loadResources() {
+    if (isFetchingResources) return;
+    isFetchingResources = true;
+    lastSyncCheckAt = Date.now();
+
     try {
-      const response = await fetch(`data/resources.json?t=${Date.now()}`);
+      const response = await fetch(`data/resources.json?t=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error('Network response was not ok');
-      resourcesData = await response.json();
-      renderSummaryDashboard();
-      renderResources();
+      const rawText = await response.text();
+      if (rawText && rawText !== lastResourcesJsonStr) {
+        lastResourcesJsonStr = rawText;
+        resourcesData = JSON.parse(rawText);
+        syncOfficialSeminarLinks();
+        renderSummaryDashboard();
+        renderResources();
+      }
     } catch (err) {
       console.warn('Failed to fetch resources.json:', err);
+    } finally {
+      isFetchingResources = false;
     }
+  }
+
+  function triggerThrottledResourceSync(force) {
+    const now = Date.now();
+    if (!force && now - lastSyncCheckAt < MIN_SYNC_INTERVAL_MS) return;
+    loadResources();
   }
 
   function initEvents() {
@@ -680,6 +971,43 @@
       if (e.key === 'Escape' && mobileDrawer && mobileDrawer.classList.contains('is-open')) {
         setMobileDrawerOpen(false);
       }
+    });
+
+    // 설치형 Standalone PWA 모드: 내부 뷰어(viewer.html / presentation.html) 클릭 시 외부 브라우저 탭 대신 앱 내부 풀스크린 이동
+    document.addEventListener('click', (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (!isStandalonePwa()) return;
+
+      const link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!link) return;
+      if (link.hasAttribute('download') || link.classList.contains('btn-download-pill')) return;
+
+      try {
+        const targetUrl = new URL(link.href, window.location.href);
+        if (targetUrl.origin !== window.location.origin) return;
+        if (/\/(viewer|presentation)\.html$/i.test(targetUrl.pathname)) {
+          e.preventDefault();
+          if (mobileDrawer && mobileDrawer.classList.contains('is-open')) {
+            setMobileDrawerOpen(false);
+          }
+          window.location.href = targetUrl.href;
+        }
+      } catch (err) {}
+    });
+
+    // 앱 복귀(visibilitychange / focus / online) 시 실시간 백그라운드 자료 동기화
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        triggerThrottledResourceSync(false);
+      }
+    });
+
+    window.addEventListener('focus', () => {
+      triggerThrottledResourceSync(false);
+    });
+
+    window.addEventListener('online', () => {
+      triggerThrottledResourceSync(true);
     });
   }
 

@@ -1,11 +1,15 @@
 .DS_Store
 Thumbs.db
 *.tmp
+*.part
+*.crdownload
+~$*
 __pycache__/
+auto_sync.log
+.watch_docs.lock
 
 # 대용량 파일 원본 백업 디렉토리 (로컬 보관 전용, 깃허브 업로드 제외)
 _original_backups/
 **/_original_backups/
-*.tmp
 레퍼런스 이미지.jpg
 01.제품 시험 성적서/

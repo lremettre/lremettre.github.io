@@ -19,6 +19,7 @@ import re
 import io
 import json
 import datetime
+import subprocess
 import urllib.parse
 from PIL import Image
 
@@ -53,7 +54,7 @@ def format_size(bytes_size):
         return f"{bytes_size / (1024 * 1024):.1f} MB"
 
 def extract_version(text):
-    match = re.search(r'(v\d+(\.\d+)?|\d{4}\.\d{2}|\d{6})', text, re.IGNORECASE)
+    match = re.search(r'(v\d+(\.\d+)*|\d{4}\.\d{2}|\d{6})', text, re.IGNORECASE)
     return match.group(1) if match else "v1.0"
 
 def clean_title(filename):
@@ -61,10 +62,34 @@ def clean_title(filename):
     cleaned = base.replace('_', ' ').replace('-', ' ').strip()
     return cleaned
 
+def _effective_mtime(path):
+    """로컬에서는 실제 파일 수정 시각을 반환하고, GitHub Actions(CI)에서는 마지막 커밋 시각을 반환합니다."""
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        try:
+            rel = os.path.relpath(path, SCRIPT_DIR).replace('\\', '/')
+            res = subprocess.run(
+                ["git", "log", "-1", "--format=%ct", "--", rel],
+                cwd=SCRIPT_DIR,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+            )
+            ts = res.stdout.strip()
+            if res.returncode == 0 and ts.isdigit():
+                return float(ts)
+        except Exception:
+            pass
+    return os.path.getmtime(path)
+
+def _versioned_thumb_url(thumb_rel_url, thumb_full_path):
+    if os.path.exists(thumb_full_path):
+        return f"{thumb_rel_url}?v={int(_effective_mtime(thumb_full_path))}"
+    return None
+
 def generate_pdf_thumbnail_and_pages(pdf_path, group_key):
     """
     PDF의 첫 슬라이드(1페이지)를 고해상도 썸네일(assets/thumbs/{group_key}.jpg)로 저장하고
-    전체 페이지 수를 함께 반환합니다.
+    캐시 버스팅 쿼리가 포함된 URL과 전체 페이지 수를 함께 반환합니다.
     """
     os.makedirs(THUMBS_DIR, exist_ok=True)
     thumb_filename = f"{group_key}.jpg"
@@ -78,7 +103,7 @@ def generate_pdf_thumbnail_and_pages(pdf_path, group_key):
         page_count = len(doc)
         if page_count > 0:
             # 파일 수정 시각 비교하여 썸네일이 없거나 원본이 갱신되었을 때만 재생성
-            need_gen = not os.path.exists(thumb_full_path) or (os.path.getmtime(pdf_path) > os.path.getmtime(thumb_full_path))
+            need_gen = not os.path.exists(thumb_full_path) or (_effective_mtime(pdf_path) > _effective_mtime(thumb_full_path))
             if need_gen:
                 page = doc[0]
                 rect = page.rect
@@ -93,16 +118,16 @@ def generate_pdf_thumbnail_and_pages(pdf_path, group_key):
                 print(f"[첫 슬라이드 썸네일 생성] {os.path.basename(pdf_path)} -> {thumb_rel_url} ({page_count}P)")
         doc.close()
         if os.path.exists(thumb_full_path):
-            return thumb_rel_url, page_count
+            return _versioned_thumb_url(thumb_rel_url, thumb_full_path), page_count
     except Exception as e:
         print(f"[PDF 썸네일 생성 스킵] {os.path.basename(pdf_path)}: {e}")
 
-    return (thumb_rel_url if os.path.exists(thumb_full_path) else None), page_count
+    return _versioned_thumb_url(thumb_rel_url, thumb_full_path), page_count
 
 def generate_video_thumbnail_and_duration(video_path, group_key):
     """
     MP4 영상의 첫 클립 대표 프레임(약 1.0초 지점)을 고해상도 썸네일로 추출하고
-    영상 재생 시간(MM:SS)을 함께 반환합니다.
+    캐시 버스팅 쿼리가 포함된 URL과 영상 재생 시간(MM:SS)을 함께 반환합니다.
     """
     os.makedirs(THUMBS_DIR, exist_ok=True)
     thumb_filename = f"{group_key}.jpg"
@@ -121,7 +146,7 @@ def generate_video_thumbnail_and_duration(video_path, group_key):
                 mins, secs = divmod(total_sec, 60)
                 duration_str = f"{mins:02d}:{secs:02d}"
 
-            need_gen = not os.path.exists(thumb_full_path) or (os.path.getmtime(video_path) > os.path.getmtime(thumb_full_path))
+            need_gen = not os.path.exists(thumb_full_path) or (_effective_mtime(video_path) > _effective_mtime(thumb_full_path))
             if need_gen:
                 # 첫 클립(약 1.0초 지점 또는 전체의 5% 지점 중 빠른 프레임)에서 가장 선명한 프레임 추출
                 target_frame = min(int(fps * 1.0), max(0, int(frame_count - 1)))
@@ -142,7 +167,7 @@ def generate_video_thumbnail_and_duration(video_path, group_key):
     except Exception as e:
         print(f"[영상 썸네일 생성 스킵] {os.path.basename(video_path)}: {e}")
 
-    return (thumb_rel_url if os.path.exists(thumb_full_path) else None), duration_str
+    return _versioned_thumb_url(thumb_rel_url, thumb_full_path), duration_str
 
 def generate_image_thumbnail(image_path, group_key):
     """
@@ -154,7 +179,7 @@ def generate_image_thumbnail(image_path, group_key):
     thumb_full_path = os.path.join(THUMBS_DIR, thumb_filename)
     thumb_rel_url = f"assets/thumbs/{thumb_filename}"
     try:
-        need_gen = not os.path.exists(thumb_full_path) or (os.path.getmtime(image_path) > os.path.getmtime(thumb_full_path))
+        need_gen = not os.path.exists(thumb_full_path) or (_effective_mtime(image_path) > _effective_mtime(thumb_full_path))
         if need_gen:
             with Image.open(image_path) as im:
                 im.seek(0)
@@ -169,7 +194,7 @@ def generate_image_thumbnail(image_path, group_key):
     except Exception as e:
         print(f"[이미지 썸네일 생성 스킵] {os.path.basename(image_path)}: {e}")
         return None
-    return thumb_rel_url if os.path.exists(thumb_full_path) else None
+    return _versioned_thumb_url(thumb_rel_url, thumb_full_path)
 
 def scan_docs():
     if not os.path.exists(DOCS_DIR):
@@ -197,31 +222,50 @@ def scan_docs():
     except Exception as e:
         print(f"[대용량 파일 압축 스킵] {e}")
 
-    # 0-1. PPTX 파일 중 PDF가 없는 파일 자동 PDF 변환 (웹 뷰어 프레젠테이션 시작 & 첫 슬라이드 미리보기 100% 보장)
+    # 0-1. PPTX 파일 중 PDF가 없거나 PPTX가 PDF보다 최신인 파일 자동 PDF 변환
+    #      (ReadOnly=True, WithWindow=False 옵션으로 파워포인트에 파일이 열려 있어도 안전하게 변환)
     try:
         import win32com.client
+        try:
+            import pythoncom
+            pythoncom.CoInitialize()
+        except Exception:
+            pass
         ppt_app = None
         for r_root, r_dirs, r_files in os.walk(DOCS_DIR):
+            r_dirs.sort()
+            r_files.sort()
             if "_original_backups" in r_root:
                 continue
             for rf in r_files:
                 if rf.lower().endswith('.pptx') and not rf.startswith('~$'):
                     rf_path = os.path.join(r_root, rf)
                     target_pdf = os.path.join(r_root, os.path.splitext(rf)[0] + '.pdf')
-                    if not os.path.exists(target_pdf):
+                    need_convert = (not os.path.exists(target_pdf)) or (
+                        os.path.getmtime(rf_path) > os.path.getmtime(target_pdf) + 1.0
+                    )
+                    if need_convert:
                         try:
                             if ppt_app is None:
                                 ppt_app = win32com.client.Dispatch("PowerPoint.Application")
-                            print(f"[PPTX -> PDF 자동 변환] {rf}...")
-                            pres = ppt_app.Presentations.Open(os.path.abspath(rf_path), WithWindow=False)
-                            pres.SaveAs(os.path.abspath(target_pdf), 32)
-                            pres.Close()
+                            action_tag = "신규 변환" if not os.path.exists(target_pdf) else "수정 감지 재변환"
+                            print(f"[PPTX -> PDF {action_tag}] {rf}...")
+                            pres = ppt_app.Presentations.Open(
+                                os.path.abspath(rf_path),
+                                ReadOnly=True,
+                                WithWindow=False,
+                            )
+                            try:
+                                pres.SaveAs(os.path.abspath(target_pdf), 32)
+                            finally:
+                                pres.Close()
                             print(f" -> 변환 완료: {os.path.basename(target_pdf)}")
                         except Exception as c_err:
                             print(f" -> 변환 실패: {c_err}")
-        if ppt_app:
+        if ppt_app is not None:
             try:
-                ppt_app.Quit()
+                if ppt_app.Presentations.Count == 0:
+                    ppt_app.Quit()
             except Exception:
                 pass
     except Exception:
@@ -279,7 +323,7 @@ def scan_docs():
             "badge": "OFFICIAL V3.2",
             "author": "L.REMETTRE BUSINESS GROUP",
             "slide_count": 64,
-            "description": "르메뜨레 핵심 제품 라인업, 실제 회원 체험사례(클릭 단계별 오픈 연출 지원), 마케팅 플랜 및 100·600 연금 플랜을 집약한 64페이지 Official V3.2 공식 발표 자료입니다. 웹 뷰어 발표 및 PPTX/PDF 다운로드를 모두 지원합니다.",
+            "description": "르메뜨레 핵심 제품 라인업, 실제 회원 체험사례(클릭 단계별 오픈 연출 지원), 마케팅 플랜 및 100·600 연금 플랜을 집약한 Official V3.2 공식 발표 자료입니다. 웹 뷰어 발표 및 PPTX/PDF 다운로드를 모두 지원합니다.",
         },
         'presentation-르메뜨레세미나OfficialV30': {
             "title": "르메뜨레 공식 세미나 프레젠테이션 (Official V3.0)",
@@ -409,6 +453,8 @@ def scan_docs():
     groups = {}
 
     for root, dirs, files in os.walk(DOCS_DIR):
+        dirs.sort()
+        files.sort()
         if root == DOCS_DIR or "_original_backups" in root:
             continue
         rel_folder = os.path.relpath(root, DOCS_DIR)
@@ -444,7 +490,7 @@ def scan_docs():
 
             file_size = os.path.getsize(file_path)
             size_str = format_size(file_size)
-            mtime = os.path.getmtime(file_path)
+            mtime = _effective_mtime(file_path)
             date_str = datetime.datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
 
             stem = os.path.splitext(fname)[0]
@@ -461,6 +507,7 @@ def scan_docs():
                     "category_name": cat_info["name"],
                     "badge": cat_info["badge"],
                     "date": date_str,
+                    "mtime": mtime,
                     "version": extract_version(fname),
                     "files": {},
                     "primary_name": clean_title(fname),
@@ -468,6 +515,9 @@ def scan_docs():
                     "video_disk_path": None,
                     "image_rel_path": None,
                 }
+            elif mtime > groups[group_key]["mtime"]:
+                groups[group_key]["mtime"] = mtime
+                groups[group_key]["date"] = date_str
 
             if ext in ['.pptx', '.ppt']:
                 groups[group_key]["files"]["pptx"] = {
@@ -511,12 +561,7 @@ def scan_docs():
 
     # 최종 결과 빌드 + 첫 슬라이드/첫 클립 썸네일 자동 생성
     for gid, ginfo in groups.items():
-        preset = existing_meta.get(gid, {})
-
-        title = preset.get("title", ginfo["primary_name"])
-        subtitle = preset.get("subtitle", f"{ginfo['category_name']} 공식 아카이브 자료")
-        badge = preset.get("badge", ginfo["badge"])
-        desc = preset.get("description", f"{ginfo['category_name']} 공식 자료입니다. 브라우저에서 첫 화면 미리보기 및 전체화면 발표/재생, 보안 다운로드를 지원합니다.")
+        preset = dict(existing_meta.get(gid, {}))
 
         thumbnail_url = None
         detected_pages = None
@@ -527,15 +572,50 @@ def scan_docs():
         elif ginfo["video_disk_path"] and os.path.exists(ginfo["video_disk_path"]):
             thumbnail_url, detected_duration = generate_video_thumbnail_and_duration(ginfo["video_disk_path"], gid)
         elif ginfo["image_rel_path"]:
-            thumbnail_url = generate_image_thumbnail(os.path.join(SCRIPT_DIR, ginfo["image_rel_path"]), gid) or ginfo["image_rel_path"]
+            img_disk_path = os.path.join(SCRIPT_DIR, ginfo["image_rel_path"])
+            img_ver = int(_effective_mtime(img_disk_path)) if os.path.exists(img_disk_path) else int(ginfo["mtime"])
+            thumbnail_url = generate_image_thumbnail(img_disk_path, gid) or f"{ginfo['image_rel_path']}?v={img_ver}"
 
-        slide_count = preset.get("slide_count") or detected_pages
+        # 실제 감지된 페이지 수(detected_pages)를 항상 최우선 사용하여 하드코딩된 구버전 페이지 수로 덮어써지지 않도록 보장
+        slide_count = detected_pages if detected_pages else preset.get("slide_count")
 
-        key_points = preset.get("key_points", [
+        # 신규 Official 세미나 버전(Official_V3.4, V3.5 등) 동적 공식 프리셋 자동 적용
+        if gid not in presets_map and re.match(r'^presentation-르메뜨레(?:공식)?세미나officialv', gid, re.IGNORECASE):
+            ver_upper = ginfo["version"].upper()
+            page_phrase = f"{slide_count}페이지 " if slide_count else ""
+            dynamic_official = {
+                "title": f"르메뜨레 공식 세미나 프레젠테이션 (Official {ver_upper})",
+                "subtitle": "르메뜨레 브랜드 · 3대 핵심 바이오 솔루션 · 체험사례 · 마케팅 플랜 공식 발표 자료",
+                "badge": f"OFFICIAL {ver_upper}",
+                "author": "L.REMETTRE BUSINESS GROUP",
+                "description": (
+                    f"르메뜨레 브랜드 스토리와 3대 핵심 바이오 솔루션(소이 펩타이드 · 풀컵 오크라 · 오크라 블룸), "
+                    f"실제 회원 체험사례 및 비즈니스 마케팅 플랜을 집약한 {page_phrase}Official {ver_upper} 공식 발표 자료입니다. "
+                    f"웹 뷰어 발표 및 PPTX/PDF 다운로드를 모두 지원합니다."
+                ),
+                "key_points": [
+                    f"르메뜨레 공식 세미나 발표 덱 (Official {ver_upper}" + (f" · {slide_count}P)" if slide_count else ")"),
+                    f"지원 포맷: {', '.join([k.upper() for k in ginfo['files'].keys()])} (업데이트: {ginfo['date']})",
+                    "브라우저 즉시 열람/발표(F11 전체화면) 및 보안 인증 다운로드 지원",
+                ],
+            }
+            preset = {**preset, **dynamic_official}
+
+        title = preset.get("title", ginfo["primary_name"])
+        subtitle = preset.get("subtitle", f"{ginfo['category_name']} 공식 아카이브 자료")
+        badge = preset.get("badge", ginfo["badge"])
+        desc = preset.get("description", f"{ginfo['category_name']} 공식 자료입니다. 브라우저에서 첫 화면 미리보기 및 전체화면 발표/재생, 보안 다운로드를 지원합니다.")
+
+        default_key_points = [
             f"지원 포맷: {', '.join([k.upper() for k in ginfo['files'].keys()])}",
             f"업데이트 일자: {ginfo['date']}",
             "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
-        ])
+        ]
+        saved_kp = preset.get("key_points")
+        if saved_kp and len(saved_kp) == 3 and str(saved_kp[0]).startswith("지원 포맷:") and str(saved_kp[1]).startswith("업데이트 일자:"):
+            key_points = default_key_points
+        else:
+            key_points = saved_kp or default_key_points
 
         item = {
             "id": gid,
@@ -570,13 +650,17 @@ def scan_docs():
             encoded_pdf = urllib.parse.quote(ginfo["files"]["pdf"]["url"])
             encoded_title = urllib.parse.quote(title)
             ro_param = "&readonly=1" if is_view_only else ""
-            item["web_deck_url"] = f"viewer.html?file={encoded_pdf}&title={encoded_title}{ro_param}"
+            pdf_ver = int(_effective_mtime(ginfo["pdf_disk_path"])) if (ginfo["pdf_disk_path"] and os.path.exists(ginfo["pdf_disk_path"])) else int(ginfo["mtime"])
+            item["web_deck_url"] = f"viewer.html?file={encoded_pdf}&title={encoded_title}{ro_param}&v={pdf_ver}"
         elif "video" in ginfo["files"]:
             encoded_video = urllib.parse.quote(ginfo["files"]["video"]["url"])
             encoded_title = urllib.parse.quote(title)
-            item["web_deck_url"] = f"viewer.html?file={encoded_video}&title={encoded_title}&type=video"
+            vid_ver = int(_effective_mtime(ginfo["video_disk_path"])) if (ginfo["video_disk_path"] and os.path.exists(ginfo["video_disk_path"])) else int(ginfo["mtime"])
+            item["web_deck_url"] = f"viewer.html?file={encoded_video}&title={encoded_title}&type=video&v={vid_ver}"
         elif "image" in ginfo["files"]:
-            item["web_deck_url"] = urllib.parse.quote(ginfo["files"]["image"]["url"])
+            img_disk = os.path.join(SCRIPT_DIR, ginfo["files"]["image"]["url"])
+            img_ver = int(_effective_mtime(img_disk)) if os.path.exists(img_disk) else int(ginfo["mtime"])
+            item["web_deck_url"] = f"{urllib.parse.quote(ginfo['files']['image']['url'])}?v={img_ver}"
 
         resources.append(item)
 
@@ -592,8 +676,12 @@ def scan_docs():
     }
     resources.sort(key=lambda x: (cat_order.get(x["category"], 9), x["id"]), reverse=False)
 
-    # 미사용(폴더 이동/삭제된) 구버전 썸네일 자동 정리
-    active_thumbs = {os.path.basename(r["thumbnail"]) for r in resources if r.get("thumbnail")}
+    # 미사용(폴더 이동/삭제된) 구버전 썸네일 자동 정리 (쿼리 스트링 ?v=... 분리 필수!)
+    active_thumbs = {
+        os.path.basename(r["thumbnail"].split("?")[0])
+        for r in resources
+        if r.get("thumbnail")
+    }
     if os.path.exists(THUMBS_DIR):
         for tf in os.listdir(THUMBS_DIR):
             if tf.endswith('.jpg') and tf not in active_thumbs:
@@ -610,6 +698,8 @@ def scan_docs():
     for r in resources:
         meta_tag = f"{r.get('slide_count')}P" if r.get('slide_count') else (r.get('duration') or r['version'])
         print(f" - [{r['category_name']}] {r['title']} ({meta_tag} | thumb: {r.get('thumbnail')})")
+
+    return resources
 
 if __name__ == '__main__':
     scan_docs()

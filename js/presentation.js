@@ -14,7 +14,10 @@
   let isDrawerOpen = false;
 
   // DOM Elements
+  const viewportShell = document.getElementById('viewport-shell');
   const stage = document.getElementById('slide-stage');
+  const topHud = document.getElementById('top-hud');
+  const bottomHud = document.getElementById('bottom-hud');
   const counterCurrent = document.getElementById('counter-current');
   const counterTotal = document.getElementById('counter-total');
   const progressFill = document.getElementById('progress-fill');
@@ -27,20 +30,104 @@
   const drawerGrid = document.getElementById('drawer-grid');
   const drawerCloseBtn = document.getElementById('btn-drawer-close');
 
+  const vpTimers = [];
+  let hudHideTimer = null;
+  let hudJustWokeAt = 0;
+  let wasInAutoHideMode = false;
+
+  function isNativeFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement);
+  }
+
+  function isCompactLandscape() {
+    return window.innerWidth > window.innerHeight && window.innerHeight <= 600;
+  }
+
+  function isAutoHideMode() {
+    return isCompactLandscape() || isNativeFullscreen() || document.body.classList.contains('is-immersive');
+  }
+
+  function clearHudTimer() {
+    if (hudHideTimer) {
+      clearTimeout(hudHideTimer);
+      hudHideTimer = null;
+    }
+  }
+
+  function hideHud() {
+    clearHudTimer();
+    if (isAutoHideMode() && !isDrawerOpen) {
+      document.body.classList.add('hud-hidden');
+    }
+  }
+
+  function showHud(delayMs) {
+    clearHudTimer();
+    if (document.body.classList.contains('hud-hidden')) {
+      document.body.classList.remove('hud-hidden');
+      hudJustWokeAt = Date.now();
+    }
+    if (isAutoHideMode() && !isDrawerOpen) {
+      hudHideTimer = setTimeout(function () {
+        if (isAutoHideMode() && !isDrawerOpen) {
+          document.body.classList.add('hud-hidden');
+        }
+      }, delayMs || 3000);
+    }
+  }
+
+  function updateFullscreenButtonUI() {
+    const active = isNativeFullscreen() || document.body.classList.contains('is-immersive');
+    fullscreenBtn.innerHTML = active
+      ? '<span>↙️</span> 축소'
+      : '<span>⛶</span> 전체화면 <span class="key-hint">(F11)</span>';
+  }
+
+  function syncHudMode() {
+    const auto = isAutoHideMode();
+    if (auto && !wasInAutoHideMode) {
+      showHud(2500);
+    } else if (!auto) {
+      clearHudTimer();
+      document.body.classList.remove('hud-hidden');
+    }
+    wasInAutoHideMode = auto;
+  }
+
   /**
-   * 1. 16:9 와이드스크린 반응형 오토 스케일링 (1920x1080 락)
+   * 1. 16:9 와이드스크린 반응형 오토 스케일링 (1920x1080 락 + 100dvh 대응)
    */
   function fitSlide() {
     if (!stage) return;
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    
+    const availW = (viewportShell && viewportShell.clientWidth) || window.innerWidth;
+    const availH = (viewportShell && viewportShell.clientHeight) || window.innerHeight;
+
     // 계산된 스케일 (화면 안에 꽉 차도록 레터박스/필러박스 유지)
-    const scaleX = windowWidth / SLIDE_WIDTH;
-    const scaleY = windowHeight / SLIDE_HEIGHT;
+    const scaleX = availW / SLIDE_WIDTH;
+    const scaleY = availH / SLIDE_HEIGHT;
     const scale = Math.min(scaleX, scaleY);
 
     stage.style.transform = `scale(${scale})`;
+  }
+
+  function checkAndSyncViewport() {
+    const fsActive = isNativeFullscreen();
+    document.body.classList.toggle('is-fullscreen', fsActive);
+    if (fsActive && document.body.classList.contains('is-immersive')) {
+      document.body.classList.remove('is-immersive');
+    }
+    updateFullscreenButtonUI();
+    syncHudMode();
+    fitSlide();
+  }
+
+  function handleViewportChange() {
+    checkAndSyncViewport();
+    while (vpTimers.length) {
+      clearTimeout(vpTimers.pop());
+    }
+    vpTimers.push(setTimeout(checkAndSyncViewport, 120));
+    vpTimers.push(setTimeout(checkAndSyncViewport, 350));
   }
 
   /**
@@ -220,12 +307,12 @@
     if (theme === 'dark') {
       document.body.classList.remove('theme-white');
       document.body.classList.add('theme-dark');
-      themeToggleBtn.innerHTML = '<span>☀️</span> 화이트 테마';
+      themeToggleBtn.innerHTML = '<span>☀️</span> <span class="hide-xs">화이트 </span>테마';
       localStorage.setItem('lremettre-deck-theme', 'dark');
     } else {
       document.body.classList.remove('theme-dark');
       document.body.classList.add('theme-white');
-      themeToggleBtn.innerHTML = '<span>🌙</span> 다크 테마';
+      themeToggleBtn.innerHTML = '<span>🌙</span> <span class="hide-xs">다크 </span>테마';
       localStorage.setItem('lremettre-deck-theme', 'white');
     }
   }
@@ -233,22 +320,87 @@
   function toggleTheme() {
     const isDark = document.body.classList.contains('theme-dark');
     applyTheme(isDark ? 'white' : 'dark');
+    if (isAutoHideMode()) showHud(3000);
   }
 
   /**
-   * 6. 전체화면 API 토글
+   * 6. 전체화면 API 토글 (네이티브 전체화면 + 가로 고정 + iOS Safari 몰입형 폴백)
    */
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch((err) => {
-        console.warn('전체화면 전환 실패:', err);
-      });
-      fullscreenBtn.innerHTML = '<span>↙️</span> 축소';
+  function toggleImmersiveFallback(forceState) {
+    if (typeof forceState === 'boolean') {
+      document.body.classList.toggle('is-immersive', forceState);
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-        fullscreenBtn.innerHTML = '<span>⛶</span> 전체화면 (F11)';
+      document.body.classList.toggle('is-immersive');
+    }
+    updateFullscreenButtonUI();
+    if (document.body.classList.contains('is-immersive')) {
+      showHud(2500);
+    }
+    handleViewportChange();
+  }
+
+  function toggleFullscreen() {
+    if (isNativeFullscreen() || document.body.classList.contains('is-immersive')) {
+      if (document.body.classList.contains('is-immersive')) {
+        document.body.classList.remove('is-immersive');
       }
+      if (isNativeFullscreen()) {
+        if (screen.orientation && typeof screen.orientation.unlock === 'function') {
+          try { screen.orientation.unlock(); } catch (e) {}
+        }
+        const exitFs = document.exitFullscreen || document.webkitExitFullscreen;
+        if (exitFs) {
+          try {
+            const p = exitFs.call(document);
+            if (p && typeof p.catch === 'function') p.catch(function () {});
+          } catch (e) {}
+        }
+      }
+      updateFullscreenButtonUI();
+      handleViewportChange();
+      return;
+    }
+
+    const docEl = document.documentElement;
+    const canNativeFs = !!(
+      (docEl.requestFullscreen && document.fullscreenEnabled !== false) ||
+      (docEl.webkitRequestFullscreen && document.webkitFullscreenEnabled !== false)
+    );
+
+    if (canNativeFs) {
+      const reqFs = docEl.requestFullscreen || docEl.webkitRequestFullscreen;
+      try {
+        const p = reqFs.call(docEl);
+        if (p && typeof p.then === 'function') {
+          p.then(function () {
+            if (screen.orientation && screen.orientation.lock) {
+              screen.orientation.lock('landscape').catch(function () {});
+            }
+            updateFullscreenButtonUI();
+            showHud(2500);
+            handleViewportChange();
+          }).catch(function () {
+            toggleImmersiveFallback(true);
+          });
+        } else {
+          if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(function () {});
+          }
+          setTimeout(function () {
+            if (!isNativeFullscreen()) {
+              toggleImmersiveFallback(true);
+            } else {
+              updateFullscreenButtonUI();
+              showHud(2500);
+              handleViewportChange();
+            }
+          }, 150);
+        }
+      } catch (err) {
+        toggleImmersiveFallback(true);
+      }
+    } else {
+      toggleImmersiveFallback();
     }
   }
 
@@ -256,6 +408,8 @@
    * 7. 썸네일 점프 드로어 제어
    */
   function openDrawer() {
+    clearHudTimer();
+    document.body.classList.remove('hud-hidden');
     drawerBackdrop.classList.add('open');
     isDrawerOpen = true;
   }
@@ -263,6 +417,9 @@
   function closeDrawer() {
     drawerBackdrop.classList.remove('open');
     isDrawerOpen = false;
+    if (isAutoHideMode()) {
+      showHud(2500);
+    }
   }
 
   /**
@@ -274,6 +431,13 @@
       return;
     }
 
+    if (e.key === 'Escape' && document.body.classList.contains('is-immersive')) {
+      document.body.classList.remove('is-immersive');
+      updateFullscreenButtonUI();
+      handleViewportChange();
+      return;
+    }
+
     switch (e.key) {
       case 'ArrowRight':
       case 'ArrowDown':
@@ -282,6 +446,7 @@
       case 'Enter':
         e.preventDefault();
         nextSlide();
+        if (isAutoHideMode()) hideHud();
         break;
 
       case 'ArrowLeft':
@@ -290,16 +455,19 @@
       case 'Backspace':
         e.preventDefault();
         prevSlide();
+        if (isAutoHideMode()) hideHud();
         break;
 
       case 'Home':
         e.preventDefault();
         goToSlide(0);
+        if (isAutoHideMode()) hideHud();
         break;
 
       case 'End':
         e.preventDefault();
         goToSlide(slidesData.length - 1);
+        if (isAutoHideMode()) hideHud();
         break;
 
       case 't':
@@ -325,28 +493,73 @@
   }
 
   /**
-   * 9. 터치 스와이프 제스처 (태블릿 / 모바일)
+   * 9. 터치 스와이프 제스처 & 스테이지 탭 HUD 토글 (태블릿 / 모바일)
    */
   let touchStartX = 0;
   let touchStartY = 0;
+  let touchClientX = 0;
+  let touchClientY = 0;
+  let touchStartAt = 0;
+  let lastTouchTime = 0;
+  let wasMultiTouch = false;
 
   function handleTouchStart(e) {
-    touchStartX = e.changedTouches[0].screenX;
-    touchStartY = e.changedTouches[0].screenY;
+    lastTouchTime = Date.now();
+    if (e.touches.length > 1) {
+      wasMultiTouch = true;
+      return;
+    }
+    wasMultiTouch = false;
+    touchStartAt = lastTouchTime;
+    const t = e.changedTouches[0];
+    touchStartX = t.screenX;
+    touchStartY = t.screenY;
+    touchClientX = t.clientX;
+    touchClientY = t.clientY;
+  }
+
+  function handleTouchMove(e) {
+    if (e.touches.length > 1) {
+      wasMultiTouch = true;
+    }
   }
 
   function handleTouchEnd(e) {
-    const touchEndX = e.changedTouches[0].screenX;
-    const touchEndY = e.changedTouches[0].screenY;
-    const diffX = touchEndX - touchStartX;
-    const diffY = touchEndY - touchStartY;
+    lastTouchTime = Date.now();
+    if (wasMultiTouch) {
+      if (e.touches.length === 0) wasMultiTouch = false;
+      return;
+    }
+    if (isDrawerOpen) return;
 
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+    const t = e.changedTouches[0];
+    const moveDist = Math.hypot(t.clientX - touchClientX, t.clientY - touchClientY);
+    const elapsed = lastTouchTime - touchStartAt;
+    const inHudOrOverlay = !!(e.target && e.target.closest && e.target.closest('.top-hud, .bottom-hud, .drawer-backdrop, .pwa-install-bar'));
+
+    if (moveDist < 12 && elapsed < 500) {
+      if (!inHudOrOverlay && isAutoHideMode()) {
+        if (document.body.classList.contains('hud-hidden')) {
+          showHud(3000);
+        } else {
+          hideHud();
+        }
+      }
+      return;
+    }
+
+    if (window.visualViewport && window.visualViewport.scale > 1.05) return;
+
+    const diffX = t.screenX - touchStartX;
+    const diffY = t.screenY - touchStartY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) * 1.2 && Math.abs(diffX) > 40) {
       if (diffX < 0) {
         nextSlide();
       } else {
         prevSlide();
       }
+      if (isAutoHideMode()) hideHud();
     }
   }
 
@@ -354,11 +567,17 @@
    * 10. 초기화 및 리스너 등록
    */
   function init() {
-    fitSlide();
-    window.addEventListener('resize', fitSlide);
-
     renderSlides();
     initTheme();
+    handleViewportChange();
+
+    window.addEventListener('resize', handleViewportChange);
+    window.addEventListener('orientationchange', handleViewportChange);
+    document.addEventListener('fullscreenchange', handleViewportChange);
+    document.addEventListener('webkitfullscreenchange', handleViewportChange);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', handleViewportChange);
+    }
 
     // 초기 해시 확인 (#3 이면 3번째 슬라이드로 바로 이동)
     const hash = window.location.hash;
@@ -373,6 +592,21 @@
       goToSlide(0);
     }
 
+    // Guard against synthetic click hitting newly-revealed HUD buttons on wake tap
+    [topHud, bottomHud].forEach((el) => {
+      if (!el) return;
+      el.addEventListener('click', (e) => {
+        if (Date.now() - hudJustWokeAt < 350) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+        if (isAutoHideMode()) {
+          showHud(3000);
+        }
+      }, true);
+    });
+
     // Event Listeners
     prevBtn.addEventListener('click', prevSlide);
     nextBtn.addEventListener('click', nextSlide);
@@ -386,7 +620,33 @@
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    // Desktop mouse wake & click toggle on stage
+    let lastMouseX = -1;
+    let lastMouseY = -1;
+    window.addEventListener('mousemove', (e) => {
+      if (Date.now() - lastTouchTime < 800) return;
+      if (!isAutoHideMode() || isDrawerOpen) return;
+      if (Math.abs(e.clientX - lastMouseX) < 3 && Math.abs(e.clientY - lastMouseY) < 3) return;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      showHud(3000);
+    }, { passive: true });
+
+    if (viewportShell) {
+      viewportShell.addEventListener('click', (e) => {
+        if (Date.now() - lastTouchTime < 800) return;
+        if (!isAutoHideMode() || isDrawerOpen) return;
+        if (e.target && e.target.closest && e.target.closest('.top-hud, .bottom-hud, .drawer-backdrop, .pwa-install-bar')) return;
+        if (document.body.classList.contains('hud-hidden')) {
+          showHud(3000);
+        } else {
+          hideHud();
+        }
+      });
+    }
 
     window.addEventListener('popstate', () => {
       const h = window.location.hash;
@@ -395,12 +655,6 @@
         if (!isNaN(p) && p >= 1 && p <= slidesData.length) {
           goToSlide(p - 1);
         }
-      }
-    });
-
-    document.addEventListener('fullscreenchange', () => {
-      if (!document.fullscreenElement) {
-        fullscreenBtn.innerHTML = '<span>⛶</span> 전체화면 (F11)';
       }
     });
   }

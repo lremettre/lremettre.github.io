@@ -2,34 +2,34 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>변화하는 시대, 리더십의 진짜 온도 | 르메뜨레(L.REMETTRE) 라이브 프레젠테이션</title>
   
   <!-- Pretendard Webfont -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   
   <!-- Presentation Stylesheet -->
-  <link rel="stylesheet" href="css/presentation.css">
+  <link rel="stylesheet" href="css/presentation.css?v=18">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#EC4899">
 </head>
 <body class="theme-dark">
 
   <!-- Top HUD Bar -->
-  <header class="top-hud">
+  <header class="top-hud" id="top-hud">
     <a href="index.html" class="hud-btn" title="자료실 메인으로 이동">
-      <span>🏛️</span> 르메뜨레 자료실
+      <span>🏛️</span> <span><span class="hide-xs">르메뜨레 </span>자료실</span>
     </a>
 
     <div class="hud-actions-right">
       <button id="btn-drawer" class="hud-btn" title="모든 슬라이드 목록 보기 (단축키 G)">
-        <span>📑</span> 슬라이드 목차
+        <span>📑</span> <span><span class="hide-xs">슬라이드 </span>목차</span>
       </button>
       <button id="btn-theme-toggle" class="hud-btn" title="화이트/다크 테마 전환 (단축키 T)">
-        <span>🌙</span> 다크 테마
+        <span>🌙</span> <span class="hide-xs">다크 </span>테마
       </button>
       <button id="btn-fullscreen" class="hud-btn" title="전체화면 프레젠테이션 (단축키 F 또는 F11)">
-        <span>⛶</span> 전체화면 (F11)
+        <span>⛶</span> 전체화면 <span class="key-hint">(F11)</span>
       </button>
     </div>
   </header>
@@ -42,7 +42,7 @@
   </main>
 
   <!-- Bottom Floating Controller -->
-  <nav class="bottom-hud" aria-label="슬라이드 제어">
+  <nav class="bottom-hud" id="bottom-hud" aria-label="슬라이드 제어">
     <button id="btn-prev" class="hud-nav-btn" title="이전 슬라이드 (←, PageUp)" aria-label="이전 슬라이드">
       ‹
     </button>
@@ -64,7 +64,7 @@
     <div class="drawer-panel">
       <div class="drawer-header">
         <h3>📑 슬라이드 전체 목차 (빠른 점프)</h3>
-        <button id="btn-drawer-close" class="hud-btn" style="padding: 6px 14px;">✕ 닫기 (Esc)</button>
+        <button id="btn-drawer-close" class="hud-btn" style="padding: 6px 14px;">✕ 닫기 <span class="key-hint">(Esc)</span></button>
       </div>
       <div id="drawer-grid" class="drawer-grid">
         <!-- Thumbnails generated dynamically -->
@@ -73,8 +73,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/slides-data.js"></script>
-  <script src="js/presentation.js"></script>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}</script>
+  <script src="js/slides-data.js?v=18"></script>
+  <script src="js/presentation.js?v=18"></script>
+  <script src="js/pwa-install.js?v=18"></script>
 </body>
 </html>

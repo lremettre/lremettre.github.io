@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>르메뜨레 공식 슬라이드 프레젠테이션 뷰어</title>
   
   <!-- Pretendard Webfont -->
@@ -36,26 +36,29 @@
     html, body {
       width: 100%;
       height: 100%;
+      height: 100dvh;
       overflow: hidden;
       background-color: var(--bg-page);
       font-family: var(--font-sans);
       color: var(--hud-text);
       user-select: none;
       -webkit-user-select: none;
+      -webkit-touch-callout: none;
       transition: background-color 0.3s ease;
     }
 
     /* Top HUD */
     .top-hud {
       position: absolute;
-      top: 16px;
-      left: 20px;
-      right: 20px;
+      top: max(10px, env(safe-area-inset-top));
+      left: max(14px, env(safe-area-inset-left));
+      right: max(14px, env(safe-area-inset-right));
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 100;
       pointer-events: none;
+      transition: opacity 0.28s ease, transform 0.28s ease;
     }
 
     .top-hud > * { pointer-events: auto; }
@@ -74,7 +77,10 @@
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       text-decoration: none;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .hud-btn:hover {
@@ -104,12 +110,16 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     /* Viewport Stage */
     #viewport-shell {
       position: absolute;
       inset: 0;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -130,6 +140,13 @@
       background: #000000;
     }
 
+    body.video-mode #canvas-container {
+      width: 100%;
+      height: 100%;
+      box-shadow: none;
+      background: transparent;
+    }
+
     #pdf-canvas {
       display: block;
       width: 100%;
@@ -145,12 +162,19 @@
     #video-player {
       display: none;
       max-width: 100%;
-      max-height: calc(100vh - 130px);
+      max-height: calc(100dvh - 130px);
       width: auto;
       height: auto;
       border-radius: 12px;
       outline: none;
       background: #000000;
+    }
+
+    body.video-mode #video-player {
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
 
     /* Embedded Slide Videos (CASE 11 Box 3 & Box 4) */
@@ -210,7 +234,7 @@
     /* Bottom Controller */
     .bottom-hud {
       position: absolute;
-      bottom: 16px;
+      bottom: max(12px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -222,7 +246,34 @@
       border-radius: 9999px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 100;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+
+    /* Auto-Hiding Floating HUD State */
+    body.hud-hidden .top-hud {
+      opacity: 0;
+      transform: translateY(-16px);
+      pointer-events: none;
+    }
+
+    body.hud-hidden .top-hud > * {
+      pointer-events: none !important;
+    }
+
+    body.hud-hidden .bottom-hud {
+      opacity: 0;
+      transform: translate(-50%, 16px);
+      pointer-events: none;
+    }
+
+    body.hud-hidden .bottom-hud * {
+      pointer-events: none !important;
+    }
+
+    body.hud-hidden.is-fullscreen {
+      cursor: none;
     }
 
     .hud-nav-btn {
@@ -274,6 +325,7 @@
       height: 4px;
       background: rgba(255, 255, 255, 0.1);
       z-index: 99;
+      pointer-events: none;
     }
 
     .progress-bar-fill {
@@ -283,11 +335,155 @@
       transition: width 0.25s ease;
     }
 
-    @media (max-width: 640px) {
+    /* PWA Install Bar Fallback Styling */
+    .pwa-install-bar {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+      z-index: 9999;
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(18, 15, 36, 0.95);
+      border: 1px solid rgba(196, 181, 253, 0.35);
+      backdrop-filter: blur(14px);
+      color: #FFFFFF;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    }
+    .pwa-install-icon { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; }
+    .pwa-install-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+    .pwa-install-text strong { font-size: 15px; font-weight: 900; }
+    .pwa-install-text span { font-size: 12.5px; color: #CBD5E1; }
+    .pwa-install-btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 9999px;
+      background: #FFFFFF;
+      color: #0F172A;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .pwa-install-close {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: transparent;
+      color: #94A3B8;
+      font-size: 22px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
       .deck-title-pill { display: none; }
-      .top-hud { top: 10px; left: 12px; right: 12px; }
-      .hud-btn { padding: 7px 12px; font-size: 12px; }
-      #viewport-shell { padding: 56px 10px 70px; }
+      .hud-btn .key-hint { display: none; }
+    }
+
+    /* Mobile Portrait: 100% Full-Width Slide Stage */
+    @media (max-width: 640px) and (orientation: portrait) {
+      .deck-title-pill { display: none; }
+      .hud-btn { padding: 7px 11px; font-size: 12px; gap: 5px; }
+      .hud-actions-right { gap: 6px; }
+      #viewport-shell { padding: 52px 0 64px; }
+      #canvas-container { border-radius: 0; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22); }
+      #video-player { border-radius: 0; max-height: 100%; }
+    }
+
+    /* Full-Bleed Edge-to-Edge Stage: Mobile Landscape, Native Fullscreen, and Immersive Mode */
+    @media (orientation: landscape) and (max-height: 600px) {
+      html, body {
+        background-color: #000000;
+      }
+      body.theme-white.theme-user-selected {
+        background-color: #FFFFFF;
+      }
+      .deck-title-pill { display: none; }
+      .hud-btn { padding: 6px 12px; font-size: 12px; gap: 5px; }
+      .hud-btn .key-hint { display: none; }
+      .hud-actions-right { gap: 8px; }
+      .bottom-hud { padding: 6px 16px; gap: 12px; }
+      .hud-nav-btn { width: 34px; height: 34px; font-size: 16px; }
+      .slide-counter { font-size: 13.5px; min-width: 64px; }
+      #viewport-shell {
+        padding: 0 !important;
+      }
+      #canvas-container {
+        border-radius: 0;
+        box-shadow: none;
+      }
+      #video-player {
+        max-height: 100vh;
+        max-height: 100dvh;
+        max-width: 100vw;
+        max-width: 100dvw;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 0;
+      }
+      .pwa-install-bar {
+        display: none !important;
+      }
+    }
+
+    :fullscreen,
+    :-webkit-full-screen,
+    :fullscreen body,
+    :-webkit-full-screen body,
+    body.is-fullscreen,
+    body.is-immersive {
+      background-color: #000000;
+    }
+
+    :fullscreen body.theme-white.theme-user-selected,
+    :-webkit-full-screen body.theme-white.theme-user-selected,
+    body.is-fullscreen.theme-white.theme-user-selected,
+    body.is-immersive.theme-white.theme-user-selected {
+      background-color: #FFFFFF;
+    }
+
+    :fullscreen #viewport-shell,
+    :-webkit-full-screen #viewport-shell,
+    body.is-fullscreen #viewport-shell,
+    body.is-immersive #viewport-shell {
+      padding: 0 !important;
+    }
+
+    :fullscreen #canvas-container,
+    :-webkit-full-screen #canvas-container,
+    body.is-fullscreen #canvas-container,
+    body.is-immersive #canvas-container {
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    :fullscreen #video-player,
+    :-webkit-full-screen #video-player,
+    body.is-fullscreen #video-player,
+    body.is-immersive #video-player {
+      max-height: 100vh;
+      max-height: 100dvh;
+      max-width: 100vw;
+      max-width: 100dvw;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 0;
+    }
+
+    :fullscreen .pwa-install-bar,
+    :-webkit-full-screen .pwa-install-bar,
+    body.is-fullscreen .pwa-install-bar,
+    body.is-immersive .pwa-install-bar {
+      display: none !important;
     }
   </style>
   <link rel="manifest" href="manifest.webmanifest">
@@ -296,7 +492,7 @@
 <body class="theme-white">
 
   <!-- Top HUD -->
-  <header class="top-hud">
+  <header class="top-hud" id="top-hud">
     <a href="index.html" class="hud-btn" title="자료실 메인으로 이동">
       <span>🏛️</span> 르메뜨레 자료실
     </a>
@@ -310,7 +506,7 @@
         <span>🌙</span> 다크 배경
       </button>
       <button id="btn-fullscreen" class="hud-btn" title="전체화면 프레젠테이션 (단축키 F 또는 F11)">
-        <span>⛶</span> 전체화면 (F11)
+        <span>⛶</span> 전체화면 <span class="key-hint">(F11)</span>
       </button>
     </div>
   </header>
@@ -486,6 +682,7 @@
       const progressFill = document.getElementById('progress-fill');
       const prevBtn = document.getElementById('btn-prev');
       const nextBtn = document.getElementById('btn-next');
+      const topHud = document.getElementById('top-hud');
       const themeToggleBtn = document.getElementById('btn-theme-toggle');
       const fullscreenBtn = document.getElementById('btn-fullscreen');
       const loadingOverlay = document.getElementById('loading-overlay');
@@ -496,6 +693,102 @@
 
       let lastShellW = 0;
       let lastShellH = 0;
+      let lastPadX = -1;
+      let lastPadY = -1;
+      let lastDpr = 0;
+      const vpTimers = [];
+
+      // Fullscreen & Auto-Hide HUD State Helpers
+      function isNativeFullscreen() {
+        return !!(document.fullscreenElement || document.webkitFullscreenElement);
+      }
+
+      function isCompactLandscape() {
+        return window.innerWidth > window.innerHeight && window.innerHeight <= 600;
+      }
+
+      function isAutoHideMode() {
+        return isCompactLandscape() || isNativeFullscreen() || document.body.classList.contains('is-immersive');
+      }
+
+      let hudHideTimer = null;
+      let hudJustWokeAt = 0;
+      let wasInAutoHideMode = false;
+
+      function clearHudTimer() {
+        if (hudHideTimer) {
+          clearTimeout(hudHideTimer);
+          hudHideTimer = null;
+        }
+      }
+
+      function hideHud() {
+        clearHudTimer();
+        if (isAutoHideMode()) {
+          document.body.classList.add('hud-hidden');
+        }
+      }
+
+      function showHud(delayMs) {
+        clearHudTimer();
+        if (document.body.classList.contains('hud-hidden')) {
+          document.body.classList.remove('hud-hidden');
+          hudJustWokeAt = Date.now();
+        }
+        if (isAutoHideMode()) {
+          hudHideTimer = setTimeout(function () {
+            if (isAutoHideMode()) {
+              document.body.classList.add('hud-hidden');
+            }
+          }, delayMs || 3000);
+        }
+      }
+
+      function isEffectiveWhiteTheme() {
+        if (isAutoHideMode()) {
+          return document.body.classList.contains('theme-white') && document.body.classList.contains('theme-user-selected');
+        }
+        return document.body.classList.contains('theme-white');
+      }
+
+      function syncThemeButtonUI() {
+        const whiteActive = isEffectiveWhiteTheme();
+        themeToggleBtn.innerHTML = whiteActive ? '<span>🌙</span> 다크 배경' : '<span>☀️</span> 화이트 배경';
+      }
+
+      function updateFullscreenButtonUI() {
+        const active = isNativeFullscreen() || document.body.classList.contains('is-immersive');
+        fullscreenBtn.innerHTML = active
+          ? '<span>↙️</span> 축소'
+          : '<span>⛶</span> 전체화면 <span class="key-hint">(F11)</span>';
+      }
+
+      function syncHudMode() {
+        const auto = isAutoHideMode();
+        if (auto && !wasInAutoHideMode) {
+          showHud(2500);
+        } else if (!auto) {
+          clearHudTimer();
+          document.body.classList.remove('hud-hidden');
+        }
+        wasInAutoHideMode = auto;
+        syncThemeButtonUI();
+      }
+
+      // Guard against synthetic click hitting newly-revealed HUD buttons on the same wake tap
+      [topHud, bottomHud].forEach(function (el) {
+        if (!el) return;
+        el.addEventListener('click', function (e) {
+          if (Date.now() - hudJustWokeAt < 350) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+          if (isAutoHideMode()) {
+            showHud(3000);
+          }
+        }, true);
+      });
 
       // Keep virtual-time / main event loop active while initial PDF render is in flight
       const renderKeepAlive = setInterval(function () {
@@ -522,8 +815,10 @@
           const padY = (parseFloat(shellStyle.paddingTop) || 0) + (parseFloat(shellStyle.paddingBottom) || 0);
           lastShellW = viewportShell.clientWidth;
           lastShellH = viewportShell.clientHeight;
-          const availWidth = Math.max(200, lastShellW - padX);
-          const availHeight = Math.max(150, lastShellH - padY);
+          lastPadX = padX;
+          lastPadY = padY;
+          const availWidth = Math.max(160, lastShellW - padX);
+          const availHeight = Math.max(120, lastShellH - padY);
 
           const unscaledViewport = page.getViewport({ scale: 1 });
           const scaleX = availWidth / unscaledViewport.width;
@@ -531,7 +826,8 @@
           const bestScale = Math.min(scaleX, scaleY);
 
           // Support retina / high DPI properly via getViewport
-          const outputScale = window.devicePixelRatio || 1;
+          const outputScale = Math.min(window.devicePixelRatio || 1, 3);
+          lastDpr = outputScale;
           const viewport = page.getViewport({ scale: bestScale });
           const renderViewport = page.getViewport({ scale: bestScale * outputScale });
 
@@ -625,23 +921,142 @@
 
       // Theme toggle
       function toggleTheme() {
-        const isWhite = document.body.classList.toggle('theme-white');
-        themeToggleBtn.innerHTML = isWhite ? '<span>🌙</span> 다크 배경' : '<span>☀️</span> 화이트 배경';
+        const currentlyWhite = isEffectiveWhiteTheme();
+        document.body.classList.add('theme-user-selected');
+        document.body.classList.toggle('theme-white', !currentlyWhite);
+        syncThemeButtonUI();
+        if (isAutoHideMode()) showHud(3000);
       }
 
-      // Fullscreen
-      function toggleFullscreen() {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(() => {});
-          fullscreenBtn.innerHTML = '<span>↙️</span> 축소';
+      // Rock-Solid Rotation, Fullscreen & VisualViewport Re-rendering
+      function checkAndSyncViewport() {
+        const fsActive = isNativeFullscreen();
+        document.body.classList.toggle('is-fullscreen', fsActive);
+        if (fsActive && document.body.classList.contains('is-immersive')) {
+          document.body.classList.remove('is-immersive');
+        }
+        updateFullscreenButtonUI();
+        syncHudMode();
+
+        if (!isVideoMode && pdfDoc) {
+          const viewportShell = document.getElementById('viewport-shell');
+          if (viewportShell) {
+            const shellStyle = window.getComputedStyle(viewportShell);
+            const padX = (parseFloat(shellStyle.paddingLeft) || 0) + (parseFloat(shellStyle.paddingRight) || 0);
+            const padY = (parseFloat(shellStyle.paddingTop) || 0) + (parseFloat(shellStyle.paddingBottom) || 0);
+            const curW = viewportShell.clientWidth;
+            const curH = viewportShell.clientHeight;
+            const curDpr = Math.min(window.devicePixelRatio || 1, 3);
+            if (
+              curW !== lastShellW ||
+              curH !== lastShellH ||
+              padX !== lastPadX ||
+              padY !== lastPadY ||
+              curDpr !== lastDpr
+            ) {
+              queueRenderPage(pageNum);
+            }
+          }
+        }
+      }
+
+      function handleViewportChange() {
+        checkAndSyncViewport();
+        while (vpTimers.length) {
+          clearTimeout(vpTimers.pop());
+        }
+        vpTimers.push(setTimeout(checkAndSyncViewport, 120));
+        vpTimers.push(setTimeout(checkAndSyncViewport, 350));
+      }
+
+      // Universal Fullscreen (Native Fullscreen + Orientation Lock + iOS Safari Immersive Fallback)
+      function toggleImmersiveFallback(forceState) {
+        if (typeof forceState === 'boolean') {
+          document.body.classList.toggle('is-immersive', forceState);
         } else {
-          if (document.exitFullscreen) document.exitFullscreen();
-          fullscreenBtn.innerHTML = '<span>⛶</span> 전체화면 (F11)';
+          document.body.classList.toggle('is-immersive');
+        }
+        updateFullscreenButtonUI();
+        if (document.body.classList.contains('is-immersive')) {
+          showHud(2500);
+        }
+        handleViewportChange();
+      }
+
+      function toggleFullscreen() {
+        if (isNativeFullscreen() || document.body.classList.contains('is-immersive')) {
+          if (document.body.classList.contains('is-immersive')) {
+            document.body.classList.remove('is-immersive');
+          }
+          if (isNativeFullscreen()) {
+            if (screen.orientation && typeof screen.orientation.unlock === 'function') {
+              try { screen.orientation.unlock(); } catch (e) {}
+            }
+            const exitFs = document.exitFullscreen || document.webkitExitFullscreen;
+            if (exitFs) {
+              try {
+                const p = exitFs.call(document);
+                if (p && typeof p.catch === 'function') p.catch(function () {});
+              } catch (e) {}
+            }
+          }
+          updateFullscreenButtonUI();
+          handleViewportChange();
+          return;
+        }
+
+        const docEl = document.documentElement;
+        const canNativeFs = !!(
+          (docEl.requestFullscreen && document.fullscreenEnabled !== false) ||
+          (docEl.webkitRequestFullscreen && document.webkitFullscreenEnabled !== false)
+        );
+
+        if (canNativeFs) {
+          const reqFs = docEl.requestFullscreen || docEl.webkitRequestFullscreen;
+          try {
+            const p = reqFs.call(docEl);
+            if (p && typeof p.then === 'function') {
+              p.then(function () {
+                if (screen.orientation && screen.orientation.lock) {
+                  screen.orientation.lock('landscape').catch(function () {});
+                }
+                updateFullscreenButtonUI();
+                showHud(2500);
+                handleViewportChange();
+              }).catch(function () {
+                toggleImmersiveFallback(true);
+              });
+            } else {
+              if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(function () {});
+              }
+              setTimeout(function () {
+                if (!isNativeFullscreen()) {
+                  toggleImmersiveFallback(true);
+                } else {
+                  updateFullscreenButtonUI();
+                  showHud(2500);
+                  handleViewportChange();
+                }
+              }, 150);
+            }
+          } catch (err) {
+            toggleImmersiveFallback(true);
+          }
+        } else {
+          toggleImmersiveFallback();
         }
       }
 
       // Keyboard navigation
       window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && document.body.classList.contains('is-immersive')) {
+          document.body.classList.remove('is-immersive');
+          updateFullscreenButtonUI();
+          handleViewportChange();
+          return;
+        }
+
         if (isVideoMode) {
           switch (e.key) {
             case ' ':
@@ -683,6 +1098,7 @@
           case 'Enter':
             e.preventDefault();
             onNextPage();
+            if (isAutoHideMode()) hideHud();
             break;
           case 'ArrowLeft':
           case 'ArrowUp':
@@ -690,16 +1106,21 @@
           case 'Backspace':
             e.preventDefault();
             onPrevPage();
+            if (isAutoHideMode()) hideHud();
             break;
           case 'Home':
             e.preventDefault();
             pageNum = 1;
             queueRenderPage(pageNum);
+            if (isAutoHideMode()) hideHud();
             break;
           case 'End':
             e.preventDefault();
-            pageNum = pdfDoc.numPages;
-            queueRenderPage(pageNum);
+            if (pdfDoc) {
+              pageNum = pdfDoc.numPages;
+              queueRenderPage(pageNum);
+              if (isAutoHideMode()) hideHud();
+            }
             break;
           case 'f':
           case 'F':
@@ -712,38 +1133,116 @@
         }
       });
 
-      // Touch navigation
+      // Touch navigation & Tap-to-Toggle Floating HUD
       let touchStartX = 0;
-      window.addEventListener('touchstart', (e) => {
-        if (isVideoMode) return;
-        touchStartX = e.changedTouches[0].screenX;
+      let touchStartY = 0;
+      let touchClientX = 0;
+      let touchClientY = 0;
+      let touchStartAt = 0;
+      let lastTouchTime = 0;
+      let wasMultiTouch = false;
+      let touchOnInlineMedia = false;
+
+      window.addEventListener('touchstart', function (e) {
+        lastTouchTime = Date.now();
+        if (e.touches.length > 1) {
+          wasMultiTouch = true;
+          return;
+        }
+        wasMultiTouch = false;
+        touchStartAt = lastTouchTime;
+        const t = e.changedTouches[0];
+        touchStartX = t.screenX;
+        touchStartY = t.screenY;
+        touchClientX = t.clientX;
+        touchClientY = t.clientY;
+        touchOnInlineMedia = !!(e.target && e.target.closest && e.target.closest('.slide-inline-video'));
       }, { passive: true });
 
-      window.addEventListener('touchend', (e) => {
-        if (isVideoMode) return;
-        const diffX = e.changedTouches[0].screenX - touchStartX;
-        if (Math.abs(diffX) > 40) {
+      window.addEventListener('touchmove', function (e) {
+        if (e.touches.length > 1) {
+          wasMultiTouch = true;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', function (e) {
+        lastTouchTime = Date.now();
+        if (wasMultiTouch) {
+          if (e.touches.length === 0) wasMultiTouch = false;
+          return;
+        }
+
+        const t = e.changedTouches[0];
+        const moveDist = Math.hypot(t.clientX - touchClientX, t.clientY - touchClientY);
+        const elapsed = lastTouchTime - touchStartAt;
+        const inHudOrOverlay = !!(e.target && e.target.closest && e.target.closest('.top-hud, .bottom-hud, .slide-inline-video, .pwa-install-bar'));
+
+        // Clean tap (< 12px finger movement) toggles HUD visibility in landscape / fullscreen / immersive
+        if (moveDist < 12 && elapsed < 500) {
+          if (!inHudOrOverlay && isAutoHideMode()) {
+            if (document.body.classList.contains('hud-hidden')) {
+              showHud(3000);
+            } else {
+              hideHud();
+            }
+          }
+          return;
+        }
+
+        if (isVideoMode || touchOnInlineMedia) return;
+        if (window.visualViewport && window.visualViewport.scale > 1.05) return;
+
+        const diffX = t.screenX - touchStartX;
+        const diffY = t.screenY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) * 1.2 && Math.abs(diffX) > 40) {
           if (diffX < 0) onNextPage();
           else onPrevPage();
+          if (isAutoHideMode()) hideHud();
         }
       }, { passive: true });
 
-      window.addEventListener('resize', () => {
-        if (!isVideoMode && pdfDoc) {
-          const viewportShell = document.getElementById('viewport-shell');
-          if (viewportShell && (viewportShell.clientWidth !== lastShellW || viewportShell.clientHeight !== lastShellH)) {
-            queueRenderPage(pageNum);
-          }
+      // Desktop mouse activity wakes HUD temporarily in fullscreen / auto-hide mode
+      let lastMouseX = -1;
+      let lastMouseY = -1;
+      window.addEventListener('mousemove', function (e) {
+        if (Date.now() - lastTouchTime < 800) return;
+        if (!isAutoHideMode()) return;
+        if (Math.abs(e.clientX - lastMouseX) < 3 && Math.abs(e.clientY - lastMouseY) < 3) return;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+        showHud(3000);
+      }, { passive: true });
+
+      document.getElementById('viewport-shell').addEventListener('click', function (e) {
+        if (Date.now() - lastTouchTime < 800) return;
+        if (!isAutoHideMode()) return;
+        if (e.target && e.target.closest && e.target.closest('.top-hud, .bottom-hud, .slide-inline-video, #video-player, .pwa-install-bar')) return;
+        if (document.body.classList.contains('hud-hidden')) {
+          showHud(3000);
+        } else {
+          hideHud();
         }
       });
+
+      window.addEventListener('resize', handleViewportChange);
+      window.addEventListener('orientationchange', handleViewportChange);
+      document.addEventListener('fullscreenchange', handleViewportChange);
+      document.addEventListener('webkitfullscreenchange', handleViewportChange);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', handleViewportChange);
+      }
 
       prevBtn.addEventListener('click', onPrevPage);
       nextBtn.addEventListener('click', onNextPage);
       themeToggleBtn.addEventListener('click', toggleTheme);
       fullscreenBtn.addEventListener('click', toggleFullscreen);
 
+      syncHudMode();
+      updateFullscreenButtonUI();
+
       // Video Mode vs PDF Document Mode
       if (isVideoMode) {
+        document.body.classList.add('video-mode');
         canvas.style.display = 'none';
         videoPlayer.style.display = 'block';
         if (bottomHud) bottomHud.style.display = 'none';
@@ -801,6 +1300,6 @@
       }
     })();
   </script>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}</script>
+  <script src="js/pwa-install.js?v=18"></script>
 </body>
 </html>
