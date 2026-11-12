@@ -579,7 +579,7 @@ def scan_docs():
         # 실제 감지된 페이지 수(detected_pages)를 항상 최우선 사용하여 하드코딩된 구버전 페이지 수로 덮어써지지 않도록 보장
         slide_count = detected_pages if detected_pages else preset.get("slide_count")
 
-        # 신규 Official 세미나 버전(Official_V3.4, V3.5 등) 동적 공식 프리셋 자동 적용
+        # 신규 Official 세미나 버전(Official_V3.4, V3.5 등) 및 마케팅 플랜(V2.2 등) 동적 공식 프리셋 자동 적용
         if gid not in presets_map and re.match(r'^presentation-르메뜨레(?:공식)?세미나officialv', gid, re.IGNORECASE):
             ver_upper = ginfo["version"].upper()
             page_phrase = f"{slide_count}페이지 " if slide_count else ""
@@ -600,6 +600,20 @@ def scan_docs():
                 ],
             }
             preset = {**preset, **dynamic_official}
+        elif gid not in presets_map and re.match(r'^presentation-르메뜨레마케팅플랜', gid, re.IGNORECASE):
+            ver_upper = ginfo["version"].upper()
+            page_phrase = f"{slide_count}페이지 " if slide_count else ""
+            dynamic_mkt = {
+                "title": f"르메뜨레 공식 마케팅 플랜 ({ver_upper})",
+                "subtitle": "르메뜨레 비즈니스 보상 체계 · 직급 로드맵 · 수익 플랜 공식 발표 자료",
+                "badge": f"MARKETING {ver_upper}",
+                "author": "L.REMETTRE BUSINESS GROUP",
+                "description": (
+                    f"르메뜨레 비즈니스 보상 플랜, 직급 승급 기준 및 수익 구조를 한눈에 볼 수 있도록 정리한 "
+                    f"{page_phrase}{ver_upper} 공식 마케팅 플랜 프레젠테이션입니다."
+                ),
+            }
+            preset = {**preset, **dynamic_mkt}
 
         title = preset.get("title", ginfo["primary_name"])
         subtitle = preset.get("subtitle", f"{ginfo['category_name']} 공식 아카이브 자료")

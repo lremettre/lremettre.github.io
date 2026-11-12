@@ -96,6 +96,13 @@
     window.addEventListener('online', function () {
       checkForSwUpdate(true);
     });
+
+    // PC 설치형 앱이 화면에 계속 켜져 있을 때도 60초 주기로 신규 배포 자동 감지
+    setInterval(function () {
+      if (document.visibilityState === 'visible') {
+        checkForSwUpdate(false);
+      }
+    }, 60000);
   }
 
   var deferred = null;

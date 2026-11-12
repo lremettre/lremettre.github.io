@@ -3,6 +3,7 @@
   "short_name": "르메뜨레",
   "description": "L.REMETTRE 공식 프레젠테이션 · 문서 · 영상 · 성적서 스마트 디지털 자료실",
   "lang": "ko",
+  "id": "/",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

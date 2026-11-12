@@ -122,36 +122,24 @@
         encodeURIComponent('르메뜨레 공식 프레젠테이션 (v2.1 SP 에디션)')
     },
     {
-      key: 'cell-science',
-      tag: 'OFFICIAL MAIN DECK · 27P',
-      title: '르메뜨레(L.ReMeTTRe) : 세포의 시간을 되돌리는 과학',
-      pages: 27,
-      thumb: 'assets/thumbs/presentation-LReMeTTReNEWPPT.jpg',
+      key: 'slot-2',
+      tag: 'MARKETING V2.2',
+      title: '르메뜨레 공식 마케팅 플랜 (V2.2)',
+      pages: 20,
+      thumb: 'assets/thumbs/presentation-르메뜨레마케팅플랜V22.jpg',
       viewerUrl:
         'viewer.html?file=' +
-        encodeURIComponent('docs/01_프레젠테이션_강의/L.ReMeTTRe_NEW_PPT.pdf') +
+        encodeURIComponent('docs/01_프레젠테이션_강의/르메뜨레 마케팅 플랜_V2.2.pdf') +
         '&title=' +
-        encodeURIComponent('르메뜨레(L.ReMeTTRe) : 세포의 시간을 되돌리는 과학')
+        encodeURIComponent('르메뜨레 공식 마케팅 플랜 (V2.2)')
     },
     {
-      key: 'leadership',
+      key: 'slot-3',
       tag: 'LEADERSHIP MASTERCLASS · 16P',
       title: '변화하는 시대, 리더십의 진짜 온도',
       pages: 16,
       thumb: 'assets/thumbs/leadership-masterclass.jpg',
       viewerUrl: 'presentation.html'
-    },
-    {
-      key: 'v14-business',
-      tag: 'BUSINESS PITCH DECK V1.4 · 50P',
-      title: '르메뜨레 사업설명 공식 세미나 피치덱 (V1.4 최신판)',
-      pages: 50,
-      thumb: 'assets/thumbs/presentation-lremettre사업설명자료세미나용V14.jpg',
-      viewerUrl:
-        'viewer.html?file=' +
-        encodeURIComponent('docs/01_프레젠테이션_강의/lremettre사업설명자료_세미나용_V1.4.pdf') +
-        '&title=' +
-        encodeURIComponent('르메뜨레 사업설명 공식 세미나 피치덱 (V1.4 최신판)')
     }
   ];
 
@@ -345,13 +333,6 @@
         if (tkName) tkName.textContent = `Official ${verNum} 원본 PPTX 다운로드`;
       }
 
-      const firstCardDesc =
-        document.querySelector('.neomathic-4cards-grid .neomathic-3d-card[data-category="presentation"] .card-3d-text p') ||
-        document.querySelector('.neomathic-4cards-grid .neomathic-3d-card .card-3d-text p');
-      if (firstCardDesc) {
-        firstCardDesc.innerHTML = `Official ${verUpper} 세미나 ${slideCount}P,<br>SP 에디션, 세포 과학 메인 덱`;
-      }
-
       const firstStatInfo = document.querySelector('.neomathic-stats-strip .neo-stat-col .neo-stat-info');
       if (firstStatInfo) {
         const strongEl = firstStatInfo.querySelector('strong');
@@ -377,49 +358,108 @@
       }
     }
 
-    // 나머지 히어로 스테이지 대표 덱 썸네일(?v= 캐시버스팅 포함) 및 뷰어 URL 동기화
-    const deckMatchers = {
-      'sp-edition': (r) => (r.id && r.id.includes('SP에디션')) || (r.title && /SP\s*에디션/i.test(r.title)),
-      'cell-science': (r) => r.id === 'presentation-LReMeTTReNEWPPT' || (r.title && r.title.includes('세포의 시간을 되돌리는 과학')),
-      'leadership': (r) => r.id === 'leadership-masterclass' || (r.title && r.title.includes('리더십의 진짜 온도')),
-      'v14-business': (r) => (r.id && r.id.includes('사업설명자료세미나용')) || (r.title && r.title.includes('사업설명'))
-    };
+    // 실제 등록된 프레젠테이션 목록을 기반으로 HERO_STAGE_DECKS 동적 재구성 (삭제된 자료 자동 제외 + 신규 자료 자동 편입)
+    const livePresentations = resourcesData.filter((r) => r.category === 'presentation' && r.thumbnail);
+    const pickedIds = new Set();
+    const dynamicDecks = [];
 
-    HERO_STAGE_DECKS.forEach((deck) => {
-      const matcher = deckMatchers[deck.key];
-      if (!matcher) return;
-      const matched = resourcesData.find(matcher);
-      if (!matched) return;
+    function pushCandidate(item, keyHint, shortLabel, iconPrefix) {
+      if (!item || pickedIds.has(item.id)) return;
+      pickedIds.add(item.id);
+      const pages = item.slide_count || 20;
+      const badgeStr = (item.badge || item.version || 'OFFICIAL DECK').toUpperCase();
+      dynamicDecks.push({
+        key: keyHint,
+        tag: `${badgeStr} · ${pages}P`,
+        title: item.title,
+        pages: pages,
+        thumb: item.thumbnail,
+        viewerUrl: buildViewerUrlForItem(item),
+        shortLabel: `${iconPrefix} ${shortLabel} (${pages}P)`,
+        cardShortName: shortLabel
+      });
+    }
 
-      if (matched.thumbnail) deck.thumb = matched.thumbnail;
-      const syncedUrl = buildViewerUrlForItem(matched);
-      if (syncedUrl) deck.viewerUrl = syncedUrl;
-      if (matched.slide_count) {
-        deck.pages = matched.slide_count;
-        deck.tag = deck.tag.replace(/\d+P$/, `${matched.slide_count}P`);
-      }
+    if (latestOfficial) {
+      const vNum = extractVersionInfo(latestOfficial).raw;
+      pushCandidate(latestOfficial, 'slot-0', `Official ${vNum} 세미나 덱`, '🏆');
+    }
 
-      if (deck.key === 'sp-edition') {
-        if (tabDeckSpEdition) {
-          tabDeckSpEdition.textContent = `✨ ${matched.version || 'v2.1'} SP 에디션 (${deck.pages}P)`;
-        }
-        if (quickLinks[1]) {
-          quickLinks[1].href = deck.viewerUrl;
-          const s = quickLinks[1].querySelector('span:first-child');
-          if (s) s.textContent = `✨ ${matched.version || 'v2.1'} SP 에디션 (${deck.pages}P)`;
-        }
-      } else if (deck.key === 'cell-science') {
-        if (tabDeckCellScience) {
-          tabDeckCellScience.textContent = `🧬 세포 과학 덱 (${deck.pages}P)`;
-        }
-        if (quickLinks[2]) {
-          quickLinks[2].href = deck.viewerUrl;
-          const s = quickLinks[2].querySelector('span:first-child');
-          if (s) s.textContent = `🧬 세포 과학 메인 덱 (${deck.pages}P)`;
-        }
+    const spItem = livePresentations.find(
+      (r) => !pickedIds.has(r.id) && ((r.id && r.id.includes('SP에디션')) || /SP\s*에디션/i.test(r.title || ''))
+    );
+    if (spItem) {
+      pushCandidate(spItem, 'slot-1', `${spItem.version || 'v2.1'} SP 에디션`, '✨');
+    }
+
+    const mktCandidates = livePresentations
+      .filter((r) => !pickedIds.has(r.id) && ((r.id && r.id.includes('마케팅플랜')) || (r.title && r.title.includes('마케팅 플랜'))))
+      .sort((a, b) => compareVersionParts(extractVersionInfo(b).parts, extractVersionInfo(a).parts));
+    if (mktCandidates[0]) {
+      const mVer = (mktCandidates[0].version || '').toUpperCase();
+      pushCandidate(mktCandidates[0], 'slot-2', `마케팅 플랜 ${mVer}`.trim(), '📈');
+    }
+
+    const pensionItem = livePresentations.find((r) => !pickedIds.has(r.id) && (r.title || '').includes('연금'));
+    if (pensionItem) {
+      pushCandidate(pensionItem, `slot-${dynamicDecks.length}`, '연금 만들기 플랜', '💎');
+    }
+
+    const leaderItem = livePresentations.find((r) => !pickedIds.has(r.id) && r.id === 'leadership-masterclass');
+    if (leaderItem) {
+      pushCandidate(leaderItem, `slot-${dynamicDecks.length}`, '리더십 마스터클래스', '🌿');
+    }
+
+    livePresentations.forEach((r) => {
+      if (dynamicDecks.length < 5 && !pickedIds.has(r.id)) {
+        pushCandidate(r, `slot-${dynamicDecks.length}`, r.title.slice(0, 14), '📊');
       }
     });
 
+    if (dynamicDecks.length > 0) {
+      HERO_STAGE_DECKS.length = 0;
+      dynamicDecks.forEach((d, idx) => {
+        d.key = `slot-${idx}`;
+        HERO_STAGE_DECKS.push(d);
+      });
+
+      const tabButtons = [tabDeckV30Seminar, tabDeckSpEdition, tabDeckCellScience];
+      tabButtons.forEach((btn, idx) => {
+        if (!btn) return;
+        if (HERO_STAGE_DECKS[idx]) {
+          btn.style.display = '';
+          btn.textContent = HERO_STAGE_DECKS[idx].shortLabel;
+        } else {
+          btn.style.display = 'none';
+        }
+      });
+
+      quickLinks.forEach((qLink, idx) => {
+        if (HERO_STAGE_DECKS[idx]) {
+          qLink.style.display = '';
+          qLink.href = HERO_STAGE_DECKS[idx].viewerUrl;
+          const s = qLink.querySelector('span:first-child');
+          if (s) s.textContent = HERO_STAGE_DECKS[idx].shortLabel;
+        } else {
+          qLink.style.display = 'none';
+        }
+      });
+
+      const firstCardDesc =
+        document.querySelector('.neomathic-4cards-grid .neomathic-3d-card[data-category="presentation"] .card-3d-text p') ||
+        document.querySelector('.neomathic-4cards-grid .neomathic-3d-card .card-3d-text p');
+      if (firstCardDesc) {
+        const line1 = HERO_STAGE_DECKS[0]
+          ? `${HERO_STAGE_DECKS[0].cardShortName} ${HERO_STAGE_DECKS[0].pages}P`
+          : '공식 세미나 프레젠테이션';
+        const subNames = HERO_STAGE_DECKS.slice(1, 3).map((d) => d.cardShortName).join(', ');
+        firstCardDesc.innerHTML = subNames ? `${line1},<br>${subNames}` : line1;
+      }
+    }
+
+    if (currentHeroIdx >= HERO_STAGE_DECKS.length) {
+      currentHeroIdx = 0;
+    }
     renderHeroStage(currentHeroIdx);
   }
 
@@ -429,13 +469,13 @@
    * ==========================================================================
    */
   function renderHeroStage(idx) {
-    if (!stageCanvas) return;
+    if (!stageCanvas || HERO_STAGE_DECKS.length === 0) return;
     currentHeroIdx = (idx + HERO_STAGE_DECKS.length) % HERO_STAGE_DECKS.length;
     const deck = HERO_STAGE_DECKS[currentHeroIdx];
 
-    if (tabDeckV30Seminar) tabDeckV30Seminar.classList.toggle('active', deck.key === 'v30-seminar');
-    if (tabDeckSpEdition) tabDeckSpEdition.classList.toggle('active', deck.key === 'sp-edition');
-    if (tabDeckCellScience) tabDeckCellScience.classList.toggle('active', deck.key === 'cell-science');
+    if (tabDeckV30Seminar) tabDeckV30Seminar.classList.toggle('active', currentHeroIdx === 0);
+    if (tabDeckSpEdition) tabDeckSpEdition.classList.toggle('active', currentHeroIdx === 1);
+    if (tabDeckCellScience) tabDeckCellScience.classList.toggle('active', currentHeroIdx === 2);
 
     if (btnTopLaunch) btnTopLaunch.href = deck.viewerUrl;
     if (heroMainCta && HERO_STAGE_DECKS[0]) heroMainCta.href = HERO_STAGE_DECKS[0].viewerUrl;

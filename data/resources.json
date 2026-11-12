@@ -212,71 +212,40 @@
     "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/L.ReMeTTRe_110%C2%B770%20%EC%97%B0%EA%B8%88%20%EB%A7%8C%EB%93%A4%EA%B8%B0_v1.0.pdf&title=L.ReMeTTRe%20110%C2%B770%20%EC%97%B0%EA%B8%88%20%EB%A7%8C%EB%93%A4%EA%B8%B0%20v1.0&v=1794294933"
   },
   {
-    "id": "presentation-LReMeTTReNEWPPT",
+    "id": "presentation-르메뜨레마케팅플랜V22",
     "category": "presentation",
     "category_name": "프레젠테이션&강의",
-    "title": "르메뜨레(L.ReMeTTRe) : 세포의 시간을 되돌리는 과학",
-    "subtitle": "REMETTRE (Restore) · 가장 활력 넘치던 본연의 상태로 당신의 삶을 되돌립니다",
-    "version": "v1.0",
-    "date": "2026-11-03",
-    "badge": "OFFICIAL DECK",
+    "title": "르메뜨레 공식 마케팅 플랜 (V2.2)",
+    "subtitle": "르메뜨레 비즈니스 보상 체계 · 직급 로드맵 · 수익 플랜 공식 발표 자료",
+    "version": "V2.2",
+    "date": "2026-11-12",
+    "badge": "MARKETING V2.2",
     "tags": [
       "프레젠테이션&강의",
-      "v1.0"
+      "V2.2"
     ],
-    "description": "르메뜨레의 세포 과학 메커니즘과 프리미엄 웰니스 브랜드 비전을 담은 27페이지 공식 메인 피치덱입니다. 웹 브라우저에서 바로 시네마틱 프레젠테이션으로 발표할 수 있습니다.",
+    "description": "르메뜨레 비즈니스 보상 플랜, 직급 승급 기준 및 수익 구조를 한눈에 볼 수 있도록 정리한 27페이지 V2.2 공식 마케팅 플랜 프레젠테이션입니다.",
     "key_points": [
-      "16:9 와이드스크린 시네마틱 프레젠테이션 지원 (F11 풀스크린)",
-      "27페이지 공식 메인 브랜드 및 세포 과학 메커니즘 수록",
-      "고화질 공식 PDF 원본 즉시 다운로드 제공"
+      "지원 포맷: PDF, PPTX",
+      "업데이트 일자: 2026-11-12",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
     ],
     "downloads": {
       "pdf": {
-        "url": "docs/01_프레젠테이션_강의/L.ReMeTTRe_NEW_PPT.pdf",
-        "name": "L.ReMeTTRe_NEW_PPT.pdf",
-        "size": "11.0 MB"
+        "url": "docs/01_프레젠테이션_강의/르메뜨레 마케팅 플랜_V2.2.pdf",
+        "name": "르메뜨레 마케팅 플랜_V2.2.pdf",
+        "size": "1.2 MB"
       },
       "pptx": {
-        "url": "docs/01_프레젠테이션_강의/L.ReMeTTRe_NEW_PPT.pptx",
-        "name": "L.ReMeTTRe_NEW_PPT.pptx",
-        "size": "57.5 MB"
+        "url": "docs/01_프레젠테이션_강의/르메뜨레 마케팅 플랜_V2.2.pptx",
+        "name": "르메뜨레 마케팅 플랜_V2.2.pptx",
+        "size": "6.3 MB"
       }
     },
-    "thumbnail": "assets/thumbs/presentation-LReMeTTReNEWPPT.jpg?v=1793855402",
+    "thumbnail": "assets/thumbs/presentation-르메뜨레마케팅플랜V22.jpg?v=1794462507",
     "slide_count": 27,
-    "author": "L.REMETTRE R&D / BRAND GROUP",
-    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/L.ReMeTTRe_NEW_PPT.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%28L.ReMeTTRe%29%20%3A%20%EC%84%B8%ED%8F%AC%EC%9D%98%20%EC%8B%9C%EA%B0%84%EC%9D%84%20%EB%90%98%EB%8F%8C%EB%A6%AC%EB%8A%94%20%EA%B3%BC%ED%95%99&v=1793693169"
-  },
-  {
-    "id": "presentation-lremettre사업설명자료세미나용V14",
-    "category": "presentation",
-    "category_name": "프레젠테이션&강의",
-    "title": "르메뜨레 사업설명 공식 세미나 피치덱 (V1.4 최신판)",
-    "subtitle": "글로벌 웰니스 비즈니스 비전 및 사업설명회 최신 세미나 공식 자료",
-    "version": "V1.4",
-    "date": "2026-11-03",
-    "badge": "LATEST DECK",
-    "tags": [
-      "프레젠테이션&강의",
-      "V1.4"
-    ],
-    "description": "르메뜨레 비즈니스 모델, 보상 체계 및 글로벌 비전을 다루는 50페이지 공식 사업설명회 최신 V1.4 프레젠테이션입니다. 브라우저에서 바로 열람하거나 F11 전체화면으로 발표할 수 있습니다.",
-    "key_points": [
-      "2026 최신 V1.4 공식 사업설명회 세미나 덱 (50P)",
-      "16:9 와이드스크린 시네마틱 프레젠테이션 지원 (F11)",
-      "고화질 공식 PDF 원본 즉시 다운로드 제공"
-    ],
-    "downloads": {
-      "pdf": {
-        "url": "docs/01_프레젠테이션_강의/lremettre사업설명자료_세미나용_V1.4.pdf",
-        "name": "lremettre사업설명자료_세미나용_V1.4.pdf",
-        "size": "71.1 MB"
-      }
-    },
-    "thumbnail": "assets/thumbs/presentation-lremettre사업설명자료세미나용V14.jpg?v=1793855403",
-    "slide_count": 50,
     "author": "L.REMETTRE BUSINESS GROUP",
-    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/lremettre%EC%82%AC%EC%97%85%EC%84%A4%EB%AA%85%EC%9E%90%EB%A3%8C_%EC%84%B8%EB%AF%B8%EB%82%98%EC%9A%A9_V1.4.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%82%AC%EC%97%85%EC%84%A4%EB%AA%85%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%BC%EC%B9%98%EB%8D%B1%20%28V1.4%20%EC%B5%9C%EC%8B%A0%ED%8C%90%29&v=1793675778"
+    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EB%A7%88%EC%BC%80%ED%8C%85%20%ED%94%8C%EB%9E%9C_V2.2.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EB%A7%88%EC%BC%80%ED%8C%85%20%ED%94%8C%EB%9E%9C%20%28V2.2%29&v=1794462506"
   },
   {
     "id": "presentation-르메뜨레세미나OfficialV34",
