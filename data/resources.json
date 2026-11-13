@@ -284,6 +284,42 @@
     "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.4.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20%28Official%20V3.4%29&v=1794371724"
   },
   {
+    "id": "presentation-르메뜨레세미나OfficialV36",
+    "category": "presentation",
+    "category_name": "프레젠테이션&강의",
+    "title": "르메뜨레 공식 세미나 프레젠테이션 (Official V3.6)",
+    "subtitle": "르메뜨레 브랜드 · 3대 핵심 바이오 솔루션 · 체험사례 · 마케팅 플랜 공식 발표 자료",
+    "version": "V3.6",
+    "date": "2026-11-13",
+    "badge": "OFFICIAL V3.6",
+    "tags": [
+      "프레젠테이션&강의",
+      "V3.6"
+    ],
+    "description": "르메뜨레 브랜드 스토리와 3대 핵심 바이오 솔루션(소이 펩타이드 · 풀컵 오크라 · 오크라 블룸), 실제 회원 체험사례 및 비즈니스 마케팅 플랜을 집약한 46페이지 Official V3.6 공식 발표 자료입니다. 웹 뷰어 발표 및 PPTX/PDF 다운로드를 모두 지원합니다.",
+    "key_points": [
+      "르메뜨레 공식 세미나 발표 덱 (Official V3.6 · 46P)",
+      "지원 포맷: PDF, PPTX (업데이트: 2026-11-13)",
+      "브라우저 즉시 열람/발표(F11 전체화면) 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.6.pdf",
+        "name": "르메뜨레 세미나_Official_V3.6.pdf",
+        "size": "6.5 MB"
+      },
+      "pptx": {
+        "url": "docs/01_프레젠테이션_강의/르메뜨레 세미나_Official_V3.6.pptx",
+        "name": "르메뜨레 세미나_Official_V3.6.pptx",
+        "size": "51.6 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/presentation-르메뜨레세미나OfficialV36.jpg?v=1794559439",
+    "slide_count": 46,
+    "author": "L.REMETTRE BUSINESS GROUP",
+    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V3.6.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20%28Official%20V3.6%29&v=1794559438"
+  },
+  {
     "id": "presentation-르메뜨레프레젠테이션v21SP에디션",
     "category": "presentation",
     "category_name": "프레젠테이션&강의",

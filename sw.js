@@ -3,7 +3,7 @@
  * - 이미지 썸네일: network-first (슬라이드 표지 변경 즉시 반영, 오프라인 시 캐시)
  * - PDF/영상(성적서·대용량 자료): 캐시하지 않음 (열람 전용 보안 + 용량 보호)
  */
-const CACHE = 'lremettre-v20261112144829';
+const CACHE = 'lremettre-v20261113174359';
 const CORE = [
   './',
   './index.html',
