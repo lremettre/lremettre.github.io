@@ -37,6 +37,41 @@
     "web_deck_url": "presentation.html"
   },
   {
+    "id": "presentation-1Page마케팅v10",
+    "category": "presentation",
+    "category_name": "프레젠테이션&강의",
+    "title": "1Page 마케팅 v1.0",
+    "subtitle": "프레젠테이션&강의 공식 아카이브 자료",
+    "version": "v1.0",
+    "date": "2026-11-16",
+    "badge": "강의/발표",
+    "tags": [
+      "프레젠테이션&강의",
+      "v1.0"
+    ],
+    "description": "프레젠테이션&강의 공식 자료입니다. 브라우저에서 첫 화면 미리보기 및 전체화면 발표/재생, 보안 다운로드를 지원합니다.",
+    "key_points": [
+      "지원 포맷: PDF, PPTX",
+      "업데이트 일자: 2026-11-16",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/01_프레젠테이션_강의/1Page 마케팅_v1.0.pdf",
+        "name": "1Page 마케팅_v1.0.pdf",
+        "size": "160.5 KB"
+      },
+      "pptx": {
+        "url": "docs/01_프레젠테이션_강의/1Page 마케팅_v1.0.pptx",
+        "name": "1Page 마케팅_v1.0.pptx",
+        "size": "3.8 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/presentation-1Page마케팅v10.jpg?v=1794820469",
+    "slide_count": 1,
+    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/1Page%20%EB%A7%88%EC%BC%80%ED%8C%85_v1.0.pdf&title=1Page%20%EB%A7%88%EC%BC%80%ED%8C%85%20v1.0&v=1794820469"
+  },
+  {
     "id": "presentation-LBT바디턴챌린지1주차오리엔테이션비움의시작v4",
     "category": "presentation",
     "category_name": "프레젠테이션&강의",
