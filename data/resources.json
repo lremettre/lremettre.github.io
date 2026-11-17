@@ -613,6 +613,37 @@
     "web_deck_url": "viewer.html?file=docs/04_%ED%9B%84%EA%B8%B0_%EC%98%81%EC%83%81/04_%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88_%ED%9A%8C%EC%9B%90_%ED%98%88%EC%95%A1%EA%B2%80%EC%A7%84_%ED%81%B4%EB%A6%B0V2_%EB%B9%84%EC%8B%A4%EB%AA%85%ED%8C%90.mp4&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%ED%9A%8C%EC%9B%90%20%ED%98%88%EC%95%A1%EA%B2%80%EC%A7%84%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D%20%28%ED%81%B4%EB%A6%B0%20V2%20%EB%B9%84%EC%8B%A4%EB%AA%85%ED%8C%90%29&type=video&v=1793672783"
   },
   {
+    "id": "review_video-07르메뜨레회원유방암극복NK세포2000스페셜다큐16x9비실명판",
+    "category": "review_video",
+    "category_name": "후기 영상",
+    "title": "르메뜨레 회원 항암 극복 & NK세포 2,000 돌파 스페셜 다큐 (비실명판)",
+    "subtitle": "NK세포 >2,000.0 최고치 · 총단백·알부민 정중앙 회복 및 일본 여행 감동 수기",
+    "version": "v1.0",
+    "date": "2026-11-04",
+    "badge": "SPECIAL DOCU",
+    "tags": [
+      "후기 영상",
+      "v1.0"
+    ],
+    "description": "8차 항암·13시간 대수술·30회 방사선 치료 이후 NK세포 활성도 측정 상한치(>2,000.0 pg/mL) 돌파, 총단백(4.3→7.0)·알부민(2.9→4.3) 정중앙 회복, 총콜레스테롤 감소(221→177) 데이터와 어머니와의 일본 기차 여행 감동 수기를 담은 스페셜 다큐멘터리 후기 영상(비실명판)입니다.",
+    "key_points": [
+      "지원 포맷: VIDEO",
+      "업데이트 일자: 2026-11-04",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "video": {
+        "url": "docs/04_후기_영상/07_르메뜨레_회원_유방암극복_NK세포2000_스페셜다큐_16x9_비실명판.mp4",
+        "name": "07_르메뜨레_회원_유방암극복_NK세포2000_스페셜다큐_16x9_비실명판.mp4",
+        "size": "20.3 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/review_video-07르메뜨레회원유방암극복NK세포2000스페셜다큐16x9비실명판.jpg?v=1794897727",
+    "duration": "01:55",
+    "author": "L.REMETTRE MEDIA GROUP",
+    "web_deck_url": "viewer.html?file=docs/04_%ED%9B%84%EA%B8%B0_%EC%98%81%EC%83%81/07_%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88_%ED%9A%8C%EC%9B%90_%EC%9C%A0%EB%B0%A9%EC%95%94%EA%B7%B9%EB%B3%B5_NK%EC%84%B8%ED%8F%AC2000_%EC%8A%A4%ED%8E%98%EC%85%9C%EB%8B%A4%ED%81%90_16x9_%EB%B9%84%EC%8B%A4%EB%AA%85%ED%8C%90.mp4&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%ED%9A%8C%EC%9B%90%20%ED%95%AD%EC%95%94%20%EA%B7%B9%EB%B3%B5%20%26%20NK%EC%84%B8%ED%8F%AC%202%2C000%20%EB%8F%8C%ED%8C%8C%20%EC%8A%A4%ED%8E%98%EC%85%9C%20%EB%8B%A4%ED%81%90%20%28%EB%B9%84%EC%8B%A4%EB%AA%85%ED%8C%90%29&type=video&v=1793760597"
+  },
+  {
     "id": "analysis-01소이펩타이드SGS조단백989펩타이드순도976시험성적서",
     "category": "analysis",
     "category_name": "분석 자료",
