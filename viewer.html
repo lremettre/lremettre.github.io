@@ -581,6 +581,15 @@
       const bottomHud = document.getElementById('bottom-hud');
       const loadingText = document.getElementById('loading-text');
 
+      if (case11Vid3 && case11Vid4) {
+        case11Vid3.addEventListener('play', function () {
+          if (!case11Vid4.paused) case11Vid4.pause();
+        });
+        case11Vid4.addEventListener('play', function () {
+          if (!case11Vid3.paused) case11Vid3.pause();
+        });
+      }
+
       function stopCase11Videos() {
         case11ActiveVid = null;
         if (case11Vid3) {
@@ -635,6 +644,16 @@
         }
       }
 
+      function activateCase11BothReady() {
+        ensureVideoSrc(case11Vid3);
+        ensureVideoSrc(case11Vid4);
+        case11Vid3.pause();
+        case11Vid4.pause();
+        case11Vid3.style.display = 'block';
+        case11Vid4.style.display = 'block';
+        case11ActiveVid = null;
+      }
+
       function syncCase11SlideVideos(page, num) {
         if (!case11Vid3 || !case11Vid4) return;
         const isOfficialV32 = rawPdfFile.indexOf('Official_V3.2') !== -1;
@@ -660,13 +679,13 @@
             stopCase11Videos();
             return;
           }
-          const has03 = noSpace.indexOf('03') !== -1;
-          const has04 = noSpace.indexOf('04') !== -1;
+          const has03 = tc.items.some(function (it) { return (it.str || '').trim() === '03'; });
+          const has04 = tc.items.some(function (it) { return (it.str || '').trim() === '04'; });
 
           if (!has03 && has04) {
             activateCase11Step(3);
           } else if (!has03 && !has04) {
-            activateCase11Step(4);
+            activateCase11BothReady();
           } else {
             ensureVideoSrc(case11Vid3);
             ensureVideoSrc(case11Vid4);
@@ -1300,6 +1319,6 @@
       }
     })();
   </script>
-  <script src="js/pwa-install.js?v=18"></script>
+  <script src="js/pwa-install.js?v=19"></script>
 </body>
 </html>

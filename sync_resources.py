@@ -21,7 +21,7 @@ import json
 import datetime
 import subprocess
 import urllib.parse
-from PIL import Image
+from PIL import Image, ImageOps, ImageStat
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DOCS_DIR = os.path.join(SCRIPT_DIR, "docs")
@@ -196,6 +196,96 @@ def generate_image_thumbnail(image_path, group_key):
         return None
     return _versioned_thumb_url(thumb_rel_url, thumb_full_path)
 
+def _export_pptx_to_pdf_without_exit_covers(ppt_app, rf_path, target_pdf):
+    """
+    PPTX 원본 파일은 전혀 수정하지 않은 채(ReadOnly), PDF 변환 시에만
+    끝내기(Exit) 애니메이션이 걸린 가림막 도형(예: CASE 01~11의 01~04 박스)을 숨겨
+    모바일 웹 뷰어 및 다운로드 PDF에서 모든 체험 사례가 즉시 공개되도록 변환합니다.
+    """
+    poster_map = {
+        "case11_vid3.mp4": os.path.join(SCRIPT_DIR, "assets", "case11", "vid3_poster.jpg"),
+        "case11_vid4.mp4": os.path.join(SCRIPT_DIR, "assets", "case11", "vid4_poster.jpg"),
+    }
+    video_poster_checks = []
+    pres = ppt_app.Presentations.Open(
+        os.path.abspath(rf_path),
+        ReadOnly=True,
+        WithWindow=False,
+    )
+    try:
+        hidden_count = 0
+        for s_idx in range(1, pres.Slides.Count + 1):
+            sld = pres.Slides(s_idx)
+            seq = sld.TimeLine.MainSequence
+            seen_ids = set()
+            for e_idx in range(1, seq.Count + 1):
+                eff = seq.Item(e_idx)
+                if eff.Exit == -1:  # msoTrue
+                    shp = eff.Shape
+                    if shp.Id not in seen_ids:
+                        seen_ids.add(shp.Id)
+                        shp.Visible = 0  # msoFalse
+                        hidden_count += 1
+            for shp in sld.Shapes:
+                if shp.Type == 16:  # msoMedia
+                    poster_path = poster_map.get(shp.Name.lower())
+                    if poster_path:
+                        video_poster_checks.append((
+                            s_idx - 1,
+                            float(shp.Left),
+                            float(shp.Top),
+                            float(shp.Width),
+                            float(shp.Height),
+                            poster_path,
+                        ))
+        if hidden_count > 0:
+            print(f" -> PDF 전용 가림막(Exit 애니메이션 도형) {hidden_count}개 자동 제거 적용")
+        pres.SaveAs(os.path.abspath(target_pdf), 32)
+    finally:
+        try:
+            pres.Saved = -1  # msoTrue
+        except Exception:
+            pass
+        pres.Close()
+
+    if video_poster_checks and os.path.exists(target_pdf):
+        try:
+            import pymupdf
+            doc = pymupdf.open(target_pdf)
+            patched = False
+            for page_idx, left, top, width, height, poster_path in video_poster_checks:
+                if page_idx >= len(doc) or not os.path.exists(poster_path):
+                    continue
+                page = doc[page_idx]
+                rect = pymupdf.Rect(left, top, left + width, top + height)
+                pix = page.get_pixmap(dpi=36, clip=rect, alpha=False)
+                clip_img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                st = ImageStat.Stat(clip_img)
+                mean_lum = sum(st.mean) / 3.0
+                max_std = max(st.stddev)
+                if mean_lum > 242 and max_std < 25:
+                    with Image.open(poster_path) as im:
+                        fitted = ImageOps.fit(
+                            im.convert("RGB"),
+                            (max(1, int(round(width * 3))), max(1, int(round(height * 3)))),
+                            method=Image.Resampling.LANCZOS,
+                        )
+                        buf = io.BytesIO()
+                        fitted.save(buf, format="JPEG", quality=92, optimize=True)
+                        page.insert_image(rect, stream=buf.getvalue(), overlay=True)
+                    patched = True
+                    print(f" -> PDF 전용 영상 포스터 복원 적용 (Page {page_idx + 1}: {os.path.basename(poster_path)})")
+            if patched:
+                tmp_pdf = target_pdf + ".patched.pdf"
+                doc.save(tmp_pdf, deflate=True)
+                doc.close()
+                os.replace(tmp_pdf, target_pdf)
+            else:
+                doc.close()
+        except Exception as p_err:
+            print(f" -> PDF 포스터 후처리 스킵: {p_err}")
+
+
 def scan_docs():
     if not os.path.exists(DOCS_DIR):
         print(f"Docs folder not found: {DOCS_DIR}")
@@ -250,15 +340,7 @@ def scan_docs():
                                 ppt_app = win32com.client.Dispatch("PowerPoint.Application")
                             action_tag = "신규 변환" if not os.path.exists(target_pdf) else "수정 감지 재변환"
                             print(f"[PPTX -> PDF {action_tag}] {rf}...")
-                            pres = ppt_app.Presentations.Open(
-                                os.path.abspath(rf_path),
-                                ReadOnly=True,
-                                WithWindow=False,
-                            )
-                            try:
-                                pres.SaveAs(os.path.abspath(target_pdf), 32)
-                            finally:
-                                pres.Close()
+                            _export_pptx_to_pdf_without_exit_covers(ppt_app, rf_path, target_pdf)
                             print(f" -> 변환 완료: {os.path.basename(target_pdf)}")
                         except Exception as c_err:
                             print(f" -> 변환 실패: {c_err}")
