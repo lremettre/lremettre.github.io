@@ -611,16 +611,16 @@
     "id": "review_video-main16x9",
     "category": "review_video",
     "category_name": "후기 영상",
-    "title": "main 16x9",
-    "subtitle": "후기 영상 공식 아카이브 자료",
+    "title": "단백질과 소화의 역설 — 저분자 펩타이드 과학 다큐멘터리",
+    "subtitle": "매일 챙겨 먹는데도 흡수되지 않는 이유 · 핵심 학술 논문 기반 메인 다큐 (12:49)",
     "version": "v1.0",
     "date": "2026-11-24",
-    "badge": "후기영상",
+    "badge": "SCIENCE DOCU",
     "tags": [
       "후기 영상",
       "v1.0"
     ],
-    "description": "후기 영상 공식 자료입니다. 브라우저에서 첫 화면 미리보기 및 전체화면 발표/재생, 보안 다운로드를 지원합니다.",
+    "description": "단백질을 매일 챙겨 먹어도 근육·면역 합성이 정체되는 '단백질과 소화의 역설'을 다룬 12분 49초 메인 과학 다큐멘터리입니다. Moore & Phillips(2015), Koopman & van Loon(2009 AJCN), Luc van Loon·Stuart Phillips 연구 및 질병관리청 KDRIs(2025) 근거를 바탕으로 저분자 펩타이드 흡수 메커니즘을 알기 쉽게 풀어냅니다.",
     "key_points": [
       "지원 포맷: VIDEO",
       "업데이트 일자: 2026-11-24",
@@ -635,7 +635,8 @@
     },
     "thumbnail": "assets/thumbs/review_video-main16x9.jpg?v=1795493902",
     "duration": "12:49",
-    "web_deck_url": "viewer.html?file=docs/04_%ED%9B%84%EA%B8%B0_%EC%98%81%EC%83%81/main_16x9.mp4&title=main%2016x9&type=video&v=1795493902"
+    "author": "L.REMETTRE MEDIA GROUP",
+    "web_deck_url": "viewer.html?file=docs/04_%ED%9B%84%EA%B8%B0_%EC%98%81%EC%83%81/main_16x9.mp4&title=%EB%8B%A8%EB%B0%B1%EC%A7%88%EA%B3%BC%20%EC%86%8C%ED%99%94%EC%9D%98%20%EC%97%AD%EC%84%A4%20%E2%80%94%20%EC%A0%80%EB%B6%84%EC%9E%90%20%ED%8E%A9%ED%83%80%EC%9D%B4%EB%93%9C%20%EA%B3%BC%ED%95%99%20%EB%8B%A4%ED%81%90%EB%A9%98%ED%84%B0%EB%A6%AC&type=video&v=1795493902"
   },
   {
     "id": "analysis-01소이펩타이드SGS조단백989펩타이드순도976시험성적서",

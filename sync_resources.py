@@ -442,6 +442,13 @@ def scan_docs():
             "author": "L.REMETTRE MEDIA GROUP",
             "description": "8차 항암·13시간 대수술·30회 방사선 치료 이후 NK세포 활성도 측정 상한치(>2,000.0 pg/mL) 돌파, 총단백(4.3→7.0)·알부민(2.9→4.3) 정중앙 회복, 총콜레스테롤 감소(221→177) 데이터와 어머니와의 일본 기차 여행 감동 수기를 담은 스페셜 다큐멘터리 후기 영상(비실명판)입니다.",
         },
+        'review_video-main16x9': {
+            "title": "단백질과 소화의 역설 — 저분자 펩타이드 과학 다큐멘터리",
+            "subtitle": "매일 챙겨 먹는데도 흡수되지 않는 이유 · 핵심 학술 논문 기반 메인 다큐 (12:49)",
+            "badge": "SCIENCE DOCU",
+            "author": "L.REMETTRE MEDIA GROUP",
+            "description": "단백질을 매일 챙겨 먹어도 근육·면역 합성이 정체되는 '단백질과 소화의 역설'을 다룬 12분 49초 메인 과학 다큐멘터리입니다. Moore & Phillips(2015), Koopman & van Loon(2009 AJCN), Luc van Loon·Stuart Phillips 연구 및 질병관리청 KDRIs(2025) 근거를 바탕으로 저분자 펩타이드 흡수 메커니즘을 알기 쉽게 풀어냅니다.",
+        },
         'event_video-2026년11월르메뜨레데이': {
             "title": "2026년 11월 르메뜨레 데이 (L.REMETTRE DAY) 공식 행사 영상",
             "subtitle": "르메뜨레 비즈니스 그룹 공식 세미나 & 르메뜨레 데이 현장 하이라이트",
