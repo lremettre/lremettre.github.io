@@ -18,6 +18,7 @@ import argparse
 import datetime
 import traceback
 import subprocess
+import importlib
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 os.chdir(SCRIPT_DIR)
@@ -294,7 +295,10 @@ def get_unpushed_commit_count():
 
 
 def run_auto_deploy(reason=""):
+    if "sync_resources" in sys.modules:
+        importlib.reload(sys.modules["sync_resources"])
     import auto_deploy
+    importlib.reload(auto_deploy)
     if reason:
         print(f"\n🔔 [자동 배포 트리거] {reason}")
     try:

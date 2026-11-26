@@ -520,6 +520,36 @@
     "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EC%98%A4%ED%81%AC%EB%9D%BC%20%20PPT.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%98%A4%ED%81%AC%EB%9D%BC%28Okra%29%20%EC%A0%9C%ED%92%88%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98&v=1791777473"
   },
   {
+    "id": "document-르메뜨레전산튜토리얼모바일가이드",
+    "category": "document",
+    "category_name": "문서 자료",
+    "title": "르메뜨레 전산 따라하기 인터랙티브 모바일 웹 가이드 (HTML)",
+    "subtitle": "챕터 탭 이동 · 글자 크기 조절(보통/크게/아주 크게) · 이미지 확대 지원 웹 가이드",
+    "version": "v1.0",
+    "date": "2026-11-25",
+    "badge": "WEB GUIDE",
+    "tags": [
+      "문서 자료",
+      "v1.0"
+    ],
+    "description": "별도 앱이나 PDF 뷰어 없이 모바일 브라우저에서 바로 열어 6대 챕터 탭 이동, 글자 크기 3단계 조절, 화면 터치 확대까지 지원하는 올인원 인터랙티브 HTML 전산 가이드입니다. 단일 파일 다운로드 후 오프라인에서도 열람할 수 있습니다.",
+    "key_points": [
+      "지원 포맷: HTML",
+      "업데이트 일자: 2026-11-25",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "html": {
+        "url": "docs/02_문서_자료/르메뜨레_전산튜토리얼_모바일가이드.html",
+        "name": "르메뜨레_전산튜토리얼_모바일가이드.html",
+        "size": "1.5 MB"
+      }
+    },
+    "thumbnail": null,
+    "author": "L.REMETTRE BUSINESS GROUP",
+    "web_deck_url": "docs/02_%EB%AC%B8%EC%84%9C_%EC%9E%90%EB%A3%8C/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88_%EC%A0%84%EC%82%B0%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC_%EB%AA%A8%EB%B0%94%EC%9D%BC%EA%B0%80%EC%9D%B4%EB%93%9C.html?v=1795586682"
+  },
+  {
     "id": "document-르메뜨레전산튜토리얼모바일매뉴얼9x16",
     "category": "document",
     "category_name": "문서 자료",
