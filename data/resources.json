@@ -355,6 +355,104 @@
     "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%84%B8%EB%AF%B8%EB%82%98_Official_V4.1.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EA%B3%B5%EC%8B%9D%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98%20%28Official%20V4.1%29&v=1795593568"
   },
   {
+    "id": "presentation-르메뜨레전산튜토리얼가이드영상가로16x9",
+    "category": "presentation",
+    "category_name": "프레젠테이션&강의",
+    "title": "르메뜨레 전산 따라하기 풀 가이드 영상 (가로 16:9)",
+    "subtitle": "세미나·PC 시청용 한국어 나레이션 전산 튜토리얼 통합 강의 영상 (1장~6장)",
+    "version": "v1.0",
+    "date": "2026-11-26",
+    "badge": "TUTORIAL 16:9",
+    "tags": [
+      "프레젠테이션&강의",
+      "v1.0"
+    ],
+    "description": "신규 회원가입부터 로그인, USDT(BEP20) 입금·충전, 패키지 구매, 출금 신청, P2P 송금·포인트 전환까지 르메뜨레 전산 사용법 전체를 한국어 음성 안내와 화면 하이라이트로 쉽게 따라할 수 있는 16:9 가로형 통합 강의 영상입니다.",
+    "key_points": [
+      "지원 포맷: VIDEO",
+      "업데이트 일자: 2026-11-26",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "video": {
+        "url": "docs/01_프레젠테이션_강의/르메뜨레_전산튜토리얼_가이드영상_가로_16x9.mp4",
+        "name": "르메뜨레_전산튜토리얼_가이드영상_가로_16x9.mp4",
+        "size": "31.5 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/presentation-르메뜨레전산튜토리얼가이드영상가로16x9.jpg?v=1795666374",
+    "duration": "06:03",
+    "author": "L.REMETTRE MEDIA GROUP",
+    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88_%EC%A0%84%EC%82%B0%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC_%EA%B0%80%EC%9D%B4%EB%93%9C%EC%98%81%EC%83%81_%EA%B0%80%EB%A1%9C_16x9.mp4&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%A0%84%EC%82%B0%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0%20%ED%92%80%20%EA%B0%80%EC%9D%B4%EB%93%9C%20%EC%98%81%EC%83%81%20%28%EA%B0%80%EB%A1%9C%2016%3A9%29&type=video&v=1795666077"
+  },
+  {
+    "id": "presentation-르메뜨레전산튜토리얼가이드영상모바일9x16",
+    "category": "presentation",
+    "category_name": "프레젠테이션&강의",
+    "title": "르메뜨레 전산 따라하기 풀 가이드 영상 (모바일 9:16)",
+    "subtitle": "스마트폰 세로 전체화면 최적화 · 한국어 나레이션 전산 튜토리얼 통합 영상",
+    "version": "v1.0",
+    "date": "2026-11-26",
+    "badge": "TUTORIAL 9:16",
+    "tags": [
+      "프레젠테이션&강의",
+      "v1.0"
+    ],
+    "description": "스마트폰으로 바로 보며 따라할 수 있도록 9:16 세로 화면에 최적화한 르메뜨레 전산 사용법 전체 통합 가이드 영상입니다. 회원가입·입금·구매·출금·P2P 전 과정을 음성 안내로 차근차근 설명합니다.",
+    "key_points": [
+      "지원 포맷: VIDEO",
+      "업데이트 일자: 2026-11-26",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "video": {
+        "url": "docs/01_프레젠테이션_강의/르메뜨레_전산튜토리얼_가이드영상_모바일_9x16.mp4",
+        "name": "르메뜨레_전산튜토리얼_가이드영상_모바일_9x16.mp4",
+        "size": "31.2 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/presentation-르메뜨레전산튜토리얼가이드영상모바일9x16.jpg?v=1795666374",
+    "duration": "06:19",
+    "author": "L.REMETTRE MEDIA GROUP",
+    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88_%EC%A0%84%EC%82%B0%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC_%EA%B0%80%EC%9D%B4%EB%93%9C%EC%98%81%EC%83%81_%EB%AA%A8%EB%B0%94%EC%9D%BC_9x16.mp4&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%A0%84%EC%82%B0%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0%20%ED%92%80%20%EA%B0%80%EC%9D%B4%EB%93%9C%20%EC%98%81%EC%83%81%20%28%EB%AA%A8%EB%B0%94%EC%9D%BC%209%3A16%29&type=video&v=1795666336"
+  },
+  {
+    "id": "presentation-르메뜨레전산튜토리얼세미나용16x9",
+    "category": "presentation",
+    "category_name": "프레젠테이션&강의",
+    "title": "르메뜨레 전산 따라하기 세미나 튜토리얼 (16:9)",
+    "subtitle": "신규 회원가입 · 로그인 · USDT 입금 · 제품 구매 · 출금 · P2P 송금 전 과정 안내",
+    "version": "v1.0",
+    "date": "2026-11-25",
+    "badge": "TUTORIAL PPT",
+    "tags": [
+      "프레젠테이션&강의",
+      "v1.0"
+    ],
+    "description": "르메뜨레 전산 사이트(lremettre.cn)의 6대 핵심 기능(회원가입, 로그인·홈, USDT BEP20 입금/충전, 패키지 구매, 출금 신청, P2P 송금·전환)을 실제 모바일 화면과 큰 글씨로 정리한 33페이지 세미나 교육용 프레젠테이션입니다.",
+    "key_points": [
+      "지원 포맷: PDF, PPTX",
+      "업데이트 일자: 2026-11-25",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/01_프레젠테이션_강의/르메뜨레_전산튜토리얼_세미나용_16x9.pdf",
+        "name": "르메뜨레_전산튜토리얼_세미나용_16x9.pdf",
+        "size": "2.0 MB"
+      },
+      "pptx": {
+        "url": "docs/01_프레젠테이션_강의/르메뜨레_전산튜토리얼_세미나용_16x9.pptx",
+        "name": "르메뜨레_전산튜토리얼_세미나용_16x9.pptx",
+        "size": "5.1 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/presentation-르메뜨레전산튜토리얼세미나용16x9.jpg?v=1795666374",
+    "slide_count": 33,
+    "author": "L.REMETTRE BUSINESS GROUP",
+    "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88_%EC%A0%84%EC%82%B0%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC_%EC%84%B8%EB%AF%B8%EB%82%98%EC%9A%A9_16x9.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%A0%84%EC%82%B0%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0%20%EC%84%B8%EB%AF%B8%EB%82%98%20%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC%20%2816%3A9%29&v=1795586668"
+  },
+  {
     "id": "presentation-르메뜨레프레젠테이션v21SP에디션",
     "category": "presentation",
     "category_name": "프레젠테이션&강의",
@@ -420,6 +518,67 @@
     "slide_count": 16,
     "author": "L.REMETTRE R&D / PRODUCT GROUP",
     "web_deck_url": "viewer.html?file=docs/01_%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98_%EA%B0%95%EC%9D%98/%EC%98%A4%ED%81%AC%EB%9D%BC%20%20PPT.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%98%A4%ED%81%AC%EB%9D%BC%28Okra%29%20%EC%A0%9C%ED%92%88%20%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%98&v=1791777473"
+  },
+  {
+    "id": "document-르메뜨레전산튜토리얼모바일가이드",
+    "category": "document",
+    "category_name": "문서 자료",
+    "title": "르메뜨레 전산 따라하기 인터랙티브 모바일 웹 가이드 (HTML)",
+    "subtitle": "챕터 탭 이동 · 글자 크기 조절(보통/크게/아주 크게) · 이미지 확대 지원 웹 가이드",
+    "version": "v1.0",
+    "date": "2026-11-25",
+    "badge": "WEB GUIDE",
+    "tags": [
+      "문서 자료",
+      "v1.0"
+    ],
+    "description": "별도 앱이나 PDF 뷰어 없이 모바일 브라우저에서 바로 열어 6대 챕터 탭 이동, 글자 크기 3단계 조절, 화면 터치 확대까지 지원하는 올인원 인터랙티브 HTML 전산 가이드입니다. 단일 파일 다운로드 후 오프라인에서도 열람할 수 있습니다.",
+    "key_points": [
+      "지원 포맷: HTML",
+      "업데이트 일자: 2026-11-25",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "html": {
+        "url": "docs/02_문서_자료/르메뜨레_전산튜토리얼_모바일가이드.html",
+        "name": "르메뜨레_전산튜토리얼_모바일가이드.html",
+        "size": "1.5 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/document-르메뜨레전산튜토리얼모바일가이드.jpg?v=1795665929",
+    "author": "L.REMETTRE BUSINESS GROUP",
+    "web_deck_url": "docs/02_%EB%AC%B8%EC%84%9C_%EC%9E%90%EB%A3%8C/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88_%EC%A0%84%EC%82%B0%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC_%EB%AA%A8%EB%B0%94%EC%9D%BC%EA%B0%80%EC%9D%B4%EB%93%9C.html?v=1795586682"
+  },
+  {
+    "id": "document-르메뜨레전산튜토리얼모바일매뉴얼9x16",
+    "category": "document",
+    "category_name": "문서 자료",
+    "title": "르메뜨레 전산 따라하기 모바일 매뉴얼 (9:16 PDF)",
+    "subtitle": "스마트폰 열람·카카오톡 공유 최적화 33페이지 세로형 단계별 매뉴얼",
+    "version": "v1.0",
+    "date": "2026-11-25",
+    "badge": "MOBILE MANUAL",
+    "tags": [
+      "문서 자료",
+      "v1.0"
+    ],
+    "description": "스마트폰에서 확대 없이 한눈에 읽을 수 있도록 9:16 세로 비율과 큰 글씨로 제작한 33페이지 전산 사용 매뉴얼 PDF입니다. 브라우저 즉시 열람 및 PDF 다운로드·공유를 지원합니다.",
+    "key_points": [
+      "지원 포맷: PDF",
+      "업데이트 일자: 2026-11-25",
+      "브라우저 즉시 열람/재생 및 보안 인증 다운로드 지원"
+    ],
+    "downloads": {
+      "pdf": {
+        "url": "docs/02_문서_자료/르메뜨레_전산튜토리얼_모바일매뉴얼_9x16.pdf",
+        "name": "르메뜨레_전산튜토리얼_모바일매뉴얼_9x16.pdf",
+        "size": "10.8 MB"
+      }
+    },
+    "thumbnail": "assets/thumbs/document-르메뜨레전산튜토리얼모바일매뉴얼9x16.jpg?v=1795666374",
+    "slide_count": 33,
+    "author": "L.REMETTRE BUSINESS GROUP",
+    "web_deck_url": "viewer.html?file=docs/02_%EB%AC%B8%EC%84%9C_%EC%9E%90%EB%A3%8C/%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88_%EC%A0%84%EC%82%B0%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC_%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%A7%A4%EB%89%B4%EC%96%BC_9x16.pdf&title=%EB%A5%B4%EB%A9%94%EB%9C%A8%EB%A0%88%20%EC%A0%84%EC%82%B0%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0%20%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EB%A7%A4%EB%89%B4%EC%96%BC%20%289%3A16%20PDF%29&v=1795586679"
   },
   {
     "id": "document-소이펩타이드아미노산20종효소가수분해과학적증거및궁합식재료가이드",
