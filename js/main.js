@@ -167,6 +167,9 @@
         const rawUrl = window.location.origin + window.location.pathname.replace('index.html', '') + item.downloads.pptx.url;
         return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(rawUrl)}`;
       }
+      if (item.downloads.html) {
+        return item.downloads.html.url;
+      }
       if (item.downloads.image) {
         return item.downloads.image.url;
       }
@@ -359,7 +362,12 @@
     }
 
     // 실제 등록된 프레젠테이션 목록을 기반으로 HERO_STAGE_DECKS 동적 재구성 (삭제된 자료 자동 제외 + 신규 자료 자동 편입)
-    const livePresentations = resourcesData.filter((r) => r.category === 'presentation' && r.thumbnail);
+    const livePresentations = resourcesData.filter(
+      (r) =>
+        r.category === 'presentation' &&
+        r.thumbnail &&
+        !(r.downloads && r.downloads.video && !r.downloads.pdf && !r.downloads.pptx)
+    );
     const pickedIds = new Set();
     const dynamicDecks = [];
 
@@ -657,6 +665,9 @@
     } else if (type === 'image' || type === 'png' || type === 'jpg') {
       icon = '🖼️';
       label = 'Image';
+    } else if (type === 'html') {
+      icon = '🌐';
+      label = 'HTML';
     } else if (type === 'video' || type === 'mp4' || type === 'webm' || type === 'mov') {
       icon = '🎬';
       label = 'MP4 다운로드';
@@ -747,6 +758,14 @@
           item.category === 'review_video' ||
           (item.downloads && Boolean(item.downloads.video) && !item.downloads.pdf && !item.downloads.pptx);
 
+        const isHtmlItem = Boolean(
+          item.downloads &&
+          item.downloads.html &&
+          !item.downloads.pdf &&
+          !item.downloads.pptx &&
+          !item.downloads.video
+        );
+
         const isViewOnly = Boolean(item.view_only);
         const webDeckUrl = buildViewerUrlForItem(item);
 
@@ -769,6 +788,9 @@
         if (isVideoItem) {
           launchLabel = '전체 영상 재생';
           launchIcon = '🎬';
+        } else if (isHtmlItem) {
+          launchLabel = '모바일 가이드 열기';
+          launchIcon = '📱';
         } else if (isViewOnly || item.category === 'analysis') {
           launchLabel = '성적서 열람하기';
           launchIcon = '🔍';
@@ -783,11 +805,13 @@
         // 좌상단 핑크 알약 뱃지 (슬라이드 장수 또는 영상 길이)
         const leftPillText = isViewOnly
           ? `🔒 열람전용 · ${item.slide_count || 1}P`
-          : (item.category === 'image'
-              ? '🖼️ 이미지'
-              : (item.slide_count
-                  ? `${item.slide_count}P 슬라이드`
-                  : (item.duration ? `🎬 ${item.duration}` : (item.badge || item.version))));
+          : (isHtmlItem
+              ? '🌐 웹 가이드'
+              : (item.category === 'image'
+                  ? '🖼️ 이미지'
+                  : (item.slide_count
+                      ? `${item.slide_count}P 슬라이드`
+                      : (item.duration ? `🎬 ${item.duration}` : (item.badge || item.version)))));
 
         // 16:9 실제 미리보기 미디어 (PPT 첫 슬라이드 이미지 vs 영상 첫 클립 대표 화면 + 호버 비디오)
         let previewMediaHtml = '';
@@ -820,11 +844,13 @@
           `;
         }
 
-        const previewChipText = item.category === 'image'
-          ? '이미지 미리보기'
-          : ((isViewOnly || item.category === 'analysis' || item.category === 'document')
-              ? '첫 페이지 미리보기'
-              : '첫 슬라이드 미리보기');
+        const previewChipText = isHtmlItem
+          ? '모바일 가이드 미리보기'
+          : (item.category === 'image'
+              ? '이미지 미리보기'
+              : ((isViewOnly || item.category === 'analysis' || item.category === 'document')
+                  ? '첫 페이지 미리보기'
+                  : '첫 슬라이드 미리보기'));
 
         const previewChipHtml = isVideoItem
           ? `<div class="card-preview-chip video-chip">

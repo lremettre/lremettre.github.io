@@ -541,6 +541,41 @@ def scan_docs():
             "view_only": True,
             "description": "(주)르메뜨레가 의뢰하고 식약처 지정 시험기관 한국에스지에스(주)가 검증한 오크라 블룸(제조원: ZHEJIANG BAIKEJIAN) 대장균 전 시료 불검출(0,0,0,0,0) 적합 성적서입니다.",
         },
+        'presentation-르메뜨레전산튜토리얼세미나용16x9': {
+            "title": "르메뜨레 전산 따라하기 세미나 튜토리얼 (16:9)",
+            "subtitle": "신규 회원가입 · 로그인 · USDT 입금 · 제품 구매 · 출금 · P2P 송금 전 과정 안내",
+            "badge": "TUTORIAL PPT",
+            "author": "L.REMETTRE BUSINESS GROUP",
+            "description": "르메뜨레 전산 사이트(lremettre.cn)의 6대 핵심 기능(회원가입, 로그인·홈, USDT BEP20 입금/충전, 패키지 구매, 출금 신청, P2P 송금·전환)을 실제 모바일 화면과 큰 글씨로 정리한 33페이지 세미나 교육용 프레젠테이션입니다.",
+        },
+        'presentation-르메뜨레전산튜토리얼가이드영상가로16x9': {
+            "title": "르메뜨레 전산 따라하기 풀 가이드 영상 (가로 16:9)",
+            "subtitle": "세미나·PC 시청용 한국어 나레이션 전산 튜토리얼 통합 강의 영상 (1장~6장)",
+            "badge": "TUTORIAL 16:9",
+            "author": "L.REMETTRE MEDIA GROUP",
+            "description": "신규 회원가입부터 로그인, USDT(BEP20) 입금·충전, 패키지 구매, 출금 신청, P2P 송금·포인트 전환까지 르메뜨레 전산 사용법 전체를 한국어 음성 안내와 화면 하이라이트로 쉽게 따라할 수 있는 16:9 가로형 통합 강의 영상입니다.",
+        },
+        'presentation-르메뜨레전산튜토리얼가이드영상모바일9x16': {
+            "title": "르메뜨레 전산 따라하기 풀 가이드 영상 (모바일 9:16)",
+            "subtitle": "스마트폰 세로 전체화면 최적화 · 한국어 나레이션 전산 튜토리얼 통합 영상",
+            "badge": "TUTORIAL 9:16",
+            "author": "L.REMETTRE MEDIA GROUP",
+            "description": "스마트폰으로 바로 보며 따라할 수 있도록 9:16 세로 화면에 최적화한 르메뜨레 전산 사용법 전체 통합 가이드 영상입니다. 회원가입·입금·구매·출금·P2P 전 과정을 음성 안내로 차근차근 설명합니다.",
+        },
+        'document-르메뜨레전산튜토리얼모바일매뉴얼9x16': {
+            "title": "르메뜨레 전산 따라하기 모바일 매뉴얼 (9:16 PDF)",
+            "subtitle": "스마트폰 열람·카카오톡 공유 최적화 33페이지 세로형 단계별 매뉴얼",
+            "badge": "MOBILE MANUAL",
+            "author": "L.REMETTRE BUSINESS GROUP",
+            "description": "스마트폰에서 확대 없이 한눈에 읽을 수 있도록 9:16 세로 비율과 큰 글씨로 제작한 33페이지 전산 사용 매뉴얼 PDF입니다. 브라우저 즉시 열람 및 PDF 다운로드·공유를 지원합니다.",
+        },
+        'document-르메뜨레전산튜토리얼모바일가이드': {
+            "title": "르메뜨레 전산 따라하기 인터랙티브 모바일 웹 가이드 (HTML)",
+            "subtitle": "챕터 탭 이동 · 글자 크기 조절(보통/크게/아주 크게) · 이미지 확대 지원 웹 가이드",
+            "badge": "WEB GUIDE",
+            "author": "L.REMETTRE BUSINESS GROUP",
+            "description": "별도 앱이나 PDF 뷰어 없이 모바일 브라우저에서 바로 열어 6대 챕터 탭 이동, 글자 크기 3단계 조절, 화면 터치 확대까지 지원하는 올인원 인터랙티브 HTML 전산 가이드입니다. 단일 파일 다운로드 후 오프라인에서도 열람할 수 있습니다.",
+        },
     }
     for pk, pv in presets_map.items():
         existing_meta[pk] = {**existing_meta.get(pk, {}), **pv}
@@ -581,7 +616,7 @@ def scan_docs():
             rel_file_path = os.path.relpath(file_path, SCRIPT_DIR).replace('\\', '/')
             ext = os.path.splitext(fname)[1].lower()
 
-            if ext not in ['.pptx', '.ppt', '.pdf', '.xlsx', '.xls', '.docx', '.png', '.jpg', '.jpeg', '.webp', '.gif', '.mp4', '.webm', '.mov', '.m4v']:
+            if ext not in ['.pptx', '.ppt', '.pdf', '.xlsx', '.xls', '.docx', '.html', '.png', '.jpg', '.jpeg', '.webp', '.gif', '.mp4', '.webm', '.mov', '.m4v']:
                 continue
 
             file_size = os.path.getsize(file_path)
@@ -609,6 +644,7 @@ def scan_docs():
                     "primary_name": clean_title(fname),
                     "pdf_disk_path": None,
                     "video_disk_path": None,
+                    "html_disk_path": None,
                     "image_rel_path": None,
                 }
             elif mtime > groups[group_key]["mtime"]:
@@ -647,6 +683,13 @@ def scan_docs():
                     "name": fname,
                     "size": size_str
                 }
+            elif ext == '.html':
+                groups[group_key]["files"]["html"] = {
+                    "url": rel_file_path,
+                    "name": fname,
+                    "size": size_str
+                }
+                groups[group_key]["html_disk_path"] = file_path
             elif ext in ['.mp4', '.webm', '.mov', '.m4v']:
                 groups[group_key]["files"]["video"] = {
                     "url": rel_file_path,
@@ -667,6 +710,10 @@ def scan_docs():
             thumbnail_url, detected_pages = generate_pdf_thumbnail_and_pages(ginfo["pdf_disk_path"], gid)
         elif ginfo["video_disk_path"] and os.path.exists(ginfo["video_disk_path"]):
             thumbnail_url, detected_duration = generate_video_thumbnail_and_duration(ginfo["video_disk_path"], gid)
+        elif ginfo["html_disk_path"]:
+            html_thumb_rel = f"assets/thumbs/{gid}.jpg"
+            html_thumb_full = os.path.join(THUMBS_DIR, f"{gid}.jpg")
+            thumbnail_url = _versioned_thumb_url(html_thumb_rel, html_thumb_full)
         elif ginfo["image_rel_path"]:
             img_disk_path = os.path.join(SCRIPT_DIR, ginfo["image_rel_path"])
             img_ver = int(_effective_mtime(img_disk_path)) if os.path.exists(img_disk_path) else int(ginfo["mtime"])
@@ -767,6 +814,10 @@ def scan_docs():
             encoded_title = urllib.parse.quote(title)
             vid_ver = int(_effective_mtime(ginfo["video_disk_path"])) if (ginfo["video_disk_path"] and os.path.exists(ginfo["video_disk_path"])) else int(ginfo["mtime"])
             item["web_deck_url"] = f"viewer.html?file={encoded_video}&title={encoded_title}&type=video&v={vid_ver}"
+        elif "html" in ginfo["files"]:
+            html_disk = os.path.join(SCRIPT_DIR, ginfo["files"]["html"]["url"])
+            html_ver = int(_effective_mtime(html_disk)) if os.path.exists(html_disk) else int(ginfo["mtime"])
+            item["web_deck_url"] = f"{urllib.parse.quote(ginfo['files']['html']['url'])}?v={html_ver}"
         elif "image" in ginfo["files"]:
             img_disk = os.path.join(SCRIPT_DIR, ginfo["files"]["image"]["url"])
             img_ver = int(_effective_mtime(img_disk)) if os.path.exists(img_disk) else int(ginfo["mtime"])
